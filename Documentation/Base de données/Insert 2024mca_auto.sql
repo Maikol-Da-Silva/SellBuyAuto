@@ -137,6 +137,6 @@ VALUES
 (4, 9), -- Honda Civic
 (4, 10), -- Volkswagen Golf
 (5, 11), -- Volkswagen Passat
-(5, 12); -- Mercedes-Benz Classe C
-(16, 3); -- Toyota Supra
+(5, 12), -- Mercedes-Benz Classe C
+(16, 3), -- Toyota Supra
 (16, 22); -- Nissan GTR R35
