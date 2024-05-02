@@ -128,8 +128,7 @@ CREATE TABLE IF NOT EXISTS `2024mca_auto`.`Users_Bookmark_Notice` (
   PRIMARY KEY (`id`),
   INDEX `fk_Users_has_Notice_Notice1_idx` (`notice_id` ASC) VISIBLE,
   INDEX `fk_Users_has_Notice_Users1_idx` (`user_id` ASC) VISIBLE,
-  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE,
-  UNIQUE INDEX `notice_id_UNIQUE` (`notice_id` ASC) VISIBLE,
+  UNIQUE INDEX `unique_index` (`user_id` ASC, `notice_id` ASC) VISIBLE,
   CONSTRAINT `fk_Users_has_Notice_Users1`
     FOREIGN KEY (`user_id`)
     REFERENCES `2024mca_auto`.`Users` (`id`)
