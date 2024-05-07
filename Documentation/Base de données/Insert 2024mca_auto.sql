@@ -1,23 +1,23 @@
 -- Table Users
 INSERT INTO Users (Email, Username, Password, Admin, Blocked) 
 VALUES 
-    ('utilisateur1@example.com', 'JohnDoe', 'motdepasse1', 0, 0),
-    ('utilisateur2@example.com', 'AliceSmith', 'motdepasse2', 0, 0),
-    ('utilisateur3@example.com', 'DavidBrown', 'motdepasse3', 0, 0),
-    ('utilisateur4@example.com', 'EmilyJohnson', 'motdepasse4', 0, 0),
-    ('utilisateur5@example.com', 'MichaelWilliams', 'motdepasse5', 0, 0),
-    ('utilisateur6@example.com', 'SarahWilson', 'motdepasse6', 0, 0),
-    ('utilisateur7@example.com', 'JamesTaylor', 'motdepasse7', 0, 0),
-    ('utilisateur8@example.com', 'EmmaMartinez', 'motdepasse8', 0, 0),
-    ('utilisateur9@example.com', 'DanielJones', 'motdepasse9', 0, 0),
-    ('utilisateur10@example.com', 'OliviaBrown', 'motdepasse10', 0, 0),
-    ('utilisateur11@example.com', 'MatthewThomas', 'motdepasse11', 0, 0),
-    ('utilisateur12@example.com', 'AvaGarcia', 'motdepasse12', 0, 0),
-    ('utilisateur13@example.com', 'WilliamRodriguez', 'motdepasse13', 0, 0),
-    ('utilisateur14@example.com', 'SophiaLopez', 'motdepasse14', 0, 0),
-    ('utilisateur15@example.com', 'JosephLee', 'motdepasse15', 0, 0),
-    ('utilisateur16@example.com', 'Dragtsu', 'motdepasse16', 0, 0),
-    ('admin@example.com', 'Admin', 'motdepasse17', 1, 0);
+    ('utilisateur1@example.com', 'JohnDoe', '3CC31CD246149AEC68079241E71E98F6', 0, 0),
+    ('utilisateur2@example.com', 'AliceSmith', '3CC31CD246149AEC68079241E71E98F6', 0, 0),
+    ('utilisateur3@example.com', 'DavidBrown', '3CC31CD246149AEC68079241E71E98F6', 0, 0),
+    ('utilisateur4@example.com', 'EmilyJohnson', '3CC31CD246149AEC68079241E71E98F6', 0, 0),
+    ('utilisateur5@example.com', 'MichaelWilliams', '3CC31CD246149AEC68079241E71E98F6', 0, 0),
+    ('utilisateur6@example.com', 'SarahWilson', '3CC31CD246149AEC68079241E71E98F6', 0, 0),
+    ('utilisateur7@example.com', 'JamesTaylor', '3CC31CD246149AEC68079241E71E98F6', 0, 0),
+    ('utilisateur8@example.com', 'EmmaMartinez', '3CC31CD246149AEC68079241E71E98F6', 0, 0),
+    ('utilisateur9@example.com', 'DanielJones', '3CC31CD246149AEC68079241E71E98F6', 0, 0),
+    ('utilisateur10@example.com', 'OliviaBrown', '3CC31CD246149AEC68079241E71E98F6', 0, 0),
+    ('utilisateur11@example.com', 'MatthewThomas', '3CC31CD246149AEC68079241E71E98F6', 0, 0),
+    ('utilisateur12@example.com', 'AvaGarcia', '3CC31CD246149AEC68079241E71E98F6', 0, 0),
+    ('utilisateur13@example.com', 'WilliamRodriguez', '3CC31CD246149AEC68079241E71E98F6', 0, 0),
+    ('utilisateur14@example.com', 'SophiaLopez', '3CC31CD246149AEC68079241E71E98F6', 0, 0),
+    ('utilisateur15@example.com', 'JosephLee', '3CC31CD246149AEC68079241E71E98F6', 0, 0),
+    ('utilisateur16@example.com', 'Dragtsu', '3CC31CD246149AEC68079241E71E98F6', 0, 0),
+    ('admin@example.com', 'Admin', '3CC31CD246149AEC68079241E71E98F6', 1, 0);
 
 -- Table Brands
 INSERT INTO Brands (Name) VALUES 
