@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * file          : Notice.cs
+ * brief         : This file contains the class of Notice
+ * author        : Created by Maikol Correia Da Silva
+ * creation Date : 07.05.2024
+ * update Date   : 07.05.2024
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,6 +56,7 @@ namespace SellBuyAuto
             this.images = new List<string>();
         }
 
+        // Pour afficher dans mes achats/ventes
         public Notice(int idNotice, int idCar, int idSeller, DateTime publicationDate, int price, bool isActive, bool isBlocked,
            string brand, string model, int year, int mileage, string description, string engineType)
         {
@@ -58,6 +67,24 @@ namespace SellBuyAuto
             this.price = price;
             this.isActive = isActive;
             this.isBlocked = isBlocked;
+            this.brand = brand;
+            this.model = model;
+            this.year = year;
+            this.mileage = mileage;
+            this.description = description;
+            this.engineType = engineType;
+            this.images = new List<string>();
+        }
+
+        // Pour afficher lors des recherches
+        public Notice(int idNotice, int idCar, int idSeller, DateTime publicationDate, int price,
+           string brand, string model, int year, int mileage, string description, string engineType)
+        {
+            this.idNotice = idNotice;
+            this.idCar = idCar;
+            this.idSeller = idSeller;
+            this.publicationDate = publicationDate;
+            this.price = price;
             this.brand = brand;
             this.model = model;
             this.year = year;
@@ -89,6 +116,11 @@ namespace SellBuyAuto
         public void GetImages()
         {
             throw new NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            return $"{brand} {model}";
         }
     }
 }

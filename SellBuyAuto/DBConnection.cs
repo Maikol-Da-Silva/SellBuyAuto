@@ -1,4 +1,12 @@
-﻿using MySql.Data.MySqlClient;
+﻿/*
+ * file          : DBConnection.cs
+ * brief         : This file contains the connection to the database
+ * author        : Created by Maikol Correia Da Silva
+ * creation Date : 07.05.2024
+ * update Date   : 07.05.2024
+*/
+
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,6 +92,144 @@ namespace SellBuyAuto
             }
 
             return idUser;
+        }
+
+        public List<Brand> GetBrands()
+        {
+            MySqlDataReader rdr = null;
+            List<Brand> brands = new List<Brand>();
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = this.connection.CreateCommand();
+
+            // SQL request
+            cmd.CommandText = "SELECT id, Name FROM Brands ORDER BY Name Asc";
+
+            // Execution of the SQL command
+            rdr = cmd.ExecuteReader();
+
+            rdr.Read();
+            do
+            {
+                Brand brand = new Brand(rdr.GetInt32(0), rdr.GetString(1));
+                brands.Add(brand);
+            } while (rdr.Read());
+
+
+                //we close the SQL connection
+                if (connection != null)
+            {
+                connection.Close();
+            }
+
+            return brands;
+        }
+
+        public List<Model> GetModels()
+        {
+            MySqlDataReader rdr = null;
+            List<Model> models = new List<Model>();
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = this.connection.CreateCommand();
+
+            // SQL request
+            cmd.CommandText = "SELECT id, Name, brand_id FROM Models ORDER BY Name Asc";
+
+            // Execution of the SQL command
+            rdr = cmd.ExecuteReader();
+
+            rdr.Read();
+            do
+            {
+                Model model = new Model(rdr.GetInt32(2), rdr.GetInt32(0), rdr.GetString(1));
+                models.Add(model);
+            } while (rdr.Read());
+
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
+
+            return models;
+        }
+
+        public List<string> GetEngineTypes()
+        {
+            MySqlDataReader rdr = null;
+            List<string> engineTypes = new List<string>();
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = this.connection.CreateCommand();
+
+            // SQL request
+            cmd.CommandText = "SELECT Type FROM EngineTypes ORDER BY Type Asc";
+
+            // Execution of the SQL command
+            rdr = cmd.ExecuteReader();
+
+            rdr.Read();
+            do
+            {
+                engineTypes.Add(rdr.GetString(0));
+            } while (rdr.Read());
+
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
+
+            return engineTypes;
+        }
+
+        public List<Notice> GetNotices(string endResquest)
+        {
+            MySqlDataReader rdr = null;
+            List<Notice> notices = new List<Notice>();
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = this.connection.CreateCommand();
+
+            // SQL request
+            cmd.CommandText = "SELECT Notices.id, Notices.PublicationDate, Notices.Price, Notices.seller_id, " +
+                "Cars.id, Cars.`Year`, Cars.mileage, Cars.Description, " +
+                "Models.Name, Brands.Name, EngineTypes.`Type` FROM Notices " +
+                "INNER JOIN Cars ON Notices.car_id = Cars.id " +
+                "INNER JOIN EngineTypes ON Cars.engineType_id = EngineTypes.id " +
+                "INNER JOIN Models ON Cars.model_id = Models.id " +
+                "INNER JOIN Brands ON Models.brand_id = Brands.id WHERE" + endResquest;
+            
+            // Execution of the SQL command
+            rdr = cmd.ExecuteReader();
+
+            rdr.Read();
+            do
+            {
+                Notice notice = new Notice(rdr.GetInt32(0), rdr.GetInt32(4), rdr.GetInt32(3), rdr.GetDateTime(1), rdr.GetInt32(2), rdr.GetString(9),
+                                            rdr.GetString(8), rdr.GetInt32(5), rdr.GetInt32(6), rdr.GetString(7), rdr.GetString(10));
+                notices.Add(notice);
+            } while (rdr.Read());
+
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
+
+            return notices;
         }
     }
 }

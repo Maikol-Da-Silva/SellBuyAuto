@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * file          : User.cs
+ * brief         : This file contains the class of User
+ * author        : Created by Maikol Correia Da Silva
+ * creation Date : 07.05.2024
+ * update Date   : 07.05.2024
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

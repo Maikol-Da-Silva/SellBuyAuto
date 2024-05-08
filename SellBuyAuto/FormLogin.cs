@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * file          : FormLogin.cs
+ * brief         : This file contains the code of the controls in the FormLogin
+ * author        : Created by Maikol Correia Da Silva
+ * creation Date : 07.05.2024
+ * update Date   : 07.05.2024
+*/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
