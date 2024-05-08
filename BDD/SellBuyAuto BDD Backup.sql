@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `Brands` (
   UNIQUE KEY `Name_UNIQUE` (`Name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb3;
 
--- Listage des données de la table 2024mca_auto.Brands : ~0 rows (environ)
+-- Listage des données de la table 2024mca_auto.Brands : ~20 rows (environ)
 INSERT INTO `Brands` (`id`, `Name`) VALUES
 	(7, 'Audi'),
 	(3, 'BMW'),
@@ -59,63 +59,60 @@ CREATE TABLE IF NOT EXISTS `Cars` (
   `mileage` mediumint unsigned NOT NULL,
   `Images` varchar(255) NOT NULL,
   `Description` longtext,
-  `brand_id` int NOT NULL,
   `model_id` int NOT NULL,
   `engineType_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_Cars_Models_idx` (`model_id`),
+  KEY `fk_Cars_Brands1_idx` (`model_id`),
   KEY `fk_Cars_EngineTypes1_idx` (`engineType_id`),
-  KEY `fk_Cars_Brands_idx` (`brand_id`),
   CONSTRAINT `fk_Cars_Brands1` FOREIGN KEY (`model_id`) REFERENCES `Models` (`id`),
-  CONSTRAINT `fk_Cars_Brands2` FOREIGN KEY (`brand_id`) REFERENCES `Brands` (`id`),
   CONSTRAINT `fk_Cars_EngineTypes1` FOREIGN KEY (`engineType_id`) REFERENCES `EngineTypes` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb3;
 
--- Listage des données de la table 2024mca_auto.Cars : ~0 rows (environ)
-INSERT INTO `Cars` (`id`, `Year`, `mileage`, `Images`, `Description`, `brand_id`, `model_id`, `engineType_id`) VALUES
-	(1, 2020, 150000, '1_1.jpg/1_2.jpg', 'La Toyota Corolla est une voiture compacte produite depuis 1966 par le constructeur automobile japonais Toyota.', 1, 1, 1),
-	(2, 2019, 20000, '2_1.jpg/2_2.jpg', 'La Toyota Camry est une berline intermédiaire produite par Toyota, lancée pour la première fois en 1982.', 1, 2, 1),
-	(3, 2000, 40000, '3_1.jpg/3_2.jpg', 'La Toyota Supra est une voiture de sport produite par le constructeur automobile japonais Toyota.', 1, 3, 1),
-	(4, 2021, 10000, '4_1.jpg/4_2.jpg', 'Le Ford F-150 est un modèle de camionnette produit par le constructeur automobile américain Ford depuis 1948.', 2, 4, 1),
-	(5, 2018, 30000, '5_1.jpg/5_2.jpg', 'La Ford Focus est une voiture compacte produite par le constructeur automobile américain Ford depuis 1998.', 2, 5, 1),
-	(6, 2022, 5000, '6_1.jpg/6_2.jpg', 'La BMW Série 3 est une gamme de modèles de voitures compactes de luxe fabriquée par la filiale allemande du constructeur automobile BMW depuis mai 1975.', 3, 6, 1),
-	(7, 2021, 120000, '7_1.jpg/7_2.jpg', 'La BMW Série 5 est une gamme de modèles de voitures de luxe produite par la filiale allemande du constructeur automobile BMW.', 3, 7, 1),
-	(8, 2020, 18000, '8_1.jpg/8_2.jpg', 'La Honda Accord est une automobile produite par le constructeur automobile japonais Honda.', 4, 8, 1),
-	(9, 2019, 220000, '9_1.jpg/9_2.jpg', 'La Honda Civic est un modèle d\'automobile fabriqué par Honda.', 4, 9, 1),
-	(10, 2021, 9000, '10_1.jpg/10_2.jpg', 'La Volkswagen Golf est une voiture familiale compacte produite par le constructeur automobile allemand Volkswagen depuis 1974.', 5, 10, 1),
-	(11, 2022, 7000, '11_1.jpg/11_2.jpg', 'La Volkswagen Passat est une grande familiale fabriquée par Volkswagen AG depuis 1973.', 5, 11, 1),
-	(12, 2022, 6000, '12_1.jpg/12_2.jpg', 'La Mercedes-Benz Classe C est une gamme de voitures compactes de luxe produites par le constructeur allemand Mercedes-Benz.', 6, 12, 1),
-	(13, 2021, 10000, '13_1.jpg/13_2.jpg', 'La Mercedes-Benz Classe E est une gamme de voitures exécutives produites par le constructeur automobile allemand Mercedes-Benz.', 6, 13, 1),
-	(14, 2020, 11000, '14_1.jpg/14_2.jpg', 'L\'Audi A4 est une berline familiale du constructeur automobile allemand Audi.', 7, 14, 1),
-	(15, 2021, 8000, '15_1.jpg/15_2.jpg', 'L\'Audi A6 est une berline de luxe produite par Audi, filiale du groupe allemand Volkswagen AG.', 7, 15, 1),
-	(16, 2019, 80000, '16_1.jpg/16_2.jpg/16_3.jpg', 'La Audi RS3 est une voiture compacte sportive produite par le constructeur automobile allemand Audi AG.', 7, 16, 1),
-	(17, 2020, 14000, '17_1.jpg/17_2.jpg', 'La Chevrolet Camaro est une automobile de type pony car produite par General Motors Chevrolet.', 8, 17, 1),
-	(18, 2021, 110000, '18_1.jpg/18_2.jpg', 'Le Chevrolet Silverado et son jumeau le GMC Sierra sont des pick-up de grande taille construits par General Motors.', 8, 18, 1),
-	(19, 2021, 16000, '19_1.jpg/19_2.jpg', 'Le Hyundai Tucson est un SUV compact produit par le constructeur automobile sud-coréen Hyundai Motor Company depuis 2004.', 9, 19, 1),
-	(20, 2020, 13000, '20_1.jpg/20_2.jpg', 'Le Hyundai Santa Fe est un SUV familial produit par le constructeur automobile sud-coréen Hyundai depuis 2000.', 9, 20, 1),
-	(21, 2019, 19000, '21_1.jpg/21_2.jpg', 'La Nissan Altima est une automobile de taille moyenne produite par Nissan, constructeur automobile japonais.', 10, 21, 1),
-	(22, 2020, 5000, '22_1.jpg/22_2.jpg', 'La Nissan GT-R est une voiture de sport 2+2 places produite par le constructeur automobile japonais Nissan.', 10, 22, 1),
-	(23, 2020, 12000, '23_1.jpg/23_2.jpg', 'La Nissan Maxima est une voiture berline intermédiaire produite par Nissan.', 10, 23, 1),
-	(24, 2021, 15000, '24_1.jpg/24_2.jpg', 'Le Kia Sorento est un SUV produit par le constructeur automobile sud-coréen Kia Motors.', 11, 24, 1),
-	(25, 2020, 11000, '25_1.jpg/25_2.jpg', 'La Kia Optima est une berline familiale produite par Kia Motors.', 11, 25, 1),
-	(26, 2021, 8000, '26_1.jpg/26_2.jpg', 'La Volvo S60 est une voiture berline produite par Volvo Cars depuis 2000.', 12, 26, 1),
-	(27, 2022, 7000, '27_1.jpg/27_2.jpg', 'Le Volvo XC90 est un SUV de luxe fabriqué par le constructeur automobile suédois Volvo Cars.', 12, 27, 1),
-	(28, 2021, 10000, '28_1.jpg/28_2.jpg', 'La Subaru Outback est une voiture familiale crossover / SUV fabriquée par Subaru depuis 1994.', 13, 28, 1),
-	(29, 2022, 6000, '29_1.jpg/29_2.jpg', 'Le Subaru Forester est un véhicule utilitaire sportif (SUV) compact fabriqué par Subaru.', 13, 29, 1),
-	(30, 2020, 13000, '30_1.jpg/30_2.jpg', 'Le Mazda CX-5 est un véhicule utilitaire sportif (SUV) compact fabriqué par Mazda.', 14, 30, 1),
-	(31, 2021, 9000, '31_1.jpg/31_2.jpg', 'La Mazda3 est une berline compacte produite par le constructeur automobile japonais Mazda depuis 2003.', 14, 31, 1),
-	(32, 2022, 4000, '32_1.jpg/32_2.jpg', 'La Jeep Wrangler est un véhicule utilitaire sportif compact, produit par le constructeur automobile américain Jeep.', 15, 32, 1),
-	(33, 2020, 8000, '33_1.jpg/33_2.jpg', 'Le Jeep Cherokee est un SUV compact fabriqué par Jeep depuis 1974.', 15, 33, 1),
-	(34, 2021, 7000, '34_1.jpg/34_2.jpg', 'Le Lexus UX est un crossover compact produit par Lexus, la division de luxe de Toyota.', 16, 34, 1),
-	(35, 2020, 100000, '35_1.jpg/35_2.jpg', 'Le Lexus RX est un véhicule utilitaire sportif de luxe fabriqué par Lexus.', 16, 35, 1),
-	(36, 2022, 3000, '36_1.jpg/36_2.jpg', 'La Tesla Model S est une berline électrique produite par Tesla, Inc.', 17, 36, 3),
-	(37, 2021, 5000, '37_1.jpg/37_2.jpg', 'La Tesla Model 3 est une voiture électrique compacte de Tesla, Inc.', 17, 37, 3),
-	(38, 2021, 8000, '38_1.jpg/38_2.jpg', 'La Fiat 500 est une petite voiture citadine fabriquée par le constructeur italien Fiat depuis 2007.', 18, 38, 1),
-	(39, 2020, 9000, '39_1.jpg/39_2.jpg', 'La Fiat Panda est une petite voiture produite par le constructeur automobile italien Fiat.', 18, 39, 1),
-	(40, 2022, 4000, '40_1.jpg/40_2.jpg', 'La Peugeot 208 est une citadine du constructeur automobile français Peugeot, commercialisée depuis 2019.', 19, 40, 1),
-	(41, 2021, 60000, '41_1.jpg/41_2.jpg', 'La Peugeot 3008 est un crossover compact produit par le constructeur français Peugeot depuis 2008.', 19, 41, 1),
-	(42, 2020, 11000, '42_1.jpg/42_2.jpg', 'La Renault Clio est une citadine polyvalente fabriquée par le constructeur français Renault.', 20, 42, 1),
-	(43, 2021, 7000, '43_1.jpg/43_2.jpg', 'Le Renault Captur est un SUV urbain polyvalent produit par le constructeur français Renault.', 20, 43, 1);
+-- Listage des données de la table 2024mca_auto.Cars : ~43 rows (environ)
+INSERT INTO `Cars` (`id`, `Year`, `mileage`, `Images`, `Description`, `model_id`, `engineType_id`) VALUES
+	(1, 2020, 150000, '1_1.jpg/1_2.jpg', 'La Toyota Corolla est une voiture compacte produite depuis 1966 par le constructeur automobile japonais Toyota.', 1, 1),
+	(2, 2019, 20000, '2_1.jpg/2_2.jpg', 'La Toyota Camry est une berline intermédiaire produite par Toyota, lancée pour la première fois en 1982.', 2, 1),
+	(3, 2000, 40000, '3_1.jpg/3_2.jpg', 'La Toyota Supra est une voiture de sport produite par le constructeur automobile japonais Toyota.', 3, 1),
+	(4, 2021, 10000, '4_1.jpg/4_2.jpg', 'Le Ford F-150 est un modèle de camionnette produit par le constructeur automobile américain Ford depuis 1948.', 4, 1),
+	(5, 2018, 30000, '5_1.jpg/5_2.jpg', 'La Ford Focus est une voiture compacte produite par le constructeur automobile américain Ford depuis 1998.', 5, 1),
+	(6, 2022, 5000, '6_1.jpg/6_2.jpg', 'La BMW Série 3 est une gamme de modèles de voitures compactes de luxe fabriquée par la filiale allemande du constructeur automobile BMW depuis mai 1975.', 6, 1),
+	(7, 2021, 120000, '7_1.jpg/7_2.jpg', 'La BMW Série 5 est une gamme de modèles de voitures de luxe produite par la filiale allemande du constructeur automobile BMW.', 7, 1),
+	(8, 2020, 18000, '8_1.jpg/8_2.jpg', 'La Honda Accord est une automobile produite par le constructeur automobile japonais Honda.', 8, 1),
+	(9, 2019, 220000, '9_1.jpg/9_2.jpg', 'La Honda Civic est un modèle d\'automobile fabriqué par Honda.', 9, 1),
+	(10, 2021, 9000, '10_1.jpg/10_2.jpg', 'La Volkswagen Golf est une voiture familiale compacte produite par le constructeur automobile allemand Volkswagen depuis 1974.', 10, 1),
+	(11, 2022, 7000, '11_1.jpg/11_2.jpg', 'La Volkswagen Passat est une grande familiale fabriquée par Volkswagen AG depuis 1973.', 11, 1),
+	(12, 2022, 6000, '12_1.jpg/12_2.jpg', 'La Mercedes-Benz Classe C est une gamme de voitures compactes de luxe produites par le constructeur allemand Mercedes-Benz.', 12, 1),
+	(13, 2021, 10000, '13_1.jpg/13_2.jpg', 'La Mercedes-Benz Classe E est une gamme de voitures exécutives produites par le constructeur automobile allemand Mercedes-Benz.', 13, 1),
+	(14, 2020, 11000, '14_1.jpg/14_2.jpg', 'L\'Audi A4 est une berline familiale du constructeur automobile allemand Audi.', 14, 1),
+	(15, 2021, 8000, '15_1.jpg/15_2.jpg', 'L\'Audi A6 est une berline de luxe produite par Audi, filiale du groupe allemand Volkswagen AG.', 15, 1),
+	(16, 2019, 80000, '16_1.jpg/16_2.jpg/16_3.jpg', 'La Audi RS3 est une voiture compacte sportive produite par le constructeur automobile allemand Audi AG.', 16, 1),
+	(17, 2020, 14000, '17_1.jpg/17_2.jpg', 'La Chevrolet Camaro est une automobile de type pony car produite par General Motors Chevrolet.', 17, 1),
+	(18, 2021, 110000, '18_1.jpg/18_2.jpg', 'Le Chevrolet Silverado et son jumeau le GMC Sierra sont des pick-up de grande taille construits par General Motors.', 18, 1),
+	(19, 2021, 16000, '19_1.jpg/19_2.jpg', 'Le Hyundai Tucson est un SUV compact produit par le constructeur automobile sud-coréen Hyundai Motor Company depuis 2004.', 19, 1),
+	(20, 2020, 13000, '20_1.jpg/20_2.jpg', 'Le Hyundai Santa Fe est un SUV familial produit par le constructeur automobile sud-coréen Hyundai depuis 2000.', 20, 1),
+	(21, 2019, 19000, '21_1.jpg/21_2.jpg', 'La Nissan Altima est une automobile de taille moyenne produite par Nissan, constructeur automobile japonais.', 21, 1),
+	(22, 2020, 5000, '22_1.jpg/22_2.jpg', 'La Nissan GT-R est une voiture de sport 2+2 places produite par le constructeur automobile japonais Nissan.', 22, 1),
+	(23, 2020, 12000, '23_1.jpg/23_2.jpg', 'La Nissan Maxima est une voiture berline intermédiaire produite par Nissan.', 23, 1),
+	(24, 2021, 15000, '24_1.jpg/24_2.jpg', 'Le Kia Sorento est un SUV produit par le constructeur automobile sud-coréen Kia Motors.', 24, 1),
+	(25, 2020, 11000, '25_1.jpg/25_2.jpg', 'La Kia Optima est une berline familiale produite par Kia Motors.', 25, 1),
+	(26, 2021, 8000, '26_1.jpg/26_2.jpg', 'La Volvo S60 est une voiture berline produite par Volvo Cars depuis 2000.', 26, 1),
+	(27, 2022, 7000, '27_1.jpg/27_2.jpg', 'Le Volvo XC90 est un SUV de luxe fabriqué par le constructeur automobile suédois Volvo Cars.', 27, 1),
+	(28, 2021, 10000, '28_1.jpg/28_2.jpg', 'La Subaru Outback est une voiture familiale crossover / SUV fabriquée par Subaru depuis 1994.', 28, 1),
+	(29, 2022, 6000, '29_1.jpg/29_2.jpg', 'Le Subaru Forester est un véhicule utilitaire sportif (SUV) compact fabriqué par Subaru.', 29, 1),
+	(30, 2020, 13000, '30_1.jpg/30_2.jpg', 'Le Mazda CX-5 est un véhicule utilitaire sportif (SUV) compact fabriqué par Mazda.', 30, 1),
+	(31, 2021, 9000, '31_1.jpg/31_2.jpg', 'La Mazda3 est une berline compacte produite par le constructeur automobile japonais Mazda depuis 2003.', 31, 1),
+	(32, 2022, 4000, '32_1.jpg/32_2.jpg', 'La Jeep Wrangler est un véhicule utilitaire sportif compact, produit par le constructeur automobile américain Jeep.', 32, 1),
+	(33, 2020, 8000, '33_1.jpg/33_2.jpg', 'Le Jeep Cherokee est un SUV compact fabriqué par Jeep depuis 1974.', 33, 1),
+	(34, 2021, 7000, '34_1.jpg/34_2.jpg', 'Le Lexus UX est un crossover compact produit par Lexus, la division de luxe de Toyota.', 34, 1),
+	(35, 2020, 100000, '35_1.jpg/35_2.jpg', 'Le Lexus RX est un véhicule utilitaire sportif de luxe fabriqué par Lexus.', 35, 1),
+	(36, 2022, 3000, '36_1.jpg/36_2.jpg', 'La Tesla Model S est une berline électrique produite par Tesla, Inc.', 36, 3),
+	(37, 2021, 5000, '37_1.jpg/37_2.jpg', 'La Tesla Model 3 est une voiture électrique compacte de Tesla, Inc.', 37, 3),
+	(38, 2021, 8000, '38_1.jpg/38_2.jpg', 'La Fiat 500 est une petite voiture citadine fabriquée par le constructeur italien Fiat depuis 2007.', 38, 1),
+	(39, 2020, 9000, '39_1.jpg/39_2.jpg', 'La Fiat Panda est une petite voiture produite par le constructeur automobile italien Fiat.', 39, 1),
+	(40, 2022, 4000, '40_1.jpg/40_2.jpg', 'La Peugeot 208 est une citadine du constructeur automobile français Peugeot, commercialisée depuis 2019.', 40, 1),
+	(41, 2021, 60000, '41_1.jpg/41_2.jpg', 'La Peugeot 3008 est un crossover compact produit par le constructeur français Peugeot depuis 2008.', 41, 1),
+	(42, 2020, 11000, '42_1.jpg/42_2.jpg', 'La Renault Clio est une citadine polyvalente fabriquée par le constructeur français Renault.', 42, 1),
+	(43, 2021, 7000, '43_1.jpg/43_2.jpg', 'Le Renault Captur est un SUV urbain polyvalent produit par le constructeur français Renault.', 43, 1);
 
 -- Listage de la structure de la table 2024mca_auto. EngineTypes
 DROP TABLE IF EXISTS `EngineTypes`;
@@ -123,10 +120,10 @@ CREATE TABLE IF NOT EXISTS `EngineTypes` (
   `id` int NOT NULL AUTO_INCREMENT,
   `Type` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `Type_UNIQUE` (`Type`)
+  UNIQUE KEY `Name_UNIQUE` (`Type`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 
--- Listage des données de la table 2024mca_auto.EngineTypes : ~0 rows (environ)
+-- Listage des données de la table 2024mca_auto.EngineTypes : ~3 rows (environ)
 INSERT INTO `EngineTypes` (`id`, `Type`) VALUES
 	(2, 'Diesel'),
 	(3, 'Électrique'),
@@ -137,55 +134,58 @@ DROP TABLE IF EXISTS `Models`;
 CREATE TABLE IF NOT EXISTS `Models` (
   `id` int NOT NULL AUTO_INCREMENT,
   `Name` varchar(45) NOT NULL,
+  `brand_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `Name_UNIQUE` (`Name`)
+  UNIQUE KEY `Name_UNIQUE` (`Name`),
+  KEY `fk_Models_Brands1_idx` (`brand_id`),
+  CONSTRAINT `fk_Models_Brands1` FOREIGN KEY (`brand_id`) REFERENCES `Brands` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb3;
 
--- Listage des données de la table 2024mca_auto.Models : ~0 rows (environ)
-INSERT INTO `Models` (`id`, `Name`) VALUES
-	(40, '208'),
-	(41, '3008'),
-	(38, '500'),
-	(14, 'A4'),
-	(15, 'A6'),
-	(8, 'Accord'),
-	(21, 'Altima'),
-	(17, 'Camaro'),
-	(2, 'Camry'),
-	(43, 'Captur'),
-	(33, 'Cherokee'),
-	(9, 'Civic'),
-	(12, 'Classe C'),
-	(13, 'Classe E'),
-	(42, 'Clio'),
-	(1, 'Corolla'),
-	(30, 'CX-5'),
-	(4, 'F-150'),
-	(5, 'Focus'),
-	(29, 'Forester'),
-	(10, 'Golf'),
-	(22, 'GTR R35'),
-	(23, 'Maxima'),
-	(31, 'Mazda3'),
-	(37, 'Model 3'),
-	(36, 'Model S'),
-	(25, 'Optima'),
-	(28, 'Outback'),
-	(39, 'Panda'),
-	(11, 'Passat'),
-	(16, 'RS3'),
-	(35, 'RX'),
-	(26, 'S60'),
-	(20, 'Santa Fe'),
-	(6, 'Série 3'),
-	(7, 'Série 5'),
-	(18, 'Silverado'),
-	(24, 'Sorento'),
-	(3, 'Supra'),
-	(19, 'Tucson'),
-	(34, 'UX'),
-	(32, 'Wrangler'),
-	(27, 'XC90');
+-- Listage des données de la table 2024mca_auto.Models : ~43 rows (environ)
+INSERT INTO `Models` (`id`, `Name`, `brand_id`) VALUES
+	(1, 'Corolla', 1),
+	(2, 'Camry', 1),
+	(3, 'Supra', 1),
+	(4, 'F-150', 2),
+	(5, 'Focus', 2),
+	(6, 'Série 3', 3),
+	(7, 'Série 5', 3),
+	(8, 'Accord', 4),
+	(9, 'Civic', 4),
+	(10, 'Golf', 5),
+	(11, 'Passat', 5),
+	(12, 'Classe C', 6),
+	(13, 'Classe E', 6),
+	(14, 'A4', 7),
+	(15, 'A6', 7),
+	(16, 'RS3', 7),
+	(17, 'Camaro', 8),
+	(18, 'Silverado', 8),
+	(19, 'Tucson', 9),
+	(20, 'Santa Fe', 9),
+	(21, 'Altima', 10),
+	(22, 'GTR R35', 10),
+	(23, 'Maxima', 10),
+	(24, 'Sorento', 11),
+	(25, 'Optima', 11),
+	(26, 'S60', 12),
+	(27, 'XC90', 12),
+	(28, 'Outback', 13),
+	(29, 'Forester', 13),
+	(30, 'CX-5', 14),
+	(31, 'Mazda3', 14),
+	(32, 'Wrangler', 15),
+	(33, 'Cherokee', 15),
+	(34, 'UX', 16),
+	(35, 'RX', 16),
+	(36, 'Model S', 17),
+	(37, 'Model 3', 17),
+	(38, '500', 18),
+	(39, 'Panda', 18),
+	(40, '208', 19),
+	(41, '3008', 19),
+	(42, 'Clio', 20),
+	(43, 'Captur', 20);
 
 -- Listage de la structure de la table 2024mca_auto. Notices
 DROP TABLE IF EXISTS `Notices`;
@@ -208,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `Notices` (
   CONSTRAINT `fk_Notices_Users2` FOREIGN KEY (`buyer_id`) REFERENCES `Users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb3;
 
--- Listage des données de la table 2024mca_auto.Notices : ~0 rows (environ)
+-- Listage des données de la table 2024mca_auto.Notices : ~43 rows (environ)
 INSERT INTO `Notices` (`id`, `PublicationDate`, `BuyDate`, `Price`, `Active`, `Blocked`, `buyer_id`, `seller_id`, `car_id`) VALUES
 	(1, '2024-04-01', NULL, 15000, 1, 0, NULL, 13, 1),
 	(2, '2024-04-02', NULL, 20000, 1, 0, NULL, 5, 2),
@@ -266,7 +266,7 @@ CREATE TABLE IF NOT EXISTS `Users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `Email_UNIQUE` (`Email`),
   UNIQUE KEY `Username_UNIQUE` (`Username`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb3;
 
 -- Listage des données de la table 2024mca_auto.Users : ~17 rows (environ)
 INSERT INTO `Users` (`id`, `Email`, `Username`, `Password`, `Admin`, `Blocked`) VALUES
@@ -302,7 +302,7 @@ CREATE TABLE IF NOT EXISTS `Users_Bookmark_Notice` (
   CONSTRAINT `fk_Users_has_Notice_Users1` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3;
 
--- Listage des données de la table 2024mca_auto.Users_Bookmark_Notice : ~0 rows (environ)
+-- Listage des données de la table 2024mca_auto.Users_Bookmark_Notice : ~14 rows (environ)
 INSERT INTO `Users_Bookmark_Notice` (`id`, `user_id`, `notice_id`) VALUES
 	(1, 1, 1),
 	(2, 1, 2),
