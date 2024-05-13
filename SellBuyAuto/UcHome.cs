@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * file          : UcHome.cs
+ * brief         : This file contains the code of the UserControl UcHome
+ * author        : Created by Maikol Correia Da Silva
+ * creation Date : 07.05.2024
+ * update Date   : 13.05.2024
+*/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,15 +21,20 @@ namespace SellBuyAuto
     public partial class UcHome : UserControl
     {
         public event Action AdvancedSearchClick;
+        public event Action SearchClick;
 
         List<Brand> brands;
         List<Model> models;
+        List<Notice> notices;
 
         public UcHome()
         {
             InitializeComponent();
         }
 
+        public List<Notice> Notices { get { return notices; } }
+
+        // Méthode qui s'exécute lorsque le UserControl se lance et qui permet de récupérer les champs à mettre dans les comboBox
         private void UcHome_Load(object sender, EventArgs e)
         {
             foreach (var control in gbQuickSearch.Controls)
@@ -49,11 +62,13 @@ namespace SellBuyAuto
             cbModel.Enabled = false;
         }
 
+        // Méthode qui permet d'affiché la recherche avancé. Lance la méthode qui est définie dans le FormMain
         private void btAdvancedSearch_Click(object sender, EventArgs e)
         {
             AdvancedSearchClick?.Invoke();
         }
 
+        // Méthode qui permet d'affiché les modèles liés à la marque sélectionnée
         private void cbBrand_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbBrand.SelectedIndex != 0)
@@ -90,6 +105,7 @@ namespace SellBuyAuto
             }
         }
 
+        // Méthode qui permet de lancé la recherche
         private void btSearch_Click(object sender, EventArgs e)
         {
             string request = "";
@@ -109,16 +125,14 @@ namespace SellBuyAuto
             try
             {
                 DBConnection db = new DBConnection();
-                List<Notice> notices = db.GetNotices(request);
-                foreach (Notice notice in notices)
-                {
-                    MessageBox.Show(notice.ToString());
-                }
+                notices = db.GetNotices(request);
+
+                SearchClick?.Invoke();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Aucune voiture n'a été trouvée avec ces critères !");
-            }            
+            }    
         }
     }
 }

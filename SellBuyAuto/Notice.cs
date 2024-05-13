@@ -32,7 +32,7 @@ namespace SellBuyAuto
         private int mileage;
         private string description;
         private string engineType;
-        private List<string> images;
+        private List<Bitmap> images;
 
         // Constructeurs
         public Notice(int idNotice, int idCar, int idBuyer, int idSeller, DateTime publicationDate, DateTime buyDate, int price, bool isActive, bool isBlocked, 
@@ -53,7 +53,7 @@ namespace SellBuyAuto
             this.mileage = mileage;
             this.description = description;
             this.engineType = engineType;
-            this.images = new List<string>();
+            this.images = new List<Bitmap>();
         }
 
         // Pour afficher dans mes achats/ventes
@@ -73,7 +73,7 @@ namespace SellBuyAuto
             this.mileage = mileage;
             this.description = description;
             this.engineType = engineType;
-            this.images = new List<string>();
+            this.images = new List<Bitmap>();
         }
 
         // Pour afficher lors des recherches
@@ -91,7 +91,7 @@ namespace SellBuyAuto
             this.mileage = mileage;
             this.description = description;
             this.engineType = engineType;
-            this.images = new List<string>();
+            this.images = new List<Bitmap>();
         }
 
         // Accesseurs
@@ -113,9 +113,27 @@ namespace SellBuyAuto
 
         // Méthodes
 
-        public void GetImages()
+        // Méthode qui permet de récupérer les images à travers une connexion FTP
+        public List<Bitmap> GetImages()
         {
-            throw new NotImplementedException();
+            DBConnection db = new DBConnection();
+
+            string images = db.GetImages(idCar);
+            string[] imagesList = images.Split('/');
+            List<Bitmap> bitmaps = new List<Bitmap>();
+            foreach (string image in imagesList)
+            {
+                FTPConnection ftp = new FTPConnection();
+                bitmaps.Add(ftp.GetImage(image));
+            }
+            this.images = bitmaps;
+            return bitmaps;
+        }
+
+        // Méthode qui permet de supprimer les images de la mémoire
+        public void ClearImages()
+        {
+            this.images.Clear();
         }
 
         public override string ToString()

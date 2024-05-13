@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * file          : UcAdvancedSearch.cs
+ * brief         : This file contains the code of the UserControl UcAdvancedSearch
+ * author        : Created by Maikol Correia Da Silva
+ * creation Date : 08.05.2024
+ * update Date   : 13.05.2024
+*/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,13 +21,20 @@ namespace SellBuyAuto
 {
     public partial class UCAdvancedSearch : UserControl
     {
+        public event Action SearchClick;
+
         List<Brand> brands;
         List<Model> models;
+        List<Notice> notices;
+
         public UCAdvancedSearch()
         {
             InitializeComponent();
         }
 
+        public List<Notice> Notices { get { return notices; } }
+
+        // Méthode qui s'exécute lorsque le UserControl se lance et qui permet de récupérer les champs à mettre dans les comboBox
         private void UCAdvancedSearch_Load(object sender, EventArgs e)
         {
             foreach (var control in gbAdvancedSearch.Controls)
@@ -53,6 +68,7 @@ namespace SellBuyAuto
             }
         }
 
+        // Méthode qui permet d'affiché les modèles liés à la marque sélectionnée
         private void cbBrand_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbBrand.SelectedIndex != 0)
@@ -89,6 +105,7 @@ namespace SellBuyAuto
             }
         }
 
+        // Méthodes qui mette à jour les valeurs minimum et maximum des champs numériques
         private void numYearFrom_ValueChanged(object sender, EventArgs e)
         {
             numYearTo.Minimum = numYearFrom.Value;
@@ -119,6 +136,7 @@ namespace SellBuyAuto
             numPriceFrom.Maximum = numPriceTo.Value;
         }
 
+        // Méthode qui permet de lancé la recherche
         private void btSearch_Click(object sender, EventArgs e)
         {
             string request = "";
@@ -144,11 +162,9 @@ namespace SellBuyAuto
             try
             {
                 DBConnection db = new DBConnection();
-                List<Notice> notices = db.GetNotices(request);
-                foreach (Notice notice in notices)
-                {
-                    MessageBox.Show(notice.ToString());
-                }
+                notices = db.GetNotices(request);
+
+                SearchClick?.Invoke();
             }
             catch (Exception ex)
             {

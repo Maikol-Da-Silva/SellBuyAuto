@@ -32,6 +32,7 @@ namespace SellBuyAuto
             connection = new MySqlConnection(connectionString);
         }
 
+        // Méthode qui permet de récuprer le login
         public User GetLogin(string username)
         {
             MySqlDataReader rdr = null;
@@ -63,6 +64,7 @@ namespace SellBuyAuto
             return user;
         }
 
+        // Méthode qui permet d'ajouter un utilisateur
         public int AddUser(User user)
         {
             // Open the SQL connection
@@ -94,6 +96,7 @@ namespace SellBuyAuto
             return idUser;
         }
 
+        // Méthode qui permet de récupérer les marques
         public List<Brand> GetBrands()
         {
             MySqlDataReader rdr = null;
@@ -127,6 +130,7 @@ namespace SellBuyAuto
             return brands;
         }
 
+        // Méthode qui permet de récupérer les modèles
         public List<Model> GetModels()
         {
             MySqlDataReader rdr = null;
@@ -160,6 +164,7 @@ namespace SellBuyAuto
             return models;
         }
 
+        // Méthode qui permet de récupérer les types de motorisation
         public List<string> GetEngineTypes()
         {
             MySqlDataReader rdr = null;
@@ -192,6 +197,7 @@ namespace SellBuyAuto
             return engineTypes;
         }
 
+        // Méthode qui permet de récupérer les annonces
         public List<Notice> GetNotices(string endResquest)
         {
             MySqlDataReader rdr = null;
@@ -230,6 +236,39 @@ namespace SellBuyAuto
             }
 
             return notices;
+        }
+
+        // Méthode qui permet de récupérer le nom des images
+        public string GetImages(int idCar)
+        {
+            MySqlDataReader rdr = null;
+            string images;
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = this.connection.CreateCommand();
+
+            // SQL request
+            cmd.CommandText = "SELECT Images FROM Cars WHERE Cars.id = @idCar";
+
+            // we set the value for our query, we use the parameter of the method, which is a Contact object
+            cmd.Parameters.AddWithValue("@idCar", idCar);
+
+            // Execution of the SQL command
+            rdr = cmd.ExecuteReader();
+
+            rdr.Read();
+            images = rdr.GetString(0);
+
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
+
+            return images;
         }
     }
 }

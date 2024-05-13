@@ -1,9 +1,9 @@
 /*
- * file          : FormHome.cs
- * brief         : This file contains the code of the controls in the FormHome
+ * file          : FormMain.cs
+ * brief         : This file contains the code of the controls in the FormMain
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 07.05.2024
- * update Date   : 07.05.2024
+ * update Date   : 13.05.2024
 */
 
 namespace SellBuyAuto
@@ -23,6 +23,7 @@ namespace SellBuyAuto
 
         }
 
+        // Méthode qui affiche la page d'accueil
         private void DisplayHome()
         {
             if (currentUc is UcHome)
@@ -39,9 +40,28 @@ namespace SellBuyAuto
             ucHome.Name = "ucHome";
             ucHome.BringToFront();
             ucHome.AdvancedSearchClick += DisplayAdvancedSearch;
+            ucHome.SearchClick += DisplayQuickSearchResult;
             currentUc = ucHome;
         }
 
+        // Méthode qui affiche la page contenant les résultats de la recherche rapide
+        private void DisplayQuickSearchResult()
+        {
+            if (currentUc != null)
+            {
+                UcHome ucHome = (UcHome)currentUc;
+
+                this.Controls.Remove(currentUc);
+                UcVehicleSearch ucVehicleSearch = new UcVehicleSearch(ucHome.Notices);
+                this.Controls.Add(ucVehicleSearch);
+                ucVehicleSearch.Location = new Point(0, 53);
+                ucVehicleSearch.Name = "ucVehicleSearch";
+                ucVehicleSearch.BringToFront();
+                currentUc = ucVehicleSearch;
+            }
+        }
+
+        // Méthode qui affiche la page de recherche avancée
         private void DisplayAdvancedSearch()
         {
             if (currentUc is UCAdvancedSearch)
@@ -57,7 +77,25 @@ namespace SellBuyAuto
             ucAdvancedSearch.Location = new Point(0, 53);
             ucAdvancedSearch.Name = "ucAdvancedSearch";
             ucAdvancedSearch.BringToFront();
+            ucAdvancedSearch.SearchClick += DisplayAdvancedSearchResult;
             currentUc = ucAdvancedSearch;
+        }
+
+        // Méthode qui affiche la page contenant les résultats de la recherche avancée
+        private void DisplayAdvancedSearchResult()
+        {
+            if (currentUc != null)
+            {
+                UCAdvancedSearch ucAdvancedSearch = (UCAdvancedSearch)currentUc;
+
+                this.Controls.Remove(currentUc);
+                UcVehicleSearch ucVehicleSearch = new UcVehicleSearch(ucAdvancedSearch.Notices);
+                this.Controls.Add(ucVehicleSearch);
+                ucVehicleSearch.Location = new Point(0, 53);
+                ucVehicleSearch.Name = "ucVehicleSearch";
+                ucVehicleSearch.BringToFront();
+                currentUc = ucVehicleSearch;
+            }
         }
 
         private void rechercherToolStripMenuItem1_Click(object sender, EventArgs e)
