@@ -176,7 +176,7 @@ namespace SellBuyAuto
             MySqlCommand cmd = this.connection.CreateCommand();
 
             // SQL request
-            cmd.CommandText = "SELECT Type FROM EngineTypes ORDER BY Type Asc";
+            cmd.CommandText = "SELECT Type FROM EngineTypes ORDER BY id Asc";
 
             // Execution of the SQL command
             rdr = cmd.ExecuteReader();
@@ -269,6 +269,232 @@ namespace SellBuyAuto
             }
 
             return images;
+        }
+
+        // Méthode qui permet de récuprer l'id de la table Brands ou Models
+        public int GetId(string table, string name)
+        {
+            MySqlDataReader rdr = null;
+            int id;
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = this.connection.CreateCommand();
+
+            // SQL request
+            cmd.CommandText = $"SELECT id FROM {table} WHERE Name = @name";
+
+            // we set the value for our query, we use the parameter of the method, which is a Contact object
+            cmd.Parameters.AddWithValue("@name", name);
+
+            // Execution of the SQL command
+            rdr = cmd.ExecuteReader();
+
+            rdr.Read();
+            id = rdr.GetInt32(0);
+
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
+
+            return id;
+        }
+
+        // Méthode qui permet d'ajouter une marque
+        public int AddBrand(string name)
+        {
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = connection.CreateCommand();
+
+            cmd.CommandText = "INSERT INTO Brands (Name) VALUES (@name)";
+
+            // we set the value for our query, we use the parameter of the method, which is a Contact object
+            cmd.Parameters.AddWithValue("@name", name);
+
+            // SQL cmd execution
+            cmd.ExecuteNonQuery();
+
+            int id = (int)cmd.LastInsertedId;
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
+
+            return id;
+        }
+
+        // Méthode qui permet d'ajouter un modèle
+        public int AddModel(string name, int idBrand)
+        {
+            // Open the SQL connection
+            connection.Open();            
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = connection.CreateCommand();
+
+            cmd.CommandText = "INSERT INTO Models (Name, brand_id) VALUES (@name, @brand_id)";
+
+            // we set the value for our query, we use the parameter of the method, which is a Contact object
+            cmd.Parameters.AddWithValue("@name", name);
+            cmd.Parameters.AddWithValue("@brand_id", idBrand);
+
+            // SQL cmd execution
+            cmd.ExecuteNonQuery();
+
+            int id = (int)cmd.LastInsertedId;
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
+
+            return id;
+        }
+
+        // Méthode qui permet d'ajouter un véhicule
+        public int AddCar(int year, int mileage, string description, int model_id, int engineType_id)
+        {
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = connection.CreateCommand();
+
+            cmd.CommandText = "INSERT INTO Cars (Year, Mileage, Description, model_id, engineType_id) VALUES (@year, @mileage, @description, @model_id, @engineType_id)";
+
+            // we set the value for our query, we use the parameter of the method, which is a Contact object
+            cmd.Parameters.AddWithValue("@Year", year);
+            cmd.Parameters.AddWithValue("@Mileage", mileage);
+            cmd.Parameters.AddWithValue("@Description", description);
+            cmd.Parameters.AddWithValue("@model_id", model_id);
+            cmd.Parameters.AddWithValue("@engineType_id", engineType_id);
+
+            // SQL cmd execution
+            cmd.ExecuteNonQuery();
+
+            int id = (int)cmd.LastInsertedId;
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
+
+            return id;
+        }
+
+        // Méthode qui permet d'ajouter les images aux véhicules
+        public void UpdateImages(string images, int carId)
+        {
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = connection.CreateCommand();
+
+            cmd.CommandText = "Update Cars SET Images = @Images WHERE id = @CarId";
+
+            // we set the value for our query, we use the parameter of the method, which is a Contact object
+            cmd.Parameters.AddWithValue("@Images", images);
+            cmd.Parameters.AddWithValue("@CarId", carId);
+
+            // SQL cmd execution
+            cmd.ExecuteNonQuery();
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
+        }
+
+        // Méthode qui permet d'ajouter une annonce
+        public void AddNotice(string publicationDate, int price, int seller_id, int car_id)
+        {
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = connection.CreateCommand();
+
+            cmd.CommandText = "INSERT INTO Notices (PublicationDate, Price, seller_id, car_id) VALUES (@publicationDate, @price, @seller_id, @car_id)";
+
+            // we set the value for our query, we use the parameter of the method, which is a Contact object
+            cmd.Parameters.AddWithValue("@PublicationDate", publicationDate);
+            cmd.Parameters.AddWithValue("@Price", price);
+            cmd.Parameters.AddWithValue("@seller_id", seller_id);
+            cmd.Parameters.AddWithValue("@car_id", car_id);
+
+            // SQL cmd execution
+            cmd.ExecuteNonQuery();
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
+        }
+
+        public void CloseConnection()
+        {
+            if (connection != null)
+            {
+                connection.Close();
+            }
+        }
+
+        // Méthode qui permet de récupérer les annonces d'un vendeur
+        public List<Notice> GetSells(int userId)
+        {
+            MySqlDataReader rdr = null;
+            List<Notice> notices = new List<Notice>();
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = this.connection.CreateCommand();
+
+            // SQL request
+            cmd.CommandText = "SELECT Notices.id, Notices.PublicationDate, Notices.Price, Notices.seller_id, " +
+                "Cars.id, Cars.`Year`, Cars.mileage, Cars.Description, " +
+                "Models.Name, Brands.Name, EngineTypes.`Type` FROM Notices " +
+                "INNER JOIN Cars ON Notices.car_id = Cars.id " +
+                "INNER JOIN EngineTypes ON Cars.engineType_id = EngineTypes.id " +
+                "INNER JOIN Models ON Cars.model_id = Models.id " +
+                "INNER JOIN Brands ON Models.brand_id = Brands.id WHERE Notices.seller_id = @userId";
+
+            // we set the value for our query, we use the parameter of the method, which is a Contact object
+            cmd.Parameters.AddWithValue("@userId", userId);
+
+            // Execution of the SQL command
+            rdr = cmd.ExecuteReader();
+
+            rdr.Read();
+            do
+            {
+                Notice notice = new Notice(rdr.GetInt32(0), rdr.GetInt32(4), rdr.GetInt32(3), rdr.GetDateTime(1), rdr.GetInt32(2), rdr.GetString(9),
+                                            rdr.GetString(8), rdr.GetInt32(5), rdr.GetInt32(6), rdr.GetString(7), rdr.GetString(10));
+                notices.Add(notice);
+            } while (rdr.Read());
+
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
+
+            return notices;
         }
     }
 }

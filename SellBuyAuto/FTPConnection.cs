@@ -30,7 +30,7 @@ namespace SellBuyAuto
         public Bitmap GetImage(string imageName)
         {
             WebClient ftpClient = new WebClient();
-            ftpClient.Credentials = new NetworkCredential("2024mca_108830", "2024_MCA_Auto");
+            ftpClient.Credentials = new NetworkCredential(username, password);
 
             byte[] imageByte = ftpClient.DownloadData(string.Format("{0}/{1}", server, imageName));
             Bitmap bitmap = ByteToImage(imageByte);
@@ -48,6 +48,14 @@ namespace SellBuyAuto
             Bitmap bm = new Bitmap(mStream, false);
             mStream.Dispose();
             return bm;
+        }
+
+        public void UploadImage(string localFileName, string newFileName)
+        {
+            WebClient ftpClient = new WebClient();
+            ftpClient.Credentials = new NetworkCredential(username, password);
+            ftpClient.UploadFile(new Uri(string.Format("{0}/{1}", server, newFileName)), localFileName);
+            ftpClient.Dispose();
         }
     }
 }

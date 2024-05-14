@@ -3,7 +3,7 @@
  * brief         : This file contains the code of the UserControl UcAdvancedSearch
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 08.05.2024
- * update Date   : 13.05.2024
+ * update Date   : 14.05.2024
 */
 
 using System;

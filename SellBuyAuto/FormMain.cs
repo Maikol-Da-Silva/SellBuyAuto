@@ -3,7 +3,7 @@
  * brief         : This file contains the code of the controls in the FormMain
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 07.05.2024
- * update Date   : 13.05.2024
+ * update Date   : 14.05.2024
 */
 
 namespace SellBuyAuto
@@ -98,6 +98,43 @@ namespace SellBuyAuto
             }
         }
 
+        private void DisplayAddNotice()
+        {
+            if (currentUc is UcAddModifyVehicle)
+            {
+                return;
+            }
+            if (currentUc != null)
+            {
+                this.Controls.Remove(currentUc);
+            }
+            UcAddModifyVehicle ucAddModifyVehicle = new UcAddModifyVehicle(user);
+            this.Controls.Add(ucAddModifyVehicle);
+            ucAddModifyVehicle.Location = new Point(0, 53);
+            ucAddModifyVehicle.Name = "ucAddModifyVehicle";
+            ucAddModifyVehicle.BringToFront();
+            ucAddModifyVehicle.DisplayHome += DisplayHome;
+            currentUc = ucAddModifyVehicle;
+        }
+
+        private void DisplayMySells()
+        {
+            if (currentUc is UcMySells)
+            {
+                return;
+            }
+            if (currentUc != null)
+            {
+                this.Controls.Remove(currentUc);
+            }
+            UcMySells ucMySells = new UcMySells(user.GetSells());
+            this.Controls.Add(ucMySells);
+            ucMySells.Location = new Point(0, 53);
+            ucMySells.Name = "ucMySells";
+            ucMySells.BringToFront();
+            currentUc = ucMySells;
+        }
+
         private void rechercherToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DisplayAdvancedSearch();
@@ -116,6 +153,16 @@ namespace SellBuyAuto
         private void accueilToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DisplayHome();
+        }
+
+        private void vendreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DisplayAddNotice();
+        }
+
+        private void mesVentesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DisplayMySells();
         }
 
         private void btLogin_Click(object sender, EventArgs e)
@@ -144,6 +191,7 @@ namespace SellBuyAuto
                 menuStripWithoutLogin.Visible = true;
                 menuStripWithLogin.Enabled = false;
                 menuStripWithLogin.Visible = false;
+                DisplayHome();
             }
         }
     }

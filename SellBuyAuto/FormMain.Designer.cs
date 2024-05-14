@@ -47,7 +47,7 @@
             // menuStripWithoutLogin
             // 
             menuStripWithoutLogin.Items.AddRange(new ToolStripItem[] { accueilToolStripMenuItem, rechercherToolStripMenuItem });
-            menuStripWithoutLogin.Location = new Point(0, 0);
+            menuStripWithoutLogin.Location = new Point(0, 24);
             menuStripWithoutLogin.Name = "menuStripWithoutLogin";
             menuStripWithoutLogin.Size = new Size(1184, 24);
             menuStripWithoutLogin.TabIndex = 0;
@@ -103,12 +103,14 @@
             vendreToolStripMenuItem.Name = "vendreToolStripMenuItem";
             vendreToolStripMenuItem.Size = new Size(55, 20);
             vendreToolStripMenuItem.Text = "Vendre";
+            vendreToolStripMenuItem.Click += vendreToolStripMenuItem_Click;
             // 
             // mesVentesToolStripMenuItem
             // 
             mesVentesToolStripMenuItem.Name = "mesVentesToolStripMenuItem";
             mesVentesToolStripMenuItem.Size = new Size(78, 20);
             mesVentesToolStripMenuItem.Text = "Mes ventes";
+            mesVentesToolStripMenuItem.Click += mesVentesToolStripMenuItem_Click;
             // 
             // mesAchatsToolStripMenuItem
             // 

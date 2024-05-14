@@ -100,9 +100,14 @@ namespace SellBuyAuto
             throw new NotImplementedException();
         }
 
-        public void GetSells()
+        public List<Notice> GetSells()
         {
-            throw new NotImplementedException();
+            if (sells == null || sells.Count == 0)
+            {
+                DBConnection db = new DBConnection();
+                sells = db.GetSells(IdUser);
+            }
+            return sells;
         }
 
         public void GetPurchases()
