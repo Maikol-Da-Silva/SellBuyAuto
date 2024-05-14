@@ -3,7 +3,7 @@
  * brief         : This file contains the code of the UserControl UcVehicleLabel
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 13.05.2024
- * update Date   : 13.05.2024
+ * update Date   : 14.05.2024
 */
 
 using System;
@@ -34,7 +34,6 @@ namespace SellBuyAuto
             lblInfo.Text = $"Kilométrage : {notice.Mileage}  Année : {notice.Year}  Prix : {notice.Price}";
             lblDescription.Text = notice.Description;
             GetImages();
-
         }
 
         // Méthode qui permet de récupérer les images en arrière-plan

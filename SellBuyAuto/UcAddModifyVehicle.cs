@@ -6,6 +6,7 @@
  * update Date   : 14.05.2024
 */
 
+using Org.BouncyCastle.Crypto;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,12 +25,20 @@ namespace SellBuyAuto
         public event Action DisplayHome;
 
         User user;
+        Notice notice;
         string[] imagesNames;
 
         public UcAddModifyVehicle(User user)
         {
             InitializeComponent();
             this.user = user;
+        }
+
+        public UcAddModifyVehicle(User user, Notice notice)
+        {
+            InitializeComponent();
+            this.user = user;
+            this.notice = notice;
         }
 
         // Permet de charger les motorisations dans le ComboBox
@@ -40,6 +49,27 @@ namespace SellBuyAuto
             foreach (var engineType in engineTypes)
             {
                 cbEngineType.Items.Add(engineType);
+            }
+            if (notice == null)
+            {
+                
+                lblAddModify.Text = "Ajouter";
+                btValidate.Text = "Mettre en vente";
+            }
+            else
+            {
+                txtBrand.Text = notice.Brand;
+                txtModel.Text = notice.Model;
+                txtDescription.Text = notice.Description;
+                numMileage.Value = notice.Mileage;
+                numPrice.Value = notice.Price;
+                numYear.Value = notice.Year;
+
+                cbEngineType.SelectedItem = notice.EngineType;
+
+                lblNbImages.Text = $"{notice.GetImages().Count} sur 5";
+                lblAddModify.Text = "Modifier";
+                btValidate.Text = "Valider";
             }
         }
 
@@ -81,7 +111,56 @@ namespace SellBuyAuto
                 MessageBox.Show("Le nom du modèle ne peut pas dépasser 45 caractères !");
                 return;
             }
-            if (txtBrand.Text != "" && txtModel.Text != "" && txtDescription.Text != "" && cbEngineType.SelectedIndex != -1 && imagesNames != null)
+            if (txtBrand.Text != "" && txtModel.Text != "" && txtDescription.Text != "" && cbEngineType.SelectedIndex != -1 && btValidate.Text == "Valider")
+            {
+                DBConnection db = new DBConnection();
+                int idBrand;
+                int idModel;
+                try
+                {
+                    idBrand = db.GetId("Brands", txtBrand.Text);
+                }
+                catch (Exception ex)
+                {
+                    db.CloseConnection();
+                    idBrand = db.AddBrand(txtBrand.Text);
+                }
+                try
+                {
+                    idModel = db.GetId("Models", txtModel.Text);
+                }
+                catch (Exception ex)
+                {
+                    db.CloseConnection();
+                    idModel = db.AddModel(txtModel.Text, idBrand);
+                }
+                db.UpdateCars(notice.IdCar, (int)numYear.Value, (int)numMileage.Value, txtDescription.Text, idModel, (cbEngineType.SelectedIndex + 1));
+                db.UpdateNotices(notice.IdCar, (int)numPrice.Value);
+
+                if(imagesNames != null)
+                {
+                    string images = "";
+                    for (int i = 1; i <= imagesNames.Length; i++)
+                    {
+                        string[] strings = imagesNames[i - 1].Split(".");
+                        string newImageName = $"{notice.IdCar}_{i}.{strings[strings.Length - 1]}";
+                        images += newImageName + "/";
+                    }
+                    images = images.Remove(images.Length - 1);
+                    db.UpdateImages(images, notice.IdCar);
+
+                    UploadImages(notice.IdCar);
+                }
+
+                notice.UpdateValues(txtBrand.Text, txtModel.Text, txtDescription.Text, (int)numYear.Value, (int)numMileage.Value, (int)numPrice.Value, cbEngineType.SelectedItem.ToString());
+               
+
+                MessageBox.Show("La voiture a bien été modifié");
+
+                DisplayHome?.Invoke();
+
+            }
+            else if (txtBrand.Text != "" && txtModel.Text != "" && txtDescription.Text != "" && cbEngineType.SelectedIndex != -1 && imagesNames != null && btValidate.Text == "Mettre en vente")
             {
                 DBConnection db = new DBConnection();
                 int idBrand;

@@ -215,7 +215,7 @@ namespace SellBuyAuto
                 "INNER JOIN Cars ON Notices.car_id = Cars.id " +
                 "INNER JOIN EngineTypes ON Cars.engineType_id = EngineTypes.id " +
                 "INNER JOIN Models ON Cars.model_id = Models.id " +
-                "INNER JOIN Brands ON Models.brand_id = Brands.id WHERE" + endResquest;
+                "INNER JOIN Brands ON Models.brand_id = Brands.id WHERE Active = 1 AND Blocked = 0" + endResquest;
             
             // Execution of the SQL command
             rdr = cmd.ExecuteReader();
@@ -471,7 +471,7 @@ namespace SellBuyAuto
                 "INNER JOIN Cars ON Notices.car_id = Cars.id " +
                 "INNER JOIN EngineTypes ON Cars.engineType_id = EngineTypes.id " +
                 "INNER JOIN Models ON Cars.model_id = Models.id " +
-                "INNER JOIN Brands ON Models.brand_id = Brands.id WHERE Notices.seller_id = @userId";
+                "INNER JOIN Brands ON Models.brand_id = Brands.id WHERE Active = 1 AND Notices.seller_id = @userId";
 
             // we set the value for our query, we use the parameter of the method, which is a Contact object
             cmd.Parameters.AddWithValue("@userId", userId);
@@ -495,6 +495,120 @@ namespace SellBuyAuto
             }
 
             return notices;
+        }
+
+        // Méthode qui permet de modifier les annonces
+        public void UpdateNotices(int carId, int price)
+        {
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = connection.CreateCommand();
+
+            cmd.CommandText = "Update Notices SET Price = @Price WHERE car_id = @CarId";
+
+            // we set the value for our query, we use the parameter of the method, which is a Contact object
+            cmd.Parameters.AddWithValue("@Price", price);
+            cmd.Parameters.AddWithValue("@CarId", carId);
+
+            // SQL cmd execution
+            cmd.ExecuteNonQuery();
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
+        }
+
+        // Méthode qui permet de modifier les véhicules
+        public void UpdateCars(int carId, int year, int mileage, string description, int model_id, int engineType_id)
+        {
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = connection.CreateCommand();
+
+            cmd.CommandText = "Update Cars SET Year = @Year, Mileage = @Mileage, Description = @Description, model_id = @model_id, engineType_id = @engineType_id WHERE id = @CarId";
+
+            // we set the value for our query, we use the parameter of the method, which is a Contact object
+            cmd.Parameters.AddWithValue("@Year", year);
+            cmd.Parameters.AddWithValue("@Mileage", mileage);
+            cmd.Parameters.AddWithValue("@Description", description);
+            cmd.Parameters.AddWithValue("@model_id", model_id);
+            cmd.Parameters.AddWithValue("@engineType_id", engineType_id);
+            cmd.Parameters.AddWithValue("@CarId", carId);
+
+            // SQL cmd execution
+            cmd.ExecuteNonQuery();
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
+        }
+
+        // Méthode qui permet de récupérer les users qui ont mis une annonce en favoris
+        public List<int> GetUsersBookMark(int noticeId)
+        {
+            MySqlDataReader rdr = null;
+            List<int> users = new List<int>();
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = this.connection.CreateCommand();
+
+            // SQL request
+            cmd.CommandText = "SELECT user_id FROM Users_Bookmark_Notice WHERE notice_id = @notice_id";
+
+            // we set the value for our query, we use the parameter of the method, which is a Contact object
+            cmd.Parameters.AddWithValue("@notice_id", noticeId);
+
+            // Execution of the SQL command
+            rdr = cmd.ExecuteReader();
+
+            rdr.Read();
+            do
+            {
+                users.Add(rdr.GetInt32(0));
+            } while (rdr.Read());
+
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
+
+            return users;
+        }
+
+        // Méthode qui permet de supprimer les annonces
+        public void DeleteNotices(int noticeId)
+        {
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = connection.CreateCommand();
+
+            cmd.CommandText = "Update Notices SET Active = 0 WHERE id = @noticeId";
+
+            // we set the value for our query, we use the parameter of the method, which is a Contact object
+            cmd.Parameters.AddWithValue("@noticeId", noticeId);
+
+            // SQL cmd execution
+            cmd.ExecuteNonQuery();
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
         }
     }
 }

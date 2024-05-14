@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SellBuyAuto
 {
@@ -121,19 +122,32 @@ namespace SellBuyAuto
             string images = db.GetImages(idCar);
             string[] imagesList = images.Split('/');
             List<Bitmap> bitmaps = new List<Bitmap>();
+
+            FTPConnection ftp = new FTPConnection();
             foreach (string image in imagesList)
             {
-                FTPConnection ftp = new FTPConnection();
                 bitmaps.Add(ftp.GetImage(image));
             }
             this.images = bitmaps;
-            return bitmaps;
+            return this.images;
         }
 
         // Méthode qui permet de supprimer les images de la mémoire
         public void ClearImages()
         {
             this.images.Clear();
+        }
+
+        // Méthode qui permet de mettre à jour les attributs lors d'une modification
+        public void UpdateValues(string brand, string model, string description, int year, int mileage, int price, string engineType)
+        {
+            this.brand = brand;
+            this.model = model;
+            this.description = description;
+            this.year = year;
+            this.mileage = mileage;
+            this.price = price;
+            this.engineType = engineType;
         }
 
         public override string ToString()

@@ -50,6 +50,7 @@ namespace SellBuyAuto
             return bm;
         }
 
+        // Méthode qui permet d'upload les images
         public void UploadImage(string localFileName, string newFileName)
         {
             WebClient ftpClient = new WebClient();

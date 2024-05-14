@@ -98,6 +98,7 @@ namespace SellBuyAuto
             }
         }
 
+        // Méthode qui affiche la page d'ajout d'une annonce
         private void DisplayAddNotice()
         {
             if (currentUc is UcAddModifyVehicle)
@@ -117,6 +118,7 @@ namespace SellBuyAuto
             currentUc = ucAddModifyVehicle;
         }
 
+        //Méthode qui affiche la page mes ventes
         private void DisplayMySells()
         {
             if (currentUc is UcMySells)
@@ -132,7 +134,25 @@ namespace SellBuyAuto
             ucMySells.Location = new Point(0, 53);
             ucMySells.Name = "ucMySells";
             ucMySells.BringToFront();
+            ucMySells.ModifyClick += DisplayModifyNotice;
             currentUc = ucMySells;
+        }
+
+        // Méthode qui affiche la page de modification
+        private void DisplayModifyNotice()
+        {
+            UcMySells ucMySells = (UcMySells)currentUc; ;
+            if (currentUc != null)
+            {
+                this.Controls.Remove(currentUc);
+            }
+            UcAddModifyVehicle ucAddModifyVehicle = new UcAddModifyVehicle(user, ucMySells.NoticeToModify);
+            this.Controls.Add(ucAddModifyVehicle);
+            ucAddModifyVehicle.Location = new Point(0, 53);
+            ucAddModifyVehicle.Name = "ucAddModifyVehicle";
+            ucAddModifyVehicle.BringToFront();
+            ucAddModifyVehicle.DisplayHome += DisplayHome;
+            currentUc = ucAddModifyVehicle;
         }
 
         private void rechercherToolStripMenuItem1_Click(object sender, EventArgs e)
