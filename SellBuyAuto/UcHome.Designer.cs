@@ -146,7 +146,7 @@
             // 
             btAdvancedSearch.Location = new Point(43, 225);
             btAdvancedSearch.Name = "btAdvancedSearch";
-            btAdvancedSearch.Size = new Size(120, 23);
+            btAdvancedSearch.Size = new Size(148, 23);
             btAdvancedSearch.TabIndex = 5;
             btAdvancedSearch.Text = "Recherche avancée";
             btAdvancedSearch.UseVisualStyleBackColor = true;

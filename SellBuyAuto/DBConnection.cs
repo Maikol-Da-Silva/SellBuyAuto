@@ -3,7 +3,7 @@
  * brief         : This file contains the connection to the database
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 07.05.2024
- * update Date   : 07.05.2024
+ * update Date   : 15.05.2024
 */
 
 using MySql.Data.MySqlClient;
@@ -215,7 +215,7 @@ namespace SellBuyAuto
                 "INNER JOIN Cars ON Notices.car_id = Cars.id " +
                 "INNER JOIN EngineTypes ON Cars.engineType_id = EngineTypes.id " +
                 "INNER JOIN Models ON Cars.model_id = Models.id " +
-                "INNER JOIN Brands ON Models.brand_id = Brands.id WHERE Active = 1 AND Blocked = 0" + endResquest;
+                "INNER JOIN Brands ON Models.brand_id = Brands.id WHERE Active = 1 AND Blocked = 0 AND" + endResquest;
             
             // Execution of the SQL command
             rdr = cmd.ExecuteReader();
@@ -419,7 +419,7 @@ namespace SellBuyAuto
         }
 
         // Méthode qui permet d'ajouter une annonce
-        public void AddNotice(string publicationDate, int price, int seller_id, int car_id)
+        public int AddNotice(string publicationDate, int price, int seller_id, int car_id)
         {
             // Open the SQL connection
             connection.Open();
@@ -438,11 +438,15 @@ namespace SellBuyAuto
             // SQL cmd execution
             cmd.ExecuteNonQuery();
 
+            int id = (int)cmd.LastInsertedId;
+
             //we close the SQL connection
             if (connection != null)
             {
                 connection.Close();
             }
+
+            return id;
         }
 
         public void CloseConnection()

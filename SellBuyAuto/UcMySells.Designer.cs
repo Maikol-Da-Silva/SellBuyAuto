@@ -53,7 +53,7 @@
             lblPages.Name = "lblPages";
             lblPages.Size = new Size(70, 15);
             lblPages.TabIndex = 10;
-            lblPages.Text = "Page 1 sur 4";
+            lblPages.Text = "Page 1 sur 1";
             // 
             // btPrevious
             // 
@@ -71,9 +71,9 @@
             lblCriteria.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblCriteria.Location = new Point(39, 32);
             lblCriteria.Name = "lblCriteria";
-            lblCriteria.Size = new Size(286, 32);
+            lblCriteria.Size = new Size(142, 32);
             lblCriteria.TabIndex = 7;
-            lblCriteria.Text = "Résultat de la recherche";
+            lblCriteria.Text = "Mes ventes";
             // 
             // FlpVehicles
             // 

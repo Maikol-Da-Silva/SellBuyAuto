@@ -120,7 +120,7 @@ namespace SellBuyAuto
                 request += " AND";
             }
 
-            request += $" Cars.`Year` >= {numYear.Value} AND Notices.Price <= {numPrice.Value}";
+            request += $" Cars.Year >= {numYear.Value} AND Notices.Price <= {numPrice.Value}";
 
             try
             {
@@ -132,7 +132,7 @@ namespace SellBuyAuto
             catch (Exception ex)
             {
                 MessageBox.Show("Aucune voiture n'a été trouvée avec ces critères !");
-            }    
+            } 
         }
     }
 }

@@ -47,7 +47,7 @@
             // menuStripWithoutLogin
             // 
             menuStripWithoutLogin.Items.AddRange(new ToolStripItem[] { accueilToolStripMenuItem, rechercherToolStripMenuItem });
-            menuStripWithoutLogin.Location = new Point(0, 24);
+            menuStripWithoutLogin.Location = new Point(0, 0);
             menuStripWithoutLogin.Name = "menuStripWithoutLogin";
             menuStripWithoutLogin.Size = new Size(1184, 24);
             menuStripWithoutLogin.TabIndex = 0;
@@ -120,9 +120,9 @@
             // 
             // btLogin
             // 
-            btLogin.Location = new Point(1075, 27);
+            btLogin.Location = new Point(1050, 27);
             btLogin.Name = "btLogin";
-            btLogin.Size = new Size(97, 23);
+            btLogin.Size = new Size(122, 23);
             btLogin.TabIndex = 2;
             btLogin.Text = "Se connecter";
             btLogin.UseVisualStyleBackColor = true;
@@ -130,7 +130,7 @@
             // 
             // lblUsername
             // 
-            lblUsername.Location = new Point(882, 27);
+            lblUsername.Location = new Point(857, 27);
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new Size(187, 23);
             lblUsername.TabIndex = 8;

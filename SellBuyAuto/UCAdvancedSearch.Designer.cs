@@ -85,9 +85,9 @@
             // 
             // btSearch
             // 
-            btSearch.Location = new Point(849, 383);
+            btSearch.Location = new Point(847, 383);
             btSearch.Name = "btSearch";
-            btSearch.Size = new Size(75, 23);
+            btSearch.Size = new Size(77, 23);
             btSearch.TabIndex = 15;
             btSearch.Text = "Rechercher";
             btSearch.UseVisualStyleBackColor = true;

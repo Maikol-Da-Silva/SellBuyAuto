@@ -3,7 +3,7 @@
  * brief         : This file contains the code of the UserControl UcMySells
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 14.05.2024
- * update Date   : 14.05.2024
+ * update Date   : 15.05.2024
 */
 
 using System;
@@ -22,24 +22,31 @@ namespace SellBuyAuto
     {
         public event Action ModifyClick;
 
+        User user;
         List<Notice> notices;
         Notice noticeToModify;
         int currentPage = 1;
         int maxPages;
         int maxNoticePerPage = 10;
 
-        public UcMySells(List<Notice> notices)
+        public UcMySells(User user)
         {
             InitializeComponent();
-            this.notices = notices;
-            double max = (double)notices.Count() / maxNoticePerPage;
-            maxPages = (int)Math.Ceiling(max);
+            this.user = user;
         }
 
         public Notice NoticeToModify { get { return noticeToModify; } }
 
         private void UcMySells_Load(object sender, EventArgs e)
         {
+            this.notices = user.GetSells();
+            if(this.notices == null )
+            {
+                DisplayError();
+                return;
+            }
+            double max = (double)notices.Count() / maxNoticePerPage;
+            maxPages = (int)Math.Ceiling(max);
             DisplayPage();
         }
 
@@ -128,10 +135,16 @@ namespace SellBuyAuto
                         {
                             db.DeleteNotices(noticeId);
                             FlpVehicles.Controls.Remove(ucMySellsVehicleLabel);
+                            user.DeleteNotice(noticeId);
                         }
                     }
                 }
             }
+        }
+
+        private void DisplayError()
+        {
+            MessageBox.Show("Vous n'avez aucune vente !");
         }
 
         // Méthode qui permet de passer à la page précédente

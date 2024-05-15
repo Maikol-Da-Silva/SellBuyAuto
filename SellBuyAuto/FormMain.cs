@@ -3,7 +3,7 @@
  * brief         : This file contains the code of the controls in the FormMain
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 07.05.2024
- * update Date   : 14.05.2024
+ * update Date   : 15.05.2024
 */
 
 namespace SellBuyAuto
@@ -42,6 +42,8 @@ namespace SellBuyAuto
             ucHome.AdvancedSearchClick += DisplayAdvancedSearch;
             ucHome.SearchClick += DisplayQuickSearchResult;
             currentUc = ucHome;
+            btLogin.BringToFront();
+            lblUsername.BringToFront();
         }
 
         // Méthode qui affiche la page contenant les résultats de la recherche rapide
@@ -58,6 +60,8 @@ namespace SellBuyAuto
                 ucVehicleSearch.Name = "ucVehicleSearch";
                 ucVehicleSearch.BringToFront();
                 currentUc = ucVehicleSearch;
+                btLogin.BringToFront();
+                lblUsername.BringToFront();
             }
         }
 
@@ -79,6 +83,8 @@ namespace SellBuyAuto
             ucAdvancedSearch.BringToFront();
             ucAdvancedSearch.SearchClick += DisplayAdvancedSearchResult;
             currentUc = ucAdvancedSearch;
+            btLogin.BringToFront();
+            lblUsername.BringToFront();
         }
 
         // Méthode qui affiche la page contenant les résultats de la recherche avancée
@@ -95,6 +101,8 @@ namespace SellBuyAuto
                 ucVehicleSearch.Name = "ucVehicleSearch";
                 ucVehicleSearch.BringToFront();
                 currentUc = ucVehicleSearch;
+                btLogin.BringToFront();
+                lblUsername.BringToFront();
             }
         }
 
@@ -114,8 +122,10 @@ namespace SellBuyAuto
             ucAddModifyVehicle.Location = new Point(0, 53);
             ucAddModifyVehicle.Name = "ucAddModifyVehicle";
             ucAddModifyVehicle.BringToFront();
-            ucAddModifyVehicle.DisplayHome += DisplayHome;
+            ucAddModifyVehicle.DisplaySells += DisplayMySells;
             currentUc = ucAddModifyVehicle;
+            btLogin.BringToFront();
+            lblUsername.BringToFront();
         }
 
         //Méthode qui affiche la page mes ventes
@@ -129,13 +139,15 @@ namespace SellBuyAuto
             {
                 this.Controls.Remove(currentUc);
             }
-            UcMySells ucMySells = new UcMySells(user.GetSells());
+            UcMySells ucMySells = new UcMySells(user);
             this.Controls.Add(ucMySells);
             ucMySells.Location = new Point(0, 53);
             ucMySells.Name = "ucMySells";
             ucMySells.BringToFront();
             ucMySells.ModifyClick += DisplayModifyNotice;
             currentUc = ucMySells;
+            btLogin.BringToFront();
+            lblUsername.BringToFront();
         }
 
         // Méthode qui affiche la page de modification
@@ -151,8 +163,10 @@ namespace SellBuyAuto
             ucAddModifyVehicle.Location = new Point(0, 53);
             ucAddModifyVehicle.Name = "ucAddModifyVehicle";
             ucAddModifyVehicle.BringToFront();
-            ucAddModifyVehicle.DisplayHome += DisplayHome;
+            ucAddModifyVehicle.DisplaySells += DisplayMySells;
             currentUc = ucAddModifyVehicle;
+            btLogin.BringToFront();
+            lblUsername.BringToFront();
         }
 
         private void rechercherToolStripMenuItem1_Click(object sender, EventArgs e)
