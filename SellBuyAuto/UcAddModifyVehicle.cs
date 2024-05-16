@@ -27,6 +27,7 @@ namespace SellBuyAuto
         User user;
         Notice notice;
         string[] imagesNames;
+        bool validate = false;
 
         public UcAddModifyVehicle(User user)
         {
@@ -40,6 +41,8 @@ namespace SellBuyAuto
             this.user = user;
             this.notice = notice;
         }
+
+        public bool Validate {  get { return validate; }}
 
         // Permet de charger les motorisations dans le ComboBox
         private void UcAddModifyVehicle_Load(object sender, EventArgs e)
@@ -117,6 +120,8 @@ namespace SellBuyAuto
                 
                 MessageBox.Show("La voiture a bien été modifié");
 
+                validate = true;
+
                 DisplaySells?.Invoke();
 
             }
@@ -125,6 +130,8 @@ namespace SellBuyAuto
                 user.AddNotice(txtBrand.Text, txtModel.Text, txtDescription.Text, (cbEngineType.SelectedIndex + 1), cbEngineType.Text, (int)numPrice.Value, (int)numYear.Value, (int)numMileage.Value, imagesNames);
 
                 MessageBox.Show("La voiture a bien été ajouté");
+
+                validate = true;
 
                 DisplaySells?.Invoke();
 

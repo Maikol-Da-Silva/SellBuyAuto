@@ -114,7 +114,7 @@ namespace SellBuyAuto
 
             Notice notice = new Notice(idNotice, idCar, this.idUser, DateTime.Now, price,
             brand, model, year, mileage, description, engineType);
-            if(this.sells.Count > 0)
+            if(this.sells != null && this.sells.Count > 0)
             {
                 this.sells.Add(notice);
             }

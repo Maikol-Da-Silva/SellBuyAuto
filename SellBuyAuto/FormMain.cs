@@ -175,14 +175,18 @@ namespace SellBuyAuto
         {
             if (currentUc is UcAddModifyVehicle)
             {
-                DialogResult myResult = MessageBox.Show("Êtes-vous sûr de vouloir quitter le formulaire ? Les changements ne seront pas sauvegardés !", "Confirmation de sortie", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (myResult == DialogResult.Yes)
+                UcAddModifyVehicle ucAddModifyVehicle = (UcAddModifyVehicle)currentUc;
+                if(!ucAddModifyVehicle.Validate) 
                 {
-                    return false;
-                }
-                else
-                {
-                    return true;
+                    DialogResult myResult = MessageBox.Show("Êtes-vous sûr de vouloir quitter le formulaire ? Les changements ne seront pas sauvegardés !", "Confirmation de sortie", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (myResult == DialogResult.Yes)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 }
             }
             return false;
