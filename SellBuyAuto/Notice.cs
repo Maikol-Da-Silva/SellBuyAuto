@@ -3,7 +3,7 @@
  * brief         : This file contains the class of Notice
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 07.05.2024
- * update Date   : 15.05.2024
+ * update Date   : 16.05.2024
 */
 
 using System;
@@ -117,6 +117,27 @@ namespace SellBuyAuto
         // Méthode qui permet de récupérer les images à travers une connexion FTP
         public List<Bitmap> GetImages()
         {
+            if(this.images.Count == 0)
+            {
+                DBConnection db = new DBConnection();
+
+                string images = db.GetImages(idCar);
+                string[] imagesList = images.Split('/');
+                List<Bitmap> bitmaps = new List<Bitmap>();
+
+                FTPConnection ftp = new FTPConnection();
+                foreach (string image in imagesList)
+                {
+                    bitmaps.Add(ftp.GetImage(image));
+                }
+                this.images = bitmaps;
+            }
+            
+            return this.images;
+        }
+
+        public  List<Bitmap> GetImagesFromFTP(CancellationToken token)
+        {
             DBConnection db = new DBConnection();
 
             string images = db.GetImages(idCar);
@@ -126,10 +147,13 @@ namespace SellBuyAuto
             FTPConnection ftp = new FTPConnection();
             foreach (string image in imagesList)
             {
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
                 bitmaps.Add(ftp.GetImage(image));
             }
-            this.images = bitmaps;
-            return this.images;
+            return bitmaps;
         }
 
         // Méthode qui permet de supprimer les images de la mémoire

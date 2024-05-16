@@ -3,8 +3,10 @@
  * brief         : This file contains the code of the controls in the FormMain
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 07.05.2024
- * update Date   : 15.05.2024
+ * update Date   : 16.05.2024
 */
+
+using Mysqlx.Crud;
 
 namespace SellBuyAuto
 {
@@ -26,7 +28,7 @@ namespace SellBuyAuto
         // Méthode qui affiche la page d'accueil
         private void DisplayHome()
         {
-            if (currentUc is UcHome)
+            if (currentUc is UcHome || CheckAddOrModify())
             {
                 return;
             }
@@ -68,7 +70,7 @@ namespace SellBuyAuto
         // Méthode qui affiche la page de recherche avancée
         private void DisplayAdvancedSearch()
         {
-            if (currentUc is UCAdvancedSearch)
+            if (currentUc is UCAdvancedSearch || CheckAddOrModify())
             {
                 return;
             }
@@ -109,7 +111,7 @@ namespace SellBuyAuto
         // Méthode qui affiche la page d'ajout d'une annonce
         private void DisplayAddNotice()
         {
-            if (currentUc is UcAddModifyVehicle)
+            if (CheckAddOrModify())
             {
                 return;
             }
@@ -131,7 +133,7 @@ namespace SellBuyAuto
         //Méthode qui affiche la page mes ventes
         private void DisplayMySells()
         {
-            if (currentUc is UcMySells)
+            if (currentUc is UcMySells || CheckAddOrModify())
             {
                 return;
             }
@@ -167,6 +169,23 @@ namespace SellBuyAuto
             currentUc = ucAddModifyVehicle;
             btLogin.BringToFront();
             lblUsername.BringToFront();
+        }
+
+        private bool CheckAddOrModify()
+        {
+            if (currentUc is UcAddModifyVehicle)
+            {
+                DialogResult myResult = MessageBox.Show("Êtes-vous sûr de vouloir quitter le formulaire ? Les changements ne seront pas sauvegardés !", "Confirmation de sortie", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (myResult == DialogResult.Yes)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void rechercherToolStripMenuItem1_Click(object sender, EventArgs e)

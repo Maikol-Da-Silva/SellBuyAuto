@@ -3,7 +3,7 @@
  * brief         : This file contains the code of the UserControl UcMySellsVehicleLabel
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 14.05.2024
- * update Date   : 15.05.2024
+ * update Date   : 16.05.2024
 */
 
 using System;
@@ -24,6 +24,7 @@ namespace SellBuyAuto
         public event Action DeleteClick;
 
         Notice notice;
+        CancellationTokenSource cts;
         bool clicked = false;
 
         public UcMySellsVehicleLabel(Notice notice)
@@ -41,13 +42,26 @@ namespace SellBuyAuto
             lblTitle.Text = notice.ToString();
             lblInfo.Text = $"Kilométrage : {notice.Mileage}  Année : {notice.Year}  Prix : {notice.Price}";
             lblDescription.Text = notice.Description;
-            GetImages();
+            cts = new CancellationTokenSource();
+            GetImages(cts.Token);
+        }
+
+        public void CancelGetImages()
+        {
+            cts.Cancel();
         }
 
         // Méthode qui permet de récupérer les images en arrière-plan
-        async void GetImages()
+        async void GetImages(CancellationToken token)
         {
-            await Task.Run(() => { pbVehicleImage.Image = notice.GetImages()[0]; });
+            await Task.Run(() =>
+            {
+                List<Bitmap> images = notice.GetImagesFromFTP(token);
+                if (images.Count > 0)
+                {
+                    pbVehicleImage.Image = images[0];
+                }
+            });
         }
 
         private void btModify_Click(object sender, EventArgs e)

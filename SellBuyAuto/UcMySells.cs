@@ -3,7 +3,7 @@
  * brief         : This file contains the code of the UserControl UcMySells
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 14.05.2024
- * update Date   : 15.05.2024
+ * update Date   : 16.05.2024
 */
 
 using System;
@@ -25,6 +25,7 @@ namespace SellBuyAuto
         User user;
         List<Notice> notices;
         Notice noticeToModify;
+        List<UcMySellsVehicleLabel> ucMySellsVehicleLabels;
         int currentPage = 1;
         int maxPages;
         int maxNoticePerPage = 10;
@@ -39,6 +40,7 @@ namespace SellBuyAuto
 
         private void UcMySells_Load(object sender, EventArgs e)
         {
+            ucMySellsVehicleLabels = new List<UcMySellsVehicleLabel>();
             this.notices = user.GetSells();
             if(this.notices == null )
             {
@@ -66,6 +68,7 @@ namespace SellBuyAuto
                     ucMySellsVehicleLabel.BringToFront();
                     ucMySellsVehicleLabel.ModifyClick += DisplayModifyPage;
                     ucMySellsVehicleLabel.DeleteClick += DeleteNotice;
+                    ucMySellsVehicleLabels.Add(ucMySellsVehicleLabel);
                 }
             }
             lblPages.Text = $"Page {currentPage} sur {maxPages}";
@@ -78,13 +81,16 @@ namespace SellBuyAuto
             foreach(Control control in FlpVehicles.Controls)
             {
                 UcMySellsVehicleLabel ucMySellsVehicleLabel = (UcMySellsVehicleLabel)control;
+
+                ucMySellsVehicleLabel.CancelGetImages();
+
                 if (ucMySellsVehicleLabel.Clicked)
                 {
                     noticeToModify = ucMySellsVehicleLabel.Notice;
                     ModifyClick?.Invoke();
-                    break;
                 }
             }
+            ucMySellsVehicleLabels.Clear();
         }
 
         // Méthode qui permet de supprimer une annonce (rend le champs active a false dans la base de donnée)
@@ -158,8 +164,10 @@ namespace SellBuyAuto
                     if (currentNotice <= notices.Count - 1)
                     {
                         notices[currentNotice].ClearImages();
+                        ucMySellsVehicleLabels[i].CancelGetImages();
                     }
                 }
+                ucMySellsVehicleLabels.Clear();
                 currentPage--;
                 DisplayPage();
             }
@@ -176,8 +184,10 @@ namespace SellBuyAuto
                     if (currentNotice <= notices.Count - 1)
                     {
                         notices[currentNotice].ClearImages();
+                        ucMySellsVehicleLabels[i].CancelGetImages();
                     }
                 }
+                ucMySellsVehicleLabels.Clear();
                 currentPage++;
                 DisplayPage();
             }
