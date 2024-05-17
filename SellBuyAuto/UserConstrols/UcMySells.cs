@@ -3,7 +3,7 @@
  * brief         : This file contains the code of the UserControl UcMySells
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 14.05.2024
- * update Date   : 16.05.2024
+ * update Date   : 17.05.2024
 */
 
 using System;
@@ -24,8 +24,9 @@ namespace SellBuyAuto
 
         User user;
         List<Notice> notices;
-        Notice noticeToModify;
+        Notice currentNotice;
         List<UcMySellsVehicleLabel> ucMySellsVehicleLabels;
+        UcVehicleSold ucVehicleSold;
         int currentPage = 1;
         int maxPages;
         int maxNoticePerPage = 10;
@@ -36,7 +37,7 @@ namespace SellBuyAuto
             this.user = user;
         }
 
-        public Notice NoticeToModify { get { return noticeToModify; } }
+        public Notice NoticeToModify { get { return currentNotice; } }
 
         private void UcMySells_Load(object sender, EventArgs e)
         {
@@ -66,8 +67,12 @@ namespace SellBuyAuto
                     ucMySellsVehicleLabel.BorderStyle = BorderStyle.FixedSingle;
                     ucMySellsVehicleLabel.Name = "ucMySellsVehicleLabel";
                     ucMySellsVehicleLabel.BringToFront();
-                    ucMySellsVehicleLabel.ModifyClick += DisplayModifyPage;
+                    ucMySellsVehicleLabel.SoldClick += DisplaySoldPage;
                     ucMySellsVehicleLabel.DeleteClick += DeleteNotice;
+                    if (notices[currentNotice].IdBuyer == 0)
+                    {
+                        ucMySellsVehicleLabel.Click += UcMySellsVehicleLabel_Click;
+                    }
                     ucMySellsVehicleLabels.Add(ucMySellsVehicleLabel);
                 }
             }
@@ -75,22 +80,62 @@ namespace SellBuyAuto
             FlpVehicles.Visible = true;
         }
 
-        // Méthode qui permet d'affiché la page de modification à travers un event envoyé au FormMain
-        private void DisplayModifyPage()
+        // Méthode qui permet d'afficher la page pour marque l'annonce comme vendue
+        private void DisplaySoldPage()
         {
-            foreach(Control control in FlpVehicles.Controls)
+            foreach(Control control in this.Controls)
+            {
+                control.Enabled = false;
+            }
+            foreach (Control control in FlpVehicles.Controls)
             {
                 UcMySellsVehicleLabel ucMySellsVehicleLabel = (UcMySellsVehicleLabel)control;
-
-                ucMySellsVehicleLabel.CancelGetImages();
-
                 if (ucMySellsVehicleLabel.Clicked)
                 {
-                    noticeToModify = ucMySellsVehicleLabel.Notice;
-                    ModifyClick?.Invoke();
+                    currentNotice = ucMySellsVehicleLabel.Notice;
+                    break;
                 }
             }
-            ucMySellsVehicleLabels.Clear();
+            ucVehicleSold = new UcVehicleSold(user, currentNotice.IdNotice);
+            this.Controls.Add(ucVehicleSold);
+            ucVehicleSold.Location = new Point(387, 183);
+            ucVehicleSold.Name = "ucVehicleSold";
+            ucVehicleSold.BorderStyle = BorderStyle.FixedSingle;
+            ucVehicleSold.Cancel += CancelSoldPage;
+            ucVehicleSold.Validate += ValidateSoldPage;
+            ucVehicleSold.BringToFront();
+        }
+
+        private void ValidateSoldPage()
+        {
+            CancelSoldPage();
+            foreach (Control control in FlpVehicles.Controls)
+            {
+                UcMySellsVehicleLabel ucMySellsVehicleLabel = (UcMySellsVehicleLabel)control;
+                if (ucMySellsVehicleLabel.Clicked)
+                {
+                    ucMySellsVehicleLabel.Clicked = false;
+                    ucMySellsVehicleLabel.SetSold();
+                    user.SetSold(currentNotice.IdNotice, ucVehicleSold.Buyer);
+                    ucVehicleSold = null;
+                    break;
+                }
+            }
+        }
+
+        private void CancelSoldPage()
+        {
+            foreach (Control control in this.Controls)
+            {
+                if (control.Enabled)
+                {
+                    this.Controls.Remove(control);
+                }
+                else
+                {
+                    control.Enabled = true;
+                }
+            }
         }
 
         // Méthode qui permet de supprimer une annonce (rend le champs active a false dans la base de donnée)
@@ -190,6 +235,26 @@ namespace SellBuyAuto
                 ucMySellsVehicleLabels.Clear();
                 currentPage++;
                 DisplayPage();
+            }
+        }
+
+        // Méthode qui permet d'affiché la page de modification à travers un event envoyé au FormMain
+        private void UcMySellsVehicleLabel_Click(object sender, EventArgs e)
+        {
+            if (sender is UcMySellsVehicleLabel)
+            {
+                foreach (Control control in FlpVehicles.Controls)
+                {
+                    UcMySellsVehicleLabel VehicleLabel = (UcMySellsVehicleLabel)control;
+
+                    VehicleLabel.CancelGetImages();
+                }
+
+                ucMySellsVehicleLabels.Clear();
+
+                UcMySellsVehicleLabel ucMySellsVehicleLabel = (UcMySellsVehicleLabel)sender;
+                currentNotice = ucMySellsVehicleLabel.Notice;
+                ModifyClick?.Invoke();
             }
         }
     }

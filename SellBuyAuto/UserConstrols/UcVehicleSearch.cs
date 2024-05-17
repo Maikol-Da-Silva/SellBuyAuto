@@ -3,7 +3,7 @@
  * brief         : This file contains the code of the UserControl UcVehicleSearch
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 08.05.2024
- * update Date   : 16.05.2024
+ * update Date   : 17.05.2024
 */
 
 using System;
@@ -20,8 +20,11 @@ namespace SellBuyAuto
 {
     public partial class UcVehicleSearch : UserControl
     {
+        public event Action DisplayDetail;
+
         List<Notice> notices;
         List<UcVehicleLabel> ucVehicleLabels;
+        Notice notice;
         int currentPage = 1;
         int maxPages;
         int maxNoticePerPage = 10;
@@ -34,6 +37,8 @@ namespace SellBuyAuto
             double max = (double)notices.Count() / maxNoticePerPage;
             maxPages = (int)Math.Ceiling(max);
         }
+
+        public Notice Notice {  get { return notice; } }
 
         private void UcVehicleSearch_Load(object sender, EventArgs e)
         {
@@ -56,6 +61,7 @@ namespace SellBuyAuto
                     ucVehicleLabel.BorderStyle = BorderStyle.FixedSingle;
                     ucVehicleLabel.Name = "ucVehicleLabel";
                     ucVehicleLabel.BringToFront();
+                    ucVehicleLabel.Click += ucVehicleLabel_Click;
                     ucVehicleLabels.Add(ucVehicleLabel);
                 }
             }
@@ -100,6 +106,16 @@ namespace SellBuyAuto
                 ucVehicleLabels.Clear();
                 currentPage++;
                 DisplayPage();
+            }
+        }
+
+        private void ucVehicleLabel_Click(object sender, EventArgs e)
+        {
+            if(sender is UcVehicleLabel)
+            {
+                UcVehicleLabel ucVehicleLabel = (UcVehicleLabel)sender;
+                this.notice = ucVehicleLabel.Notice;
+                DisplayDetail?.Invoke();
             }
         }
     }

@@ -3,7 +3,7 @@
  * brief         : This file contains the class of Notice
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 07.05.2024
- * update Date   : 16.05.2024
+ * update Date   : 17.05.2024
 */
 
 using System;
@@ -172,6 +172,20 @@ namespace SellBuyAuto
             this.mileage = mileage;
             this.price = price;
             this.engineType = engineType;
+        }
+
+        public string GetSellerMail()
+        {
+            DBConnection db = new DBConnection();
+            string mail = db.GetMailFromUser(IdSeller);
+
+            return mail;
+        }
+
+        public void SetSold(DateTime buyDate, int idBuyer)
+        {
+            this.buyDate = buyDate;
+            this.idBuyer = idBuyer;
         }
 
         public override string ToString()

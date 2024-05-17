@@ -3,7 +3,7 @@
  * brief         : This file contains the class of User
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 07.05.2024
- * update Date   : 15.05.2024
+ * update Date   : 17.05.2024
 */
 
 using Google.Protobuf.WellKnownTypes;
@@ -51,6 +51,14 @@ namespace SellBuyAuto
             this.password = password;
             this.isAdmin = false;
             this.isBlocked = false;
+        }
+
+        public User(int idUser, string email, string username, bool isBlocked)
+        {
+            this.idUser = idUser;
+            this.email = email;
+            this.username = username;
+            this.isBlocked = isBlocked;
         }
 
         // Accesseurs
@@ -206,6 +214,17 @@ namespace SellBuyAuto
                 return null;
             }
             
+        }
+
+        public void SetSold(int idNotice, User buyer)
+        {
+            foreach(Notice notice in sells)
+            {
+                if (notice.IdNotice == idNotice)
+                {
+                    notice.SetSold(DateTime.Now, buyer.idUser);
+                }
+            }
         }
 
         public void GetPurchases()

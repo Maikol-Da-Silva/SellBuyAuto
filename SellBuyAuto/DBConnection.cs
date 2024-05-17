@@ -3,7 +3,7 @@
  * brief         : This file contains the connection to the database
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 07.05.2024
- * update Date   : 15.05.2024
+ * update Date   : 17.05.2024
 */
 
 using MySql.Data.MySqlClient;
@@ -13,6 +13,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace SellBuyAuto
 {
@@ -469,7 +470,7 @@ namespace SellBuyAuto
             MySqlCommand cmd = this.connection.CreateCommand();
 
             // SQL request
-            cmd.CommandText = "SELECT Notices.id, Notices.PublicationDate, Notices.Price, Notices.seller_id, " +
+            cmd.CommandText = "SELECT Notices.id, Notices.PublicationDate, Notices.BuyDate, Notices.Price, Notices.seller_id, Notices.buyer_id, Notices.Active, Notices.Blocked, " +
                 "Cars.id, Cars.`Year`, Cars.mileage, Cars.Description, " +
                 "Models.Name, Brands.Name, EngineTypes.`Type` FROM Notices " +
                 "INNER JOIN Cars ON Notices.car_id = Cars.id " +
@@ -486,8 +487,20 @@ namespace SellBuyAuto
             rdr.Read();
             do
             {
-                Notice notice = new Notice(rdr.GetInt32(0), rdr.GetInt32(4), rdr.GetInt32(3), rdr.GetDateTime(1), rdr.GetInt32(2), rdr.GetString(9),
-                                            rdr.GetString(8), rdr.GetInt32(5), rdr.GetInt32(6), rdr.GetString(7), rdr.GetString(10));
+                Notice notice;
+                if (!rdr.IsDBNull(5))
+                {
+                    notice = new Notice(rdr.GetInt32(0), rdr.GetInt32(8), rdr.GetInt32(5), rdr.GetInt32(4), rdr.GetDateTime(1), rdr.GetDateTime(2), rdr.GetInt32(3),
+                    rdr.GetBoolean(6), rdr.GetBoolean(7), rdr.GetString(13), rdr.GetString(12), rdr.GetInt32(9), rdr.GetInt32(10),
+                    rdr.GetString(11), rdr.GetString(14));
+                }
+                else
+                {
+                    notice = new Notice(rdr.GetInt32(0), rdr.GetInt32(8), rdr.GetInt32(4), rdr.GetDateTime(1), rdr.GetInt32(3),
+                    rdr.GetBoolean(6), rdr.GetBoolean(7), rdr.GetString(13), rdr.GetString(12), rdr.GetInt32(9), rdr.GetInt32(10),
+                    rdr.GetString(11), rdr.GetString(14));
+                }
+                    
                 notices.Add(notice);
             } while (rdr.Read());
 
@@ -603,6 +616,98 @@ namespace SellBuyAuto
             cmd.CommandText = "Update Notices SET Active = 0 WHERE id = @noticeId";
 
             // we set the value for our query, we use the parameter of the method, which is a Contact object
+            cmd.Parameters.AddWithValue("@noticeId", noticeId);
+
+            // SQL cmd execution
+            cmd.ExecuteNonQuery();
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
+        }
+
+        // Méthode qui permet de récupérer les users qui ont mis une annonce en favoris
+        public string GetMailFromUser(int sellerId)
+        {
+            MySqlDataReader rdr = null;
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = this.connection.CreateCommand();
+
+            // SQL request
+            cmd.CommandText = "SELECT Email FROM Users WHERE id = @seller_id";
+
+            // we set the value for our query, we use the parameter of the method, which is a Contact object
+            cmd.Parameters.AddWithValue("@seller_id", sellerId);
+
+            // Execution of the SQL command
+            rdr = cmd.ExecuteReader();
+
+            rdr.Read();
+
+            string mail = rdr.GetString(0);
+
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
+
+            return mail;
+        }
+
+
+        // Méthode qui permet de récuprer un utilisateur
+        public User GetUser(string email)
+        {
+            MySqlDataReader rdr = null;
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = this.connection.CreateCommand();
+
+            // SQL request
+            cmd.CommandText = "SELECT id, Email, Username, Blocked FROM Users WHERE Email = @email";
+
+            // we set the value for our query, we use the parameter of the method, which is a Contact object
+            cmd.Parameters.AddWithValue("@email", email);
+
+            // Execution of the SQL command
+            rdr = cmd.ExecuteReader();
+
+            rdr.Read();
+            User user = new User(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), rdr.GetBoolean(3));
+
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
+
+            return user;
+        }
+
+        // Méthode qui permet de modifier la table Notices et ainsi rajouté un acheteur
+        public void AddBuyerToNotices(int noticeId, string buyDate, int buyerId)
+        {
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = connection.CreateCommand();
+
+            cmd.CommandText = "Update Notices SET BuyDate = @buyDate, buyer_id = @buyerId WHERE id = @noticeId";
+
+            // we set the value for our query, we use the parameter of the method, which is a Contact object
+            cmd.Parameters.AddWithValue("@buyDate", buyDate);
+            cmd.Parameters.AddWithValue("@buyerId", buyerId);
             cmd.Parameters.AddWithValue("@noticeId", noticeId);
 
             // SQL cmd execution

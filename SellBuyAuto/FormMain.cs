@@ -3,7 +3,7 @@
  * brief         : This file contains the code of the controls in the FormMain
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 07.05.2024
- * update Date   : 16.05.2024
+ * update Date   : 17.05.2024
 */
 
 using Mysqlx.Crud;
@@ -14,6 +14,7 @@ namespace SellBuyAuto
     {
         User user;
         UserControl currentUc;
+        UcVehicleDetail ucVehicleDetail;
         public FormMain()
         {
             InitializeComponent();
@@ -26,11 +27,14 @@ namespace SellBuyAuto
         }
 
         // Méthode qui affiche la page d'accueil
-        private void DisplayHome()
+        private void DisplayHome(bool cont = false)
         {
-            if (currentUc is UcHome || CheckAddOrModify())
+            if (!cont)
             {
-                return;
+                if (currentUc is UcHome || CheckAddOrModify())
+                {
+                    return;
+                }
             }
             if (currentUc != null)
             {
@@ -61,6 +65,7 @@ namespace SellBuyAuto
                 ucVehicleSearch.Location = new Point(0, 53);
                 ucVehicleSearch.Name = "ucVehicleSearch";
                 ucVehicleSearch.BringToFront();
+                ucVehicleSearch.DisplayDetail += DisplayVehicleDetail;
                 currentUc = ucVehicleSearch;
                 btLogin.BringToFront();
                 lblUsername.BringToFront();
@@ -102,10 +107,65 @@ namespace SellBuyAuto
                 ucVehicleSearch.Location = new Point(0, 53);
                 ucVehicleSearch.Name = "ucVehicleSearch";
                 ucVehicleSearch.BringToFront();
+                ucVehicleSearch.DisplayDetail += DisplayVehicleDetail;
                 currentUc = ucVehicleSearch;
                 btLogin.BringToFront();
                 lblUsername.BringToFront();
             }
+        }
+
+        // Méthode qui permet d'afficher le détail d'une annonce
+        private void DisplayVehicleDetail()
+        {
+            if(currentUc != null)
+            {
+                currentUc.Visible = false;
+
+                UcVehicleSearch ucVehicleSearch = (UcVehicleSearch)currentUc;
+
+                if (ucVehicleDetail != null)
+                {
+                    ucVehicleDetail = null;
+                }
+
+                ucVehicleDetail = new UcVehicleDetail(ucVehicleSearch.Notice);
+                this.Controls.Add(ucVehicleDetail);
+                ucVehicleDetail.Location = new Point(0, 53);
+                ucVehicleDetail.Name = "ucVehicleDetail";
+                ucVehicleDetail.GoBack += DisplaySearch;
+                ucVehicleDetail.BuyClick += DisplayBuy;
+                ucVehicleDetail.BringToFront();
+
+                btLogin.BringToFront();
+                lblUsername.BringToFront();
+            }
+        }
+
+        private void DisplayBuy()
+        {
+            if (user == null)
+            {
+                MessageBox.Show("Vous devez vous connecter afin de contacter le vendeur !");
+            }
+            else
+            {
+                UcVehicleSearch ucVehicleSearch = (UcVehicleSearch)currentUc;
+                string mail = ucVehicleSearch.Notice.GetSellerMail();
+                if (user.Email == mail)
+                {
+                    MessageBox.Show("Vous ne pouvez pas acheter votre propre véhicule !"); 
+                    return;
+                }
+                Clipboard.SetText(mail);
+                MessageBox.Show($"Vous pouvez contacter le vendeur à l'adresse mail suivante : {mail}\nL'adresse a été copiée dans le presse-papiers. Utiliser ctrl+v pour la coller.");
+            }
+        }
+
+        // Méthode qui permet de revenir sur la page de recherche lorsque nous sommes dans la page de détail d'une annonce
+        private void DisplaySearch()
+        {
+            currentUc.Visible = true;
+            this.Controls.Remove(ucVehicleDetail);
         }
 
         // Méthode qui affiche la page d'ajout d'une annonce
@@ -248,7 +308,7 @@ namespace SellBuyAuto
                 menuStripWithoutLogin.Visible = true;
                 menuStripWithLogin.Enabled = false;
                 menuStripWithLogin.Visible = false;
-                DisplayHome();
+                DisplayHome(true);
             }
         }
     }

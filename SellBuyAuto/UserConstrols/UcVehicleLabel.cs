@@ -3,7 +3,7 @@
  * brief         : This file contains the code of the UserControl UcVehicleLabel
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 13.05.2024
- * update Date   : 16.05.2024
+ * update Date   : 17.05.2024
 */
 
 using System;
@@ -28,6 +28,8 @@ namespace SellBuyAuto
             this.notice = notice;
         }
 
+        public Notice Notice { get { return notice; } }
+
         // Méthode qui permet de mettre en place les informations de l'annonce ainsi que l'image
         private void UcVehicleLabel_Load(object sender, EventArgs e)
         {
@@ -37,6 +39,16 @@ namespace SellBuyAuto
             cts = new CancellationTokenSource();
 
             GetImages(cts.Token);
+            foreach (Control control in this.Controls)
+            {
+                control.Click += CLickControl;
+            }
+        }
+
+        private void CLickControl(object sender, EventArgs e)
+        {
+
+            this.OnClick(e);
         }
 
         public void CancelGetImages()

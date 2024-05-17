@@ -35,7 +35,7 @@ namespace SellBuyAuto
         }
 
         //Fonction qui permet de définir si une adresse mail est valide ou non
-        private static bool IsValid(string email)
+        public static bool IsValid(string email)
         {
             var valid = true;
 

@@ -32,8 +32,9 @@
             lblInfo = new Label();
             lblTitle = new Label();
             pbVehicleImage = new PictureBox();
-            btModify = new Button();
+            btSold = new Button();
             btDelete = new Button();
+            lblSold = new Label();
             ((System.ComponentModel.ISupportInitialize)pbVehicleImage).BeginInit();
             SuspendLayout();
             // 
@@ -42,9 +43,9 @@
             lblDescription.AutoSize = true;
             lblDescription.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblDescription.Location = new Point(202, 85);
-            lblDescription.MaximumSize = new Size(500, 70);
+            lblDescription.MaximumSize = new Size(400, 70);
             lblDescription.Name = "lblDescription";
-            lblDescription.Size = new Size(491, 42);
+            lblDescription.Size = new Size(379, 63);
             lblDescription.TabIndex = 7;
             lblDescription.Text = "La Toyota Corolla est une voiture compacte produite depuis 1966 par le constructeur automobile japonais Toyota.";
             // 
@@ -77,16 +78,16 @@
             pbVehicleImage.TabIndex = 4;
             pbVehicleImage.TabStop = false;
             // 
-            // btModify
+            // btSold
             // 
-            btModify.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btModify.Location = new Point(622, 25);
-            btModify.Name = "btModify";
-            btModify.Size = new Size(109, 35);
-            btModify.TabIndex = 8;
-            btModify.Text = "Modifier";
-            btModify.UseVisualStyleBackColor = true;
-            btModify.Click += btModify_Click;
+            btSold.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btSold.Location = new Point(622, 25);
+            btSold.Name = "btSold";
+            btSold.Size = new Size(109, 35);
+            btSold.TabIndex = 8;
+            btSold.Text = "Vendu";
+            btSold.UseVisualStyleBackColor = true;
+            btSold.Click += btSold_Click;
             // 
             // btDelete
             // 
@@ -99,12 +100,26 @@
             btDelete.UseVisualStyleBackColor = true;
             btDelete.Click += btDelete_Click;
             // 
+            // lblSold
+            // 
+            lblSold.AutoSize = true;
+            lblSold.BackColor = Color.Transparent;
+            lblSold.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblSold.ForeColor = Color.Red;
+            lblSold.Location = new Point(328, 62);
+            lblSold.Name = "lblSold";
+            lblSold.Size = new Size(132, 50);
+            lblSold.TabIndex = 10;
+            lblSold.Text = "Vendu";
+            lblSold.Visible = false;
+            // 
             // UcMySellsVehicleLabel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(lblSold);
             Controls.Add(btDelete);
-            Controls.Add(btModify);
+            Controls.Add(btSold);
             Controls.Add(lblDescription);
             Controls.Add(lblInfo);
             Controls.Add(lblTitle);
@@ -126,7 +141,8 @@
         private Label lblInfo;
         private Label lblTitle;
         private PictureBox pbVehicleImage;
-        private Button btModify;
+        private Button btSold;
         private Button btDelete;
+        private Label lblSold;
     }
 }
