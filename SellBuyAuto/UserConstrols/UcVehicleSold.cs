@@ -3,7 +3,7 @@
  * brief         : This file contains the code of the UserControl UcVehicleSold
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 17.05.2024
- * update Date   : 17.05.2024
+ * update Date   : 21.05.2024
 */
 
 using System;
@@ -53,6 +53,11 @@ namespace SellBuyAuto
                 {
                     buyer = db.GetUser(txtEmail.Text);
                     db.AddBuyerToNotices(noticeId, DateTime.Now.ToString("yyyy-MM-dd"), buyer.IdUser);
+                    List<int> users = db.GetUsersBookMark(noticeId);
+                    foreach (int userId in users)
+                    {
+                        db.DeleteBookmark(noticeId, userId);
+                    }
                     MessageBox.Show($"L'annonce a bien été vendue à {buyer.Username}");
                     Validate?.Invoke();
                 }

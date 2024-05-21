@@ -167,6 +167,10 @@ namespace SellBuyAuto
                         if (myResult == DialogResult.Yes)
                         {
                             delete = true;
+                            foreach (int userId in users)
+                            {
+                                db.DeleteBookmark(noticeId, userId);
+                            }
                         }
                     }
                 }

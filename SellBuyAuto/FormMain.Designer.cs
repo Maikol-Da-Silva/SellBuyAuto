@@ -118,6 +118,7 @@
             mesAchatsToolStripMenuItem.Name = "mesAchatsToolStripMenuItem";
             mesAchatsToolStripMenuItem.Size = new Size(78, 20);
             mesAchatsToolStripMenuItem.Text = "Mes achats";
+            mesAchatsToolStripMenuItem.Click += mesAchatsToolStripMenuItem_Click;
             // 
             // btLogin
             // 

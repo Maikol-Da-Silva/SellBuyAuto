@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * file          : UcVehicleDetail.cs
+ * brief         : This file contains the code of the UserControl UcVehicleDetail
+ * author        : Created by Maikol Correia Da Silva
+ * creation Date : 17.05.2024
+ * update Date   : 21.05.2024
+*/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,11 +26,13 @@ namespace SellBuyAuto
         Notice notice;
         int currentImage = 0;
         int nbImages;
+        bool showBuy;
 
-        public UcVehicleDetail(Notice notice)
+        public UcVehicleDetail(Notice notice, bool showBuy = true)
         {
             InitializeComponent();
             this.notice = notice;
+            this.showBuy = showBuy;
         }
 
         private void UcVehicleDetail_Load(object sender, EventArgs e)
@@ -36,6 +46,12 @@ namespace SellBuyAuto
             lblDescription.Text = notice.Description;
 
             nbImages = notice.GetImages().Count;
+
+            if(!showBuy)
+            {
+                btBuy.Enabled = false;
+                btBuy.Visible = false;
+            }
 
         }
 

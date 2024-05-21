@@ -1,8 +1,8 @@
 ﻿/*
- * file          : UcMySellsVehicleLabel.cs
- * brief         : This file contains the code of the UserControl UcMySellsVehicleLabel
+ * file          : UcMyPurchasesVehicleLabel.cs
+ * brief         : This file contains the code of the UserControl UcMyPurchasesVehicleLabel
  * author        : Created by Maikol Correia Da Silva
- * creation Date : 14.05.2024
+ * creation Date : 21.05.2024
  * update Date   : 21.05.2024
 */
 
@@ -16,18 +16,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SellBuyAuto
+namespace SellBuyAuto.UserConstrols
 {
-    public partial class UcMySellsVehicleLabel : UserControl
+    public partial class UcMyPurchasesVehicleLabel : UserControl
     {
-        public event Action SoldClick;
         public event Action DeleteClick;
 
         Notice notice;
         CancellationTokenSource cts;
         bool clicked = false;
 
-        public UcMySellsVehicleLabel(Notice notice)
+        public UcMyPurchasesVehicleLabel(Notice notice)
         {
             InitializeComponent();
             this.notice = notice;
@@ -36,50 +35,21 @@ namespace SellBuyAuto
         public Notice Notice { get { return notice; } }
         public bool Clicked { get { return clicked; } set { clicked = value; } }
 
-        // Méthode qui permet de mettre en place les informations de l'annonce ainsi que l'image
-        private void UcMySellsVehicleLabel_Load(object sender, EventArgs e)
+        private void UcMyPurchasesVehicleLabel_Load(object sender, EventArgs e)
         {
             lblTitle.Text = notice.ToString();
             lblInfo.Text = $"Kilométrage : {notice.Mileage}  Année : {notice.Year}  Prix : {notice.Price}";
             lblDescription.Text = notice.Description;
             cts = new CancellationTokenSource();
             GetImages(cts.Token);
-
-            if(notice.IdBuyer != 0)
-            {
-                SetSold();
-            }
-            else
-            {
-                foreach (Control control in this.Controls)
-                {
-                    if (control.Name == btSold.Name || control.Name == btDelete.Name)
-                    {
-                        continue;
-                    }
-                    control.Click += CLickControl;
-                }
-            }
-        }
-
-        public void SetSold()
-        {
-            lblSold.Visible = true;
-            this.BackColor = Color.Gray;
-            btSold.Visible = false;
             foreach (Control control in this.Controls)
             {
-                if (control.Name == btDelete.Name || control.Name == lblSold.Name)
-                {
-                    continue;
-                }
-                control.Enabled = false;
+                control.Click += CLickControl;
             }
         }
 
         private void CLickControl(object sender, EventArgs e)
         {
-
             this.OnClick(e);
         }
 
@@ -99,18 +69,6 @@ namespace SellBuyAuto
                     pbVehicleImage.Image = images[0];
                 }
             });
-        }
-
-        private void btSold_Click(object sender, EventArgs e)
-        {
-            clicked = true;
-            SoldClick?.Invoke();
-        }
-
-        private void btDelete_Click(object sender, EventArgs e)
-        {
-            clicked = true;
-            DeleteClick?.Invoke();
         }
     }
 }

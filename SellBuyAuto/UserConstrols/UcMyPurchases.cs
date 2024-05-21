@@ -1,11 +1,12 @@
 ﻿/*
- * file          : UcMyBookmarks.cs
- * brief         : This file contains the code of the UserControl UcMyBookmarks
+ * file          : UcMyPurchases.cs
+ * brief         : This file contains the code of the UserControl UcMyPurchases
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 21.05.2024
  * update Date   : 21.05.2024
 */
 
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,21 +17,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SellBuyAuto
+namespace SellBuyAuto.UserConstrols
 {
-    public partial class UcMyBookmarks : UserControl
+    public partial class UcMyPurchases : UserControl
     {
         public event Action DisplayDetail;
 
         User user;
         List<Notice> notices;
         Notice notice;
-        List<UcMyBookmarksVehicleLabel> ucMyBookmarksVehicleLabels;
+        List<UcMyPurchasesVehicleLabel> ucMyPurchasesVehicleLabels;
         int currentPage = 1;
         int maxPages;
         int maxNoticePerPage = 10;
 
-        public UcMyBookmarks(User user)
+        public UcMyPurchases(User user)
         {
             InitializeComponent();
             this.user = user;
@@ -38,10 +39,10 @@ namespace SellBuyAuto
 
         public Notice Notice { get { return notice; } }
 
-        private void UcMyBookmarks_Load(object sender, EventArgs e)
+        private void UcMyPurchases_Load(object sender, EventArgs e)
         {
-            ucMyBookmarksVehicleLabels = new List<UcMyBookmarksVehicleLabel>();
-            this.notices = user.GetBookmarks();
+            ucMyPurchasesVehicleLabels = new List<UcMyPurchasesVehicleLabel>();
+            this.notices = user.GetPurchases();
             if (this.notices == null)
             {
                 DisplayError();
@@ -61,14 +62,13 @@ namespace SellBuyAuto
                 int currentNotice = ((currentPage - 1) * maxNoticePerPage) + i;
                 if (currentNotice <= notices.Count - 1)
                 {
-                    UcMyBookmarksVehicleLabel ucMyBookmarksVehicleLabel = new UcMyBookmarksVehicleLabel(notices[currentNotice]);
-                    FlpVehicles.Controls.Add(ucMyBookmarksVehicleLabel);
-                    ucMyBookmarksVehicleLabel.BorderStyle = BorderStyle.FixedSingle;
-                    ucMyBookmarksVehicleLabel.Name = "ucMyBookmarlsVehicleLabel";
-                    ucMyBookmarksVehicleLabel.BringToFront();
-                    ucMyBookmarksVehicleLabel.DeleteClick += DeleteBookmark;
-                    ucMyBookmarksVehicleLabel.Click += ucMyBookmarksVehicleLabel_Click;
-                    ucMyBookmarksVehicleLabels.Add(ucMyBookmarksVehicleLabel);
+                    UcMyPurchasesVehicleLabel ucMyPurchasesVehicleLabel = new UcMyPurchasesVehicleLabel(notices[currentNotice]);
+                    FlpVehicles.Controls.Add(ucMyPurchasesVehicleLabel);
+                    ucMyPurchasesVehicleLabel.BorderStyle = BorderStyle.FixedSingle;
+                    ucMyPurchasesVehicleLabel.Name = "ucMyPurchasesVehicleLabel";
+                    ucMyPurchasesVehicleLabel.BringToFront();
+                    ucMyPurchasesVehicleLabel.Click += ucMyPurchasesVehicleLabel_Click;
+                    ucMyPurchasesVehicleLabels.Add(ucMyPurchasesVehicleLabel);
                 }
             }
             lblPages.Text = $"Page {currentPage} sur {maxPages}";
@@ -77,25 +77,7 @@ namespace SellBuyAuto
 
         private void DisplayError()
         {
-            MessageBox.Show("Vous n'avez aucun favoris !");
-        }
-
-        private void DeleteBookmark()
-        {
-            int noticeId = 0;
-            UcMyBookmarksVehicleLabel? ucMyBookmarksVehicleLabel = null;
-            foreach (Control control in FlpVehicles.Controls)
-            {
-                ucMyBookmarksVehicleLabel = (UcMyBookmarksVehicleLabel)control;
-                if (ucMyBookmarksVehicleLabel.Clicked)
-                {
-                    Notice notice = ucMyBookmarksVehicleLabel.Notice;
-                    noticeId = notice.IdNotice;
-                    break;
-                }
-            }
-            FlpVehicles.Controls.Remove(ucMyBookmarksVehicleLabel);
-            user.DeleteBookmark(noticeId);
+            MessageBox.Show("Vous n'avez aucun achat !");
         }
 
         private void btPrevious_Click(object sender, EventArgs e)
@@ -108,10 +90,10 @@ namespace SellBuyAuto
                     if (currentNotice <= notices.Count - 1)
                     {
                         notices[currentNotice].ClearImages();
-                        ucMyBookmarksVehicleLabels[i].CancelGetImages();
+                        ucMyPurchasesVehicleLabels[i].CancelGetImages();
                     }
                 }
-                ucMyBookmarksVehicleLabels.Clear();
+                ucMyPurchasesVehicleLabels.Clear();
                 currentPage--;
                 DisplayPage();
             }
@@ -127,21 +109,21 @@ namespace SellBuyAuto
                     if (currentNotice <= notices.Count - 1)
                     {
                         notices[currentNotice].ClearImages();
-                        ucMyBookmarksVehicleLabels[i].CancelGetImages();
+                        ucMyPurchasesVehicleLabels[i].CancelGetImages();
                     }
                 }
-                ucMyBookmarksVehicleLabels.Clear();
+                ucMyPurchasesVehicleLabels.Clear();
                 currentPage++;
                 DisplayPage();
             }
         }
 
-        private void ucMyBookmarksVehicleLabel_Click(object sender, EventArgs e)
+        private void ucMyPurchasesVehicleLabel_Click(object sender, EventArgs e)
         {
-            if (sender is UcMyBookmarksVehicleLabel)
+            if (sender is UcMyPurchasesVehicleLabel)
             {
-                UcMyBookmarksVehicleLabel ucMyBookmarksVehicleLabel = (UcMyBookmarksVehicleLabel)sender;
-                this.notice = ucMyBookmarksVehicleLabel.Notice;
+                UcMyPurchasesVehicleLabel ucMyPurchasesVehicleLabel = (UcMyPurchasesVehicleLabel)sender;
+                this.notice = ucMyPurchasesVehicleLabel.Notice;
                 DisplayDetail?.Invoke();
             }
         }

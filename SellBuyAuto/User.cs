@@ -271,9 +271,21 @@ namespace SellBuyAuto
             }
         }
 
-        public void GetPurchases()
+        public List<Notice> GetPurchases()
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (purchases == null || purchases.Count == 0)
+                {
+                    DBConnection db = new DBConnection();
+                    purchases = db.GetPurchases(IdUser);
+                }
+                return purchases;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
         // Permet de upload les images en arrière-plan

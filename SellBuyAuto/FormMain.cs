@@ -7,6 +7,7 @@
 */
 
 using Mysqlx.Crud;
+using SellBuyAuto.UserConstrols;
 
 namespace SellBuyAuto
 {
@@ -95,7 +96,7 @@ namespace SellBuyAuto
 
                 this.Controls.Remove(currentUc);
                 DisplaySearch(ucAdvancedSearch.Notices);
-                
+
             }
         }
 
@@ -135,17 +136,21 @@ namespace SellBuyAuto
                     UcMyBookmarks ucMyBookmarks = (UcMyBookmarks)currentUc;
                     ucVehicleDetail = new UcVehicleDetail(ucMyBookmarks.Notice);
                 }
-                
-                this.Controls.Add(ucVehicleDetail);
-                ucVehicleDetail.Location = new Point(0, 53);
-                ucVehicleDetail.Name = "ucVehicleDetail";
-                ucVehicleDetail.GoBack += DisplaySearch;
-                ucVehicleDetail.BuyClick += DisplayBuy;
-                ucVehicleDetail.BringToFront();
-
-                btLogin.BringToFront();
-                lblUsername.BringToFront();
+                DisplayDetail();
             }
+        }
+
+        private void DisplayDetail()
+        {
+            this.Controls.Add(ucVehicleDetail);
+            ucVehicleDetail.Location = new Point(0, 53);
+            ucVehicleDetail.Name = "ucVehicleDetail";
+            ucVehicleDetail.GoBack += DisplaySearch;
+            ucVehicleDetail.BuyClick += DisplayBuy;
+            ucVehicleDetail.BringToFront();
+
+            btLogin.BringToFront();
+            lblUsername.BringToFront();
         }
 
         private void DisplayBuy()
@@ -271,7 +276,7 @@ namespace SellBuyAuto
         //Méthode qui affiche la page favoris
         private void DisplayMyBookmarks()
         {
-            if (currentUc is UcMySells || CheckAddOrModify())
+            if (currentUc is UcMyBookmarks || CheckAddOrModify())
             {
                 return;
             }
@@ -288,6 +293,41 @@ namespace SellBuyAuto
             currentUc = ucMyBookmarks;
             btLogin.BringToFront();
             lblUsername.BringToFront();
+        }
+
+        //Méthode qui affiche la page mes achats
+        private void DisplayMyPurchases()
+        {
+            if (currentUc is UcMyPurchases || CheckAddOrModify())
+            {
+                return;
+            }
+            if (currentUc != null)
+            {
+                this.Controls.Remove(currentUc);
+            }
+            UcMyPurchases ucMyPurchases = new UcMyPurchases(user);
+            this.Controls.Add(ucMyPurchases);
+            ucMyPurchases.Location = new Point(0, 53);
+            ucMyPurchases.Name = "ucMyPurchases";
+            ucMyPurchases.BringToFront();
+            ucMyPurchases.DisplayDetail += DisplayVehicleDetailFromPurchases;
+            currentUc = ucMyPurchases;
+            btLogin.BringToFront();
+            lblUsername.BringToFront();
+        }
+
+        private void DisplayVehicleDetailFromPurchases()
+        {
+            if (ucVehicleDetail != null)
+            {
+                ucVehicleDetail = null;
+            }
+
+            UcMyPurchases ucMyPurchases = (UcMyPurchases)currentUc;
+            ucVehicleDetail = new UcVehicleDetail(ucMyPurchases.Notice, false);
+
+            DisplayDetail();
         }
 
         private void rechercherToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -323,6 +363,11 @@ namespace SellBuyAuto
         private void favorisToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DisplayMyBookmarks();
+        }
+
+        private void mesAchatsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DisplayMyPurchases();
         }
 
         private void btLogin_Click(object sender, EventArgs e)
