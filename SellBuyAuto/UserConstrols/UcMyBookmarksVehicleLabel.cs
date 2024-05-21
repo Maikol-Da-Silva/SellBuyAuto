@@ -1,8 +1,8 @@
 ﻿/*
- * file          : UcVehicleLabel.cs
- * brief         : This file contains the code of the UserControl UcVehicleLabel
+ * file          : UcMyBookmarksVehicleLabel.cs
+ * brief         : This file contains the code of the UserControl UcMyBookmarksVehicleLabel
  * author        : Created by Maikol Correia Da Silva
- * creation Date : 13.05.2024
+ * creation Date : 21.05.2024
  * update Date   : 21.05.2024
 */
 
@@ -18,47 +18,33 @@ using System.Windows.Forms;
 
 namespace SellBuyAuto
 {
-    public partial class UcVehicleLabel : UserControl
+    public partial class UcMyBookmarksVehicleLabel : UserControl
     {
-        User user;
-        Notice notice;
-        bool bookmarked = false;
-        CancellationTokenSource cts;
+        public event Action DeleteClick;
 
-        public UcVehicleLabel(Notice notice, User user)
+        Notice notice;
+        CancellationTokenSource cts;
+        bool clicked = false;
+
+        public UcMyBookmarksVehicleLabel(Notice notice)
         {
             InitializeComponent();
             this.notice = notice;
-            this.user = user;
         }
 
         public Notice Notice { get { return notice; } }
+        public bool Clicked { get { return clicked; } set { clicked = value; } }
 
-        // Méthode qui permet de mettre en place les informations de l'annonce ainsi que l'image
-        private void UcVehicleLabel_Load(object sender, EventArgs e)
+        private void UcMyBookmarlsVehicleLabels_Load(object sender, EventArgs e)
         {
             lblTitle.Text = notice.ToString();
             lblInfo.Text = $"Kilométrage : {notice.Mileage}  Année : {notice.Year}  Prix : {notice.Price}";
             lblDescription.Text = notice.Description;
-            if(user == null)
-            {
-                pbBookMark.Visible = false;
-            }
-            else
-            {
-                if (user.isNoticeBookmarked(notice.IdNotice))
-                {
-                    pbBookMark.Image = Properties.Resources.Bookmarked;
-                    bookmarked = true;
-                }
-            }
-
             cts = new CancellationTokenSource();
-
             GetImages(cts.Token);
             foreach (Control control in this.Controls)
             {
-                if(control.Name == "pbBookMark")
+                if (control.Name == "btDelete")
                 {
                     continue;
                 }
@@ -68,7 +54,6 @@ namespace SellBuyAuto
 
         private void CLickControl(object sender, EventArgs e)
         {
-
             this.OnClick(e);
         }
 
@@ -90,20 +75,10 @@ namespace SellBuyAuto
             });
         }
 
-        private void pbBookmark_Click(object sender, EventArgs e)
+        private void btDelete_Click(object sender, EventArgs e)
         {
-            if (bookmarked)
-            {
-                user.DeleteBookmark(notice.IdNotice);
-                pbBookMark.Image = Properties.Resources.ToBookmark;
-                bookmarked = false;
-            }
-            else
-            {
-                user.AddBookmark(notice);
-                pbBookMark.Image = Properties.Resources.Bookmarked;
-                bookmarked = true;
-            }
-        }
+            clicked = true;
+            DeleteClick?.Invoke();
+        }        
     }
 }

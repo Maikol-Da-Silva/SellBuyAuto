@@ -32,7 +32,9 @@
             lblTitle = new Label();
             lblInfo = new Label();
             lblDescription = new Label();
+            pbBookMark = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pbVehicleImage).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbBookMark).BeginInit();
             SuspendLayout();
             // 
             // pbVehicleImage
@@ -75,10 +77,22 @@
             lblDescription.TabIndex = 3;
             lblDescription.Text = "La Toyota Corolla est une voiture compacte produite depuis 1966 par le constructeur automobile japonais Toyota.";
             // 
+            // pbBookMark
+            // 
+            pbBookMark.Image = Properties.Resources.ToBookmark;
+            pbBookMark.Location = new Point(714, 3);
+            pbBookMark.Name = "pbBookMark";
+            pbBookMark.Size = new Size(46, 41);
+            pbBookMark.SizeMode = PictureBoxSizeMode.Zoom;
+            pbBookMark.TabIndex = 4;
+            pbBookMark.TabStop = false;
+            pbBookMark.Click += pbBookmark_Click;
+            // 
             // UcVehicleLabel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(pbBookMark);
             Controls.Add(lblDescription);
             Controls.Add(lblInfo);
             Controls.Add(lblTitle);
@@ -90,6 +104,7 @@
             Size = new Size(763, 178);
             Load += UcVehicleLabel_Load;
             ((System.ComponentModel.ISupportInitialize)pbVehicleImage).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbBookMark).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -100,5 +115,6 @@
         private Label lblTitle;
         private Label lblInfo;
         private Label lblDescription;
+        private PictureBox pbBookMark;
     }
 }

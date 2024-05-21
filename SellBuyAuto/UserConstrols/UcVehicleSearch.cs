@@ -3,7 +3,7 @@
  * brief         : This file contains the code of the UserControl UcVehicleSearch
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 08.05.2024
- * update Date   : 17.05.2024
+ * update Date   : 21.05.2024
 */
 
 using System;
@@ -22,23 +22,28 @@ namespace SellBuyAuto
     {
         public event Action DisplayDetail;
 
+        User user;
         List<Notice> notices;
         List<UcVehicleLabel> ucVehicleLabels;
         Notice notice;
-        int currentPage = 1;
+        int currentPage;
         int maxPages;
         int maxNoticePerPage = 10;
 
         // Constructeur qui prend comme paramètre la liste des annonces
-        public UcVehicleSearch(List<Notice> notices)
+        public UcVehicleSearch(List<Notice> notices, User user, int currentPage)
         {
             InitializeComponent();
             this.notices = notices;
             double max = (double)notices.Count() / maxNoticePerPage;
             maxPages = (int)Math.Ceiling(max);
+            this.user = user;
+            this.currentPage = currentPage;
         }
 
         public Notice Notice {  get { return notice; } }
+        public List<Notice> Notices {  get { return notices; } }
+        public int CurrentPage {  get { return currentPage; } }
 
         private void UcVehicleSearch_Load(object sender, EventArgs e)
         {
@@ -56,7 +61,7 @@ namespace SellBuyAuto
                 int currentNotice = ((currentPage - 1) * maxNoticePerPage) + i;
                 if (currentNotice <= notices.Count - 1)
                 {
-                    UcVehicleLabel ucVehicleLabel = new UcVehicleLabel(notices[currentNotice]);
+                    UcVehicleLabel ucVehicleLabel = new UcVehicleLabel(notices[currentNotice], user);
                     FlpVehicles.Controls.Add(ucVehicleLabel);
                     ucVehicleLabel.BorderStyle = BorderStyle.FixedSingle;
                     ucVehicleLabel.Name = "ucVehicleLabel";

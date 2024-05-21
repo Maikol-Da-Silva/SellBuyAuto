@@ -1,6 +1,6 @@
 ﻿namespace SellBuyAuto
 {
-    partial class UcMySells
+    partial class UcMyBookmarks
     {
         /// <summary> 
         /// Required designer variable.
@@ -41,7 +41,7 @@
             btNext.Location = new Point(634, 552);
             btNext.Name = "btNext";
             btNext.Size = new Size(75, 23);
-            btNext.TabIndex = 11;
+            btNext.TabIndex = 17;
             btNext.Text = "Suivant";
             btNext.UseVisualStyleBackColor = true;
             btNext.Click += btNext_Click;
@@ -52,7 +52,7 @@
             lblPages.Location = new Point(541, 556);
             lblPages.Name = "lblPages";
             lblPages.Size = new Size(70, 15);
-            lblPages.TabIndex = 10;
+            lblPages.TabIndex = 16;
             lblPages.Text = "Page 1 sur 1";
             // 
             // btPrevious
@@ -60,7 +60,7 @@
             btPrevious.Location = new Point(436, 552);
             btPrevious.Name = "btPrevious";
             btPrevious.Size = new Size(75, 23);
-            btPrevious.TabIndex = 9;
+            btPrevious.TabIndex = 15;
             btPrevious.Text = "Précédant";
             btPrevious.UseVisualStyleBackColor = true;
             btPrevious.Click += btPrevious_Click;
@@ -71,9 +71,9 @@
             lblTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTitle.Location = new Point(39, 32);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(142, 32);
-            lblTitle.TabIndex = 7;
-            lblTitle.Text = "Mes ventes";
+            lblTitle.Size = new Size(146, 32);
+            lblTitle.TabIndex = 13;
+            lblTitle.Text = "Mes favoris";
             // 
             // FlpVehicles
             // 
@@ -83,7 +83,7 @@
             FlpVehicles.Location = new Point(39, 86);
             FlpVehicles.Name = "FlpVehicles";
             FlpVehicles.Size = new Size(1107, 436);
-            FlpVehicles.TabIndex = 8;
+            FlpVehicles.TabIndex = 14;
             // 
             // label1
             // 
@@ -92,10 +92,10 @@
             label1.Location = new Point(497, 262);
             label1.Name = "label1";
             label1.Size = new Size(174, 32);
-            label1.TabIndex = 12;
+            label1.TabIndex = 18;
             label1.Text = "Chargement...";
             // 
-            // UcMySells
+            // UcMyBookmarks
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -107,9 +107,9 @@
             Controls.Add(label1);
             MaximumSize = new Size(1184, 607);
             MinimumSize = new Size(1184, 607);
-            Name = "UcMySells";
+            Name = "UcMyBookmarks";
             Size = new Size(1184, 607);
-            Load += UcMySells_Load;
+            Load += UcMyBookmarks_Load;
             ResumeLayout(false);
             PerformLayout();
         }

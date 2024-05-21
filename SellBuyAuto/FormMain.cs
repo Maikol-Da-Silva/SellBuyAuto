@@ -3,7 +3,7 @@
  * brief         : This file contains the code of the controls in the FormMain
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 07.05.2024
- * update Date   : 17.05.2024
+ * update Date   : 21.05.2024
 */
 
 using Mysqlx.Crud;
@@ -60,15 +60,7 @@ namespace SellBuyAuto
                 UcHome ucHome = (UcHome)currentUc;
 
                 this.Controls.Remove(currentUc);
-                UcVehicleSearch ucVehicleSearch = new UcVehicleSearch(ucHome.Notices);
-                this.Controls.Add(ucVehicleSearch);
-                ucVehicleSearch.Location = new Point(0, 53);
-                ucVehicleSearch.Name = "ucVehicleSearch";
-                ucVehicleSearch.BringToFront();
-                ucVehicleSearch.DisplayDetail += DisplayVehicleDetail;
-                currentUc = ucVehicleSearch;
-                btLogin.BringToFront();
-                lblUsername.BringToFront();
+                DisplaySearch(ucHome.Notices);
             }
         }
 
@@ -102,33 +94,48 @@ namespace SellBuyAuto
                 UCAdvancedSearch ucAdvancedSearch = (UCAdvancedSearch)currentUc;
 
                 this.Controls.Remove(currentUc);
-                UcVehicleSearch ucVehicleSearch = new UcVehicleSearch(ucAdvancedSearch.Notices);
-                this.Controls.Add(ucVehicleSearch);
-                ucVehicleSearch.Location = new Point(0, 53);
-                ucVehicleSearch.Name = "ucVehicleSearch";
-                ucVehicleSearch.BringToFront();
-                ucVehicleSearch.DisplayDetail += DisplayVehicleDetail;
-                currentUc = ucVehicleSearch;
-                btLogin.BringToFront();
-                lblUsername.BringToFront();
+                DisplaySearch(ucAdvancedSearch.Notices);
+                
             }
+        }
+
+        private void DisplaySearch(List<Notice> notices, int currentPage = 1)
+        {
+            UcVehicleSearch ucVehicleSearch = new UcVehicleSearch(notices, user, currentPage);
+            this.Controls.Add(ucVehicleSearch);
+            ucVehicleSearch.Location = new Point(0, 53);
+            ucVehicleSearch.Name = "ucVehicleSearch";
+            ucVehicleSearch.BringToFront();
+            ucVehicleSearch.DisplayDetail += DisplayVehicleDetail;
+            currentUc = ucVehicleSearch;
+            btLogin.BringToFront();
+            lblUsername.BringToFront();
         }
 
         // Méthode qui permet d'afficher le détail d'une annonce
         private void DisplayVehicleDetail()
         {
-            if(currentUc != null)
+            if (currentUc != null)
             {
                 currentUc.Visible = false;
 
-                UcVehicleSearch ucVehicleSearch = (UcVehicleSearch)currentUc;
 
                 if (ucVehicleDetail != null)
                 {
                     ucVehicleDetail = null;
                 }
 
-                ucVehicleDetail = new UcVehicleDetail(ucVehicleSearch.Notice);
+                if (currentUc is UcVehicleSearch)
+                {
+                    UcVehicleSearch ucVehicleSearch = (UcVehicleSearch)currentUc;
+                    ucVehicleDetail = new UcVehicleDetail(ucVehicleSearch.Notice);
+                }
+                else
+                {
+                    UcMyBookmarks ucMyBookmarks = (UcMyBookmarks)currentUc;
+                    ucVehicleDetail = new UcVehicleDetail(ucMyBookmarks.Notice);
+                }
+                
                 this.Controls.Add(ucVehicleDetail);
                 ucVehicleDetail.Location = new Point(0, 53);
                 ucVehicleDetail.Name = "ucVehicleDetail";
@@ -149,11 +156,20 @@ namespace SellBuyAuto
             }
             else
             {
-                UcVehicleSearch ucVehicleSearch = (UcVehicleSearch)currentUc;
-                string mail = ucVehicleSearch.Notice.GetSellerMail();
+                string mail;
+                if (currentUc is UcVehicleSearch)
+                {
+                    UcVehicleSearch ucVehicleSearch = (UcVehicleSearch)currentUc;
+                    mail = ucVehicleSearch.Notice.GetSellerMail();
+                }
+                else
+                {
+                    UcMyBookmarks ucMyBookmarks = (UcMyBookmarks)currentUc;
+                    mail = ucMyBookmarks.Notice.GetSellerMail();
+                }
                 if (user.Email == mail)
                 {
-                    MessageBox.Show("Vous ne pouvez pas acheter votre propre véhicule !"); 
+                    MessageBox.Show("Vous ne pouvez pas acheter votre propre véhicule !");
                     return;
                 }
                 Clipboard.SetText(mail);
@@ -236,7 +252,7 @@ namespace SellBuyAuto
             if (currentUc is UcAddModifyVehicle)
             {
                 UcAddModifyVehicle ucAddModifyVehicle = (UcAddModifyVehicle)currentUc;
-                if(!ucAddModifyVehicle.Validate) 
+                if (!ucAddModifyVehicle.Validate)
                 {
                     DialogResult myResult = MessageBox.Show("Êtes-vous sûr de vouloir quitter le formulaire ? Les changements ne seront pas sauvegardés !", "Confirmation de sortie", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (myResult == DialogResult.Yes)
@@ -250,6 +266,28 @@ namespace SellBuyAuto
                 }
             }
             return false;
+        }
+
+        //Méthode qui affiche la page favoris
+        private void DisplayMyBookmarks()
+        {
+            if (currentUc is UcMySells || CheckAddOrModify())
+            {
+                return;
+            }
+            if (currentUc != null)
+            {
+                this.Controls.Remove(currentUc);
+            }
+            UcMyBookmarks ucMyBookmarks = new UcMyBookmarks(user);
+            this.Controls.Add(ucMyBookmarks);
+            ucMyBookmarks.Location = new Point(0, 53);
+            ucMyBookmarks.Name = "ucMyBookmarks";
+            ucMyBookmarks.BringToFront();
+            ucMyBookmarks.DisplayDetail += DisplayVehicleDetail;
+            currentUc = ucMyBookmarks;
+            btLogin.BringToFront();
+            lblUsername.BringToFront();
         }
 
         private void rechercherToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -282,6 +320,11 @@ namespace SellBuyAuto
             DisplayMySells();
         }
 
+        private void favorisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DisplayMyBookmarks();
+        }
+
         private void btLogin_Click(object sender, EventArgs e)
         {
             if (btLogin.Text == "Se connecter")
@@ -297,6 +340,14 @@ namespace SellBuyAuto
                     menuStripWithoutLogin.Visible = false;
                     menuStripWithLogin.Enabled = true;
                     menuStripWithLogin.Visible = true;
+                    if (currentUc is UcVehicleSearch)
+                    {
+                        UcVehicleSearch ucVehicleSearch = (UcVehicleSearch)currentUc;
+                        List<Notice> notices = ucVehicleSearch.Notices;
+                        int currentPage = ucVehicleSearch.CurrentPage;
+                        currentUc = null;
+                        DisplaySearch(notices, currentPage);
+                    }
                 }
             }
             else

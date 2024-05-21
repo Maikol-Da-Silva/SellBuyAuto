@@ -3,7 +3,7 @@
  * brief         : This file contains the class of User
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 07.05.2024
- * update Date   : 17.05.2024
+ * update Date   : 21.05.2024
 */
 
 using Google.Protobuf.WellKnownTypes;
@@ -71,14 +71,58 @@ namespace SellBuyAuto
 
         // Méthodes
 
-        public void GetBookmarks()
+        public List<Notice> GetBookmarks()
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (bookmarks == null || bookmarks.Count == 0)
+                {
+                    DBConnection db = new DBConnection();
+                    bookmarks = db.GetBookmarks(IdUser);
+                }
+                return bookmarks;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
-        public void AddBookmark()
+        public bool isNoticeBookmarked(int idNotice)
         {
-            throw new NotImplementedException();
+            if (this.bookmarks == null || this.bookmarks.Count == 0)
+            {
+                GetBookmarks();
+            }
+            foreach (Notice notice in bookmarks)
+            {
+                if (notice.IdNotice == idNotice)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void DeleteBookmark(int idNotice)
+        {
+            if (this.bookmarks != null)
+            {
+                this.bookmarks.Remove(GetNoticeWithId(this.bookmarks, idNotice));
+            }
+            DBConnection db = new DBConnection();
+            db.DeleteBookmark(idNotice, IdUser);
+        }
+
+        public void AddBookmark(Notice notice)
+        {
+            DBConnection db = new DBConnection();
+            db.AddBookmark(notice.IdNotice, IdUser);
+
+            if (this.bookmarks != null)
+            {
+                this.bookmarks.Add(notice);
+            }
         }
 
         public void AddNotice(string brand, string model, string description, int idEngineType, string engineType, int price, int year, int mileage, string[] imagesNames)

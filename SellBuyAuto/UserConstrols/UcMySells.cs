@@ -3,7 +3,7 @@
  * brief         : This file contains the code of the UserControl UcMySells
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 14.05.2024
- * update Date   : 17.05.2024
+ * update Date   : 21.05.2024
 */
 
 using System;
@@ -144,50 +144,48 @@ namespace SellBuyAuto
             int noticeId = 0;
             bool delete = false;
             UcMySellsVehicleLabel? ucMySellsVehicleLabel = null;
+            foreach (Control control in FlpVehicles.Controls)
             {
-                foreach (Control control in FlpVehicles.Controls)
+                ucMySellsVehicleLabel = (UcMySellsVehicleLabel)control;
+                if (ucMySellsVehicleLabel.Clicked)
                 {
-                    ucMySellsVehicleLabel = (UcMySellsVehicleLabel)control;
-                    if (ucMySellsVehicleLabel.Clicked)
-                    {
-                        Notice notice = ucMySellsVehicleLabel.Notice;
-                        noticeId = notice.IdNotice;
-                        break;
-                    }
+                    Notice notice = ucMySellsVehicleLabel.Notice;
+                    noticeId = notice.IdNotice;
+                    break;
                 }
-                if (noticeId != 0)
-                {
+            }
+            if (noticeId != 0)
+            {
 
-                    DBConnection db = new DBConnection();
-                    try
+                DBConnection db = new DBConnection();
+                try
+                {
+                    List<int> users = db.GetUsersBookMark(noticeId);
+                    if (users.Count > 0)
                     {
-                        List<int> users = db.GetUsersBookMark(noticeId);
-                        if (users.Count > 0)
-                        {
-                            DialogResult myResult = MessageBox.Show("Un utilisateur a mis votre annonce en favoris. Êtes-vous sûr de vouloir supprimé l'annonce ?", "Confirmation de suppression", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                            if (myResult == DialogResult.Yes)
-                            {
-                                delete = true;
-                            }
-                        }
-                    }
-                    catch(Exception ex)
-                    {
-                        db.CloseConnection();
-                        DialogResult myResult = MessageBox.Show("Êtes-vous sûr de vouloir supprimé l'annonce ?", "Confirmation de suppression", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        DialogResult myResult = MessageBox.Show("Un utilisateur a mis votre annonce en favoris. Êtes-vous sûr de vouloir supprimé l'annonce ?", "Confirmation de suppression", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         if (myResult == DialogResult.Yes)
                         {
                             delete = true;
                         }
                     }
-                    finally
+                }
+                catch(Exception ex)
+                {
+                    db.CloseConnection();
+                    DialogResult myResult = MessageBox.Show("Êtes-vous sûr de vouloir supprimé l'annonce ?", "Confirmation de suppression", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (myResult == DialogResult.Yes)
                     {
-                        if(delete)
-                        {
-                            db.DeleteNotices(noticeId);
-                            FlpVehicles.Controls.Remove(ucMySellsVehicleLabel);
-                            user.DeleteNotice(noticeId);
-                        }
+                        delete = true;
+                    }
+                }
+                finally
+                {
+                    if(delete)
+                    {
+                        db.DeleteNotices(noticeId);
+                        FlpVehicles.Controls.Remove(ucMySellsVehicleLabel);
+                        user.DeleteNotice(noticeId);
                     }
                 }
             }

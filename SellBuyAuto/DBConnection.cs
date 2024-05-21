@@ -3,7 +3,7 @@
  * brief         : This file contains the connection to the database
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 07.05.2024
- * update Date   : 17.05.2024
+ * update Date   : 21.05.2024
 */
 
 using MySql.Data.MySqlClient;
@@ -708,6 +708,114 @@ namespace SellBuyAuto
             // we set the value for our query, we use the parameter of the method, which is a Contact object
             cmd.Parameters.AddWithValue("@buyDate", buyDate);
             cmd.Parameters.AddWithValue("@buyerId", buyerId);
+            cmd.Parameters.AddWithValue("@noticeId", noticeId);
+
+            // SQL cmd execution
+            cmd.ExecuteNonQuery();
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
+        }
+
+        // Méthode qui permet de récupérer les annonces favorites d'un utilisateur
+        public List<Notice> GetBookmarks(int userId)
+        {
+            MySqlDataReader rdr = null;
+            List<Notice> notices = new List<Notice>();
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = this.connection.CreateCommand();
+
+            // SQL request
+            cmd.CommandText = "SELECT Notices.id, Notices.PublicationDate, Notices.BuyDate, Notices.Price, Notices.seller_id, Notices.buyer_id, Notices.Active, Notices.Blocked, " +
+                "Cars.id, Cars.`Year`, Cars.mileage, Cars.Description, " +
+                "Models.Name, Brands.Name, EngineTypes.`Type` FROM Notices " +
+                "INNER JOIN Cars ON Notices.car_id = Cars.id " +
+                "INNER JOIN EngineTypes ON Cars.engineType_id = EngineTypes.id " +
+                "INNER JOIN Models ON Cars.model_id = Models.id " +
+                "INNER JOIN Brands ON Models.brand_id = Brands.id " +
+                "INNER JOIN Users_Bookmark_Notice ON Notices.id = Users_Bookmark_Notice.notice_id " +
+                "WHERE Notices.Active = 1 AND Users_Bookmark_Notice.user_id = @userId";
+
+            // we set the value for our query, we use the parameter of the method, which is a Contact object
+            cmd.Parameters.AddWithValue("@userId", userId);
+
+            // Execution of the SQL command
+            rdr = cmd.ExecuteReader();
+
+            rdr.Read();
+            do
+            {
+                Notice notice;
+                if (!rdr.IsDBNull(5))
+                {
+                    notice = new Notice(rdr.GetInt32(0), rdr.GetInt32(8), rdr.GetInt32(5), rdr.GetInt32(4), rdr.GetDateTime(1), rdr.GetDateTime(2), rdr.GetInt32(3),
+                    rdr.GetBoolean(6), rdr.GetBoolean(7), rdr.GetString(13), rdr.GetString(12), rdr.GetInt32(9), rdr.GetInt32(10),
+                    rdr.GetString(11), rdr.GetString(14));
+                }
+                else
+                {
+                    notice = new Notice(rdr.GetInt32(0), rdr.GetInt32(8), rdr.GetInt32(4), rdr.GetDateTime(1), rdr.GetInt32(3),
+                    rdr.GetBoolean(6), rdr.GetBoolean(7), rdr.GetString(13), rdr.GetString(12), rdr.GetInt32(9), rdr.GetInt32(10),
+                    rdr.GetString(11), rdr.GetString(14));
+                }
+
+                notices.Add(notice);
+            } while (rdr.Read());
+
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
+
+            return notices;
+        }
+
+        // Méthode qui permet de supprimer un favoris
+        public void DeleteBookmark(int noticeId, int userId)
+        {
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = connection.CreateCommand();
+
+            cmd.CommandText = "DELETE FROM Users_Bookmark_Notice WHERE notice_id = @noticeId AND user_id = @userId";
+
+            // we set the value for our query, we use the parameter of the method, which is a Contact object
+            cmd.Parameters.AddWithValue("@noticeId", noticeId);
+            cmd.Parameters.AddWithValue("@userId", userId);
+
+            // SQL cmd execution
+            cmd.ExecuteNonQuery();
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
+        }
+
+        // Méthode qui permet d'ajouter des favoris
+        public void AddBookmark(int noticeId, int userId)
+        {
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = connection.CreateCommand();
+
+            cmd.CommandText = "INSERT INTO Users_Bookmark_Notice (user_id, notice_id) VALUES (@userId, @noticeId)";
+
+            // we set the value for our query, we use the parameter of the method, which is a Contact object
+            cmd.Parameters.AddWithValue("@userId", userId);
             cmd.Parameters.AddWithValue("@noticeId", noticeId);
 
             // SQL cmd execution
