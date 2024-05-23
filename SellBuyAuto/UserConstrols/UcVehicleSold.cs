@@ -49,7 +49,7 @@ namespace SellBuyAuto
             else
             {
                 DBConnection db = new DBConnection();
-                try
+                //try
                 {
                     buyer = db.GetUser(txtEmail.Text);
                     db.AddBuyerToNotices(noticeId, DateTime.Now.ToString("yyyy-MM-dd"), buyer.IdUser);
@@ -61,10 +61,10 @@ namespace SellBuyAuto
                     MessageBox.Show($"L'annonce a bien été vendue à {buyer.Username}");
                     Validate?.Invoke();
                 }
-                catch (Exception ex)
+                /*catch (Exception ex)
                 {
                     MessageBox.Show("Aucun compte n'est relié à cette adresse mail !");
-                }
+                }*/
             }
 
         }

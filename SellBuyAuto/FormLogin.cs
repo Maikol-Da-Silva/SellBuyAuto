@@ -85,13 +85,17 @@ namespace SellBuyAuto
         private void lblSignUp_Click(object sender, EventArgs e)
         {
             FormSignUp frmSignUp = new FormSignUp();
-
+            frmSignUp.StartPosition = FormStartPosition.Manual;
+            frmSignUp.Location = this.Location;
+            this.Hide();
             frmSignUp.ShowDialog();
+            this.Location = frmSignUp.Location;
             if (frmSignUp.User != null)
             {
                 user = frmSignUp.User;
                 Close();
             }
+            this.Show();
 
         }
 
@@ -131,30 +135,6 @@ namespace SellBuyAuto
 
         //Fonction qui permet de se connecter si on appuie sur enter
         private void FormLogin_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btLogin_Click(sender, e);
-            }
-        }
-
-        private void txtUsername_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btLogin_Click(sender, e);
-            }
-        }
-
-        private void txtPassword_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btLogin_Click(sender, e);
-            }
-        }
-
-        private void btShowPassword_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {

@@ -40,7 +40,7 @@
             txtEmail.Location = new Point(109, 102);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(158, 23);
-            txtEmail.TabIndex = 0;
+            txtEmail.TabIndex = 1;
             txtEmail.KeyUp += txtEmail_KeyUp;
             // 
             // lblEmail
@@ -67,7 +67,7 @@
             btValidate.Location = new Point(146, 141);
             btValidate.Name = "btValidate";
             btValidate.Size = new Size(75, 23);
-            btValidate.TabIndex = 3;
+            btValidate.TabIndex = 2;
             btValidate.Text = "Valider";
             btValidate.UseVisualStyleBackColor = true;
             btValidate.Click += btValidate_Click;
@@ -81,7 +81,7 @@
             btCancel.Location = new Point(337, 3);
             btCancel.Name = "btCancel";
             btCancel.Size = new Size(33, 27);
-            btCancel.TabIndex = 4;
+            btCancel.TabIndex = 3;
             btCancel.Text = "X";
             btCancel.UseVisualStyleBackColor = false;
             btCancel.Click += btCancel_Click;
@@ -90,6 +90,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Linen;
             Controls.Add(btCancel);
             Controls.Add(btValidate);
             Controls.Add(lblTitle);

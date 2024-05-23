@@ -40,7 +40,7 @@
             // 
             lblCriteria.AutoSize = true;
             lblCriteria.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblCriteria.Location = new Point(36, 27);
+            lblCriteria.Location = new Point(156, 22);
             lblCriteria.Name = "lblCriteria";
             lblCriteria.Size = new Size(286, 32);
             lblCriteria.TabIndex = 0;
@@ -50,15 +50,17 @@
             // 
             FlpVehicles.Anchor = AnchorStyles.None;
             FlpVehicles.AutoScroll = true;
+            FlpVehicles.BackColor = Color.FromArgb(157, 110, 74);
             FlpVehicles.BorderStyle = BorderStyle.FixedSingle;
-            FlpVehicles.Location = new Point(36, 81);
+            FlpVehicles.ForeColor = SystemColors.ControlLightLight;
+            FlpVehicles.Location = new Point(156, 81);
             FlpVehicles.Name = "FlpVehicles";
-            FlpVehicles.Size = new Size(1107, 436);
+            FlpVehicles.Size = new Size(873, 436);
             FlpVehicles.TabIndex = 1;
             // 
             // btPrevious
             // 
-            btPrevious.Location = new Point(433, 547);
+            btPrevious.Location = new Point(453, 547);
             btPrevious.Name = "btPrevious";
             btPrevious.Size = new Size(75, 23);
             btPrevious.TabIndex = 2;
@@ -69,7 +71,9 @@
             // lblPages
             // 
             lblPages.AutoSize = true;
-            lblPages.Location = new Point(538, 551);
+            lblPages.BackColor = Color.FromArgb(157, 110, 74);
+            lblPages.ForeColor = SystemColors.ControlLightLight;
+            lblPages.Location = new Point(558, 551);
             lblPages.Name = "lblPages";
             lblPages.Size = new Size(70, 15);
             lblPages.TabIndex = 4;
@@ -77,7 +81,7 @@
             // 
             // btNext
             // 
-            btNext.Location = new Point(631, 547);
+            btNext.Location = new Point(651, 547);
             btNext.Name = "btNext";
             btNext.Size = new Size(75, 23);
             btNext.TabIndex = 5;
@@ -99,6 +103,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Transparent;
             Controls.Add(btNext);
             Controls.Add(lblPages);
             Controls.Add(btPrevious);

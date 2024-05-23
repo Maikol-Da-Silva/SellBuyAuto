@@ -37,7 +37,7 @@ namespace SellBuyAuto
         // Méthode qui s'exécute lorsque le UserControl se lance et qui permet de récupérer les champs à mettre dans les comboBox
         private void UCAdvancedSearch_Load(object sender, EventArgs e)
         {
-            foreach (var control in gbAdvancedSearch.Controls)
+            foreach (var control in pnAdvancedSearch.Controls)
             {
                 if (control is ComboBox)
                 {

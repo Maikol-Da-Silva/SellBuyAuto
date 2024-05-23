@@ -38,7 +38,7 @@
             // 
             // btNext
             // 
-            btNext.Location = new Point(634, 552);
+            btNext.Location = new Point(651, 553);
             btNext.Name = "btNext";
             btNext.Size = new Size(75, 23);
             btNext.TabIndex = 23;
@@ -49,7 +49,9 @@
             // lblPages
             // 
             lblPages.AutoSize = true;
-            lblPages.Location = new Point(541, 556);
+            lblPages.BackColor = Color.FromArgb(157, 110, 74);
+            lblPages.ForeColor = SystemColors.ControlLightLight;
+            lblPages.Location = new Point(558, 557);
             lblPages.Name = "lblPages";
             lblPages.Size = new Size(70, 15);
             lblPages.TabIndex = 22;
@@ -57,7 +59,7 @@
             // 
             // btPrevious
             // 
-            btPrevious.Location = new Point(436, 552);
+            btPrevious.Location = new Point(453, 553);
             btPrevious.Name = "btPrevious";
             btPrevious.Size = new Size(75, 23);
             btPrevious.TabIndex = 21;
@@ -69,7 +71,7 @@
             // 
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTitle.Location = new Point(39, 32);
+            lblTitle.Location = new Point(156, 22);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(140, 32);
             lblTitle.TabIndex = 19;
@@ -79,10 +81,11 @@
             // 
             FlpVehicles.Anchor = AnchorStyles.None;
             FlpVehicles.AutoScroll = true;
+            FlpVehicles.BackColor = Color.FromArgb(157, 110, 74);
             FlpVehicles.BorderStyle = BorderStyle.FixedSingle;
-            FlpVehicles.Location = new Point(39, 86);
+            FlpVehicles.Location = new Point(156, 81);
             FlpVehicles.Name = "FlpVehicles";
-            FlpVehicles.Size = new Size(1107, 436);
+            FlpVehicles.Size = new Size(873, 436);
             FlpVehicles.TabIndex = 20;
             // 
             // label1
@@ -99,6 +102,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Transparent;
             Controls.Add(btNext);
             Controls.Add(lblPages);
             Controls.Add(btPrevious);

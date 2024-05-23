@@ -370,11 +370,23 @@ namespace SellBuyAuto
             DisplayMyPurchases();
         }
 
+        private void EnableAllControls(bool enable)
+        {
+            foreach(Control control in this.Controls)
+            {
+                control.Enabled = enable;
+            }
+        }
+
         private void btLogin_Click(object sender, EventArgs e)
         {
             if (btLogin.Text == "Se connecter")
             {
                 FormLogin frmLogin = new FormLogin();
+                /*EnableAllControls(false);
+                Task t = Task.Run(() => { frmLogin.ShowDialog(this); });
+                t.Wait();
+                EnableAllControls(true);*/
                 frmLogin.ShowDialog();
                 if (frmLogin.User != null)
                 {

@@ -3,22 +3,29 @@
   <Class Name="SellBuyAuto.Notice">
     <Position X="7.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAMFAAAABQAgAAAIIABBABAQEQCAAAAggAoQIBALEAg=</HashCode>
+      <HashCode>AAMFAAAABQAgCAAMIgBBABAQEQCAAAAgiAoQIBAbEAg=</HashCode>
       <FileName>Notice.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SellBuyAuto.User">
     <Position X="9.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAABAAECCSgCAggQQAAAAEACAIAAggAEAIABMAAAEA=</HashCode>
+      <HashCode>AAQABAAECCSgCAggQQAACAkACAIAAgkCEAIABsAQAEA=</HashCode>
       <FileName>User.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SellBuyAuto.DBConnection">
     <Position X="11.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>ANAABAAAAAGACEACAACFABIQYAAAABEgEAAAAOIAAAQ=</HashCode>
       <FileName>DBConnection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SellBuyAuto.FTPConnection">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAkQAAAAAAAAAAAAAgAAAAI=</HashCode>
+      <FileName>FTPConnection.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

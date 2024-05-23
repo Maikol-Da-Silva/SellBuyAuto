@@ -47,7 +47,7 @@
             // menuStripWithoutLogin
             // 
             menuStripWithoutLogin.Items.AddRange(new ToolStripItem[] { accueilToolStripMenuItem, rechercherToolStripMenuItem });
-            menuStripWithoutLogin.Location = new Point(0, 24);
+            menuStripWithoutLogin.Location = new Point(0, 0);
             menuStripWithoutLogin.Name = "menuStripWithoutLogin";
             menuStripWithoutLogin.Size = new Size(1184, 24);
             menuStripWithoutLogin.TabIndex = 0;
@@ -132,6 +132,7 @@
             // 
             // lblUsername
             // 
+            lblUsername.BackColor = Color.Transparent;
             lblUsername.Location = new Point(857, 27);
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new Size(187, 23);
@@ -142,6 +143,9 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.WhiteSmoke;
+            BackgroundImage = Properties.Resources.FDGTR;
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1184, 661);
             Controls.Add(lblUsername);
             Controls.Add(btLogin);

@@ -588,11 +588,15 @@ namespace SellBuyAuto
             // Execution of the SQL command
             rdr = cmd.ExecuteReader();
 
-            rdr.Read();
-            do
+            if (rdr.HasRows)
             {
-                users.Add(rdr.GetInt32(0));
-            } while (rdr.Read());
+                do
+                {
+                    rdr.Read();
+                    users.Add(rdr.GetInt32(0));
+                } while (rdr.Read());
+            }
+               
 
 
             //we close the SQL connection

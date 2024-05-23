@@ -63,9 +63,29 @@ namespace SellBuyAuto.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _1000_F_336826195_T0kFSG8IDzzALG0V3gSNkJBtuVlBuUTE {
+            get {
+                object obj = ResourceManager.GetObject("1000_F_336826195_T0kFSG8IDzzALG0V3gSNkJBtuVlBuUTE", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Bookmarked {
             get {
                 object obj = ResourceManager.GetObject("Bookmarked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap FDGTR {
+            get {
+                object obj = ResourceManager.GetObject("FDGTR", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -37,7 +37,7 @@ namespace SellBuyAuto
         // Méthode qui s'exécute lorsque le UserControl se lance et qui permet de récupérer les champs à mettre dans les comboBox
         private void UcHome_Load(object sender, EventArgs e)
         {
-            foreach (var control in gbQuickSearch.Controls)
+            foreach (var control in pnQuickSearch.Controls)
             {
                 if (control is ComboBox)
                 {
@@ -132,7 +132,7 @@ namespace SellBuyAuto
             catch (Exception ex)
             {
                 MessageBox.Show("Aucune voiture n'a été trouvée avec ces critères !");
-            } 
+            }
         }
     }
 }

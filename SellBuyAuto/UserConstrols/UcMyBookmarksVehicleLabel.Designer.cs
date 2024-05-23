@@ -38,19 +38,21 @@
             // 
             // btDelete
             // 
+            btDelete.BackColor = Color.Silver;
             btDelete.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btDelete.Location = new Point(636, 118);
             btDelete.Name = "btDelete";
             btDelete.Size = new Size(109, 35);
             btDelete.TabIndex = 16;
             btDelete.Text = "Supprimer";
-            btDelete.UseVisualStyleBackColor = true;
+            btDelete.UseVisualStyleBackColor = false;
             btDelete.Click += btDelete_Click;
             // 
             // lblDescription
             // 
             lblDescription.AutoSize = true;
             lblDescription.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDescription.ForeColor = Color.Black;
             lblDescription.Location = new Point(216, 85);
             lblDescription.MaximumSize = new Size(400, 70);
             lblDescription.Name = "lblDescription";
@@ -62,6 +64,7 @@
             // 
             lblInfo.AutoSize = true;
             lblInfo.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblInfo.ForeColor = Color.Black;
             lblInfo.Location = new Point(216, 50);
             lblInfo.Name = "lblInfo";
             lblInfo.Size = new Size(258, 21);
@@ -72,6 +75,7 @@
             // 
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitle.ForeColor = Color.Black;
             lblTitle.Location = new Point(216, 3);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(133, 37);
@@ -87,19 +91,20 @@
             pbVehicleImage.TabIndex = 11;
             pbVehicleImage.TabStop = false;
             // 
-            // UcMyBookmarlsVehicleLabels
+            // UcMyBookmarksVehicleLabel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Linen;
             Controls.Add(btDelete);
             Controls.Add(lblDescription);
             Controls.Add(lblInfo);
             Controls.Add(lblTitle);
             Controls.Add(pbVehicleImage);
-            Margin = new Padding(175, 20, 3, 3);
+            Margin = new Padding(55, 20, 3, 3);
             MaximumSize = new Size(763, 178);
             MinimumSize = new Size(763, 178);
-            Name = "UcMyBookmarlsVehicleLabels";
+            Name = "UcMyBookmarksVehicleLabel";
             Size = new Size(763, 178);
             Load += UcMyBookmarlsVehicleLabels_Load;
             ((System.ComponentModel.ISupportInitialize)pbVehicleImage).EndInit();

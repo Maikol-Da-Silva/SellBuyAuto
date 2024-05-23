@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            gbAdvancedSearch = new GroupBox();
+            pnAdvancedSearch = new Panel();
             btSearch = new Button();
             gbPrice = new GroupBox();
             numPriceTo = new NumericUpDown();
@@ -52,7 +52,7 @@
             cbModel = new ComboBox();
             cbBrand = new ComboBox();
             lblAdvancedSearch = new Label();
-            gbAdvancedSearch.SuspendLayout();
+            pnAdvancedSearch.SuspendLayout();
             gbPrice.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numPriceTo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numPriceFrom).BeginInit();
@@ -64,31 +64,30 @@
             ((System.ComponentModel.ISupportInitialize)numYearFrom).BeginInit();
             SuspendLayout();
             // 
-            // gbAdvancedSearch
+            // pnAdvancedSearch
             // 
-            gbAdvancedSearch.Controls.Add(btSearch);
-            gbAdvancedSearch.Controls.Add(gbPrice);
-            gbAdvancedSearch.Controls.Add(cbMileage);
-            gbAdvancedSearch.Controls.Add(gbYear);
-            gbAdvancedSearch.Controls.Add(lblEngineType);
-            gbAdvancedSearch.Controls.Add(lblModel);
-            gbAdvancedSearch.Controls.Add(lblBrand);
-            gbAdvancedSearch.Controls.Add(cbEngineType);
-            gbAdvancedSearch.Controls.Add(cbModel);
-            gbAdvancedSearch.Controls.Add(cbBrand);
-            gbAdvancedSearch.Controls.Add(lblAdvancedSearch);
-            gbAdvancedSearch.Location = new Point(73, 76);
-            gbAdvancedSearch.Name = "gbAdvancedSearch";
-            gbAdvancedSearch.Size = new Size(1008, 451);
-            gbAdvancedSearch.TabIndex = 11;
-            gbAdvancedSearch.TabStop = false;
+            pnAdvancedSearch.BackColor = Color.FromArgb(157, 110, 74);
+            pnAdvancedSearch.Controls.Add(btSearch);
+            pnAdvancedSearch.Controls.Add(gbPrice);
+            pnAdvancedSearch.Controls.Add(cbMileage);
+            pnAdvancedSearch.Controls.Add(gbYear);
+            pnAdvancedSearch.Controls.Add(lblEngineType);
+            pnAdvancedSearch.Controls.Add(lblModel);
+            pnAdvancedSearch.Controls.Add(lblBrand);
+            pnAdvancedSearch.Controls.Add(cbEngineType);
+            pnAdvancedSearch.Controls.Add(cbModel);
+            pnAdvancedSearch.Controls.Add(cbBrand);
+            pnAdvancedSearch.Location = new Point(87, 102);
+            pnAdvancedSearch.Name = "pnAdvancedSearch";
+            pnAdvancedSearch.Size = new Size(1008, 451);
+            pnAdvancedSearch.TabIndex = 12;
             // 
             // btSearch
             // 
-            btSearch.Location = new Point(847, 383);
+            btSearch.Location = new Point(858, 366);
             btSearch.Name = "btSearch";
             btSearch.Size = new Size(77, 23);
-            btSearch.TabIndex = 15;
+            btSearch.TabIndex = 21;
             btSearch.Text = "Rechercher";
             btSearch.UseVisualStyleBackColor = true;
             btSearch.Click += btSearch_Click;
@@ -99,10 +98,11 @@
             gbPrice.Controls.Add(numPriceFrom);
             gbPrice.Controls.Add(lblPriceTo);
             gbPrice.Controls.Add(lblPriceFrom);
-            gbPrice.Location = new Point(724, 232);
+            gbPrice.ForeColor = SystemColors.ControlLightLight;
+            gbPrice.Location = new Point(735, 215);
             gbPrice.Name = "gbPrice";
             gbPrice.Size = new Size(200, 100);
-            gbPrice.TabIndex = 14;
+            gbPrice.TabIndex = 17;
             gbPrice.TabStop = false;
             gbPrice.Text = "Prix";
             // 
@@ -113,7 +113,7 @@
             numPriceTo.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
             numPriceTo.Name = "numPriceTo";
             numPriceTo.Size = new Size(62, 23);
-            numPriceTo.TabIndex = 20;
+            numPriceTo.TabIndex = 9;
             numPriceTo.Value = new decimal(new int[] { 1000000, 0, 0, 0 });
             numPriceTo.ValueChanged += numPriceTo_ValueChanged;
             // 
@@ -124,7 +124,7 @@
             numPriceFrom.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
             numPriceFrom.Name = "numPriceFrom";
             numPriceFrom.Size = new Size(62, 23);
-            numPriceFrom.TabIndex = 19;
+            numPriceFrom.TabIndex = 8;
             numPriceFrom.ValueChanged += numPriceFrom_ValueChanged;
             // 
             // lblPriceTo
@@ -151,10 +151,11 @@
             cbMileage.Controls.Add(numMileageFrom);
             cbMileage.Controls.Add(lblMileageTo);
             cbMileage.Controls.Add(lblMileageFrom);
-            cbMileage.Location = new Point(394, 232);
+            cbMileage.ForeColor = SystemColors.ControlLightLight;
+            cbMileage.Location = new Point(405, 215);
             cbMileage.Name = "cbMileage";
             cbMileage.Size = new Size(200, 100);
-            cbMileage.TabIndex = 13;
+            cbMileage.TabIndex = 16;
             cbMileage.TabStop = false;
             cbMileage.Text = "Kilométrage";
             // 
@@ -165,7 +166,7 @@
             numMileageTo.Maximum = new decimal(new int[] { 400000, 0, 0, 0 });
             numMileageTo.Name = "numMileageTo";
             numMileageTo.Size = new Size(62, 23);
-            numMileageTo.TabIndex = 18;
+            numMileageTo.TabIndex = 7;
             numMileageTo.Value = new decimal(new int[] { 400000, 0, 0, 0 });
             numMileageTo.ValueChanged += numMileageTo_ValueChanged;
             // 
@@ -176,7 +177,7 @@
             numMileageFrom.Maximum = new decimal(new int[] { 400000, 0, 0, 0 });
             numMileageFrom.Name = "numMileageFrom";
             numMileageFrom.Size = new Size(62, 23);
-            numMileageFrom.TabIndex = 17;
+            numMileageFrom.TabIndex = 6;
             numMileageFrom.ValueChanged += numMileageFrom_ValueChanged;
             // 
             // lblMileageTo
@@ -203,10 +204,11 @@
             gbYear.Controls.Add(numYearFrom);
             gbYear.Controls.Add(lblYearTo);
             gbYear.Controls.Add(lblYearFrom);
-            gbYear.Location = new Point(74, 232);
+            gbYear.ForeColor = SystemColors.ControlLightLight;
+            gbYear.Location = new Point(85, 215);
             gbYear.Name = "gbYear";
             gbYear.Size = new Size(200, 100);
-            gbYear.TabIndex = 9;
+            gbYear.TabIndex = 15;
             gbYear.TabStop = false;
             gbYear.Text = "Année";
             // 
@@ -217,7 +219,7 @@
             numYearTo.Minimum = new decimal(new int[] { 1900, 0, 0, 0 });
             numYearTo.Name = "numYearTo";
             numYearTo.Size = new Size(62, 23);
-            numYearTo.TabIndex = 16;
+            numYearTo.TabIndex = 5;
             numYearTo.Value = new decimal(new int[] { 2024, 0, 0, 0 });
             numYearTo.ValueChanged += numYearTo_ValueChanged;
             // 
@@ -228,7 +230,7 @@
             numYearFrom.Minimum = new decimal(new int[] { 1900, 0, 0, 0 });
             numYearFrom.Name = "numYearFrom";
             numYearFrom.Size = new Size(62, 23);
-            numYearFrom.TabIndex = 15;
+            numYearFrom.TabIndex = 4;
             numYearFrom.Value = new decimal(new int[] { 1900, 0, 0, 0 });
             numYearFrom.ValueChanged += numYearFrom_ValueChanged;
             // 
@@ -253,28 +255,31 @@
             // lblEngineType
             // 
             lblEngineType.AutoSize = true;
-            lblEngineType.Location = new Point(762, 108);
+            lblEngineType.ForeColor = SystemColors.ControlLightLight;
+            lblEngineType.Location = new Point(773, 91);
             lblEngineType.Name = "lblEngineType";
             lblEngineType.Size = new Size(81, 15);
-            lblEngineType.TabIndex = 8;
+            lblEngineType.TabIndex = 20;
             lblEngineType.Text = "Motorisation :";
             // 
             // lblModel
             // 
             lblModel.AutoSize = true;
-            lblModel.Location = new Point(432, 108);
+            lblModel.ForeColor = SystemColors.ControlLightLight;
+            lblModel.Location = new Point(443, 91);
             lblModel.Name = "lblModel";
             lblModel.Size = new Size(53, 15);
-            lblModel.TabIndex = 7;
+            lblModel.TabIndex = 19;
             lblModel.Text = "Modèle :";
             // 
             // lblBrand
             // 
             lblBrand.AutoSize = true;
-            lblBrand.Location = new Point(115, 108);
+            lblBrand.ForeColor = SystemColors.ControlLightLight;
+            lblBrand.Location = new Point(126, 91);
             lblBrand.Name = "lblBrand";
             lblBrand.Size = new Size(54, 15);
-            lblBrand.TabIndex = 6;
+            lblBrand.TabIndex = 18;
             lblBrand.Text = "Marque :";
             // 
             // cbEngineType
@@ -282,20 +287,20 @@
             cbEngineType.DropDownStyle = ComboBoxStyle.DropDownList;
             cbEngineType.FormattingEnabled = true;
             cbEngineType.Items.AddRange(new object[] { "Tous" });
-            cbEngineType.Location = new Point(762, 126);
+            cbEngineType.Location = new Point(773, 109);
             cbEngineType.Name = "cbEngineType";
             cbEngineType.Size = new Size(121, 23);
-            cbEngineType.TabIndex = 5;
+            cbEngineType.TabIndex = 14;
             // 
             // cbModel
             // 
             cbModel.DropDownStyle = ComboBoxStyle.DropDownList;
             cbModel.FormattingEnabled = true;
             cbModel.Items.AddRange(new object[] { "Tous" });
-            cbModel.Location = new Point(432, 126);
+            cbModel.Location = new Point(443, 109);
             cbModel.Name = "cbModel";
             cbModel.Size = new Size(121, 23);
-            cbModel.TabIndex = 2;
+            cbModel.TabIndex = 13;
             // 
             // cbBrand
             // 
@@ -303,35 +308,38 @@
             cbBrand.FormattingEnabled = true;
             cbBrand.IntegralHeight = false;
             cbBrand.Items.AddRange(new object[] { "Tous" });
-            cbBrand.Location = new Point(115, 126);
+            cbBrand.Location = new Point(126, 109);
             cbBrand.MaxDropDownItems = 100;
             cbBrand.Name = "cbBrand";
             cbBrand.Size = new Size(121, 23);
-            cbBrand.TabIndex = 1;
+            cbBrand.TabIndex = 12;
             cbBrand.SelectedIndexChanged += cbBrand_SelectedIndexChanged;
             // 
             // lblAdvancedSearch
             // 
             lblAdvancedSearch.AutoSize = true;
             lblAdvancedSearch.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblAdvancedSearch.Location = new Point(6, 19);
+            lblAdvancedSearch.Location = new Point(87, 32);
             lblAdvancedSearch.Name = "lblAdvancedSearch";
             lblAdvancedSearch.Size = new Size(259, 37);
-            lblAdvancedSearch.TabIndex = 0;
+            lblAdvancedSearch.TabIndex = 11;
             lblAdvancedSearch.Text = "Recherche avancée";
             // 
             // UCAdvancedSearch
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(gbAdvancedSearch);
+            BackColor = Color.Transparent;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            Controls.Add(pnAdvancedSearch);
+            Controls.Add(lblAdvancedSearch);
             MaximumSize = new Size(1184, 607);
             MinimumSize = new Size(1184, 607);
             Name = "UCAdvancedSearch";
             Size = new Size(1184, 607);
             Load += UCAdvancedSearch_Load;
-            gbAdvancedSearch.ResumeLayout(false);
-            gbAdvancedSearch.PerformLayout();
+            pnAdvancedSearch.ResumeLayout(false);
+            pnAdvancedSearch.PerformLayout();
             gbPrice.ResumeLayout(false);
             gbPrice.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numPriceTo).EndInit();
@@ -345,22 +353,29 @@
             ((System.ComponentModel.ISupportInitialize)numYearTo).EndInit();
             ((System.ComponentModel.ISupportInitialize)numYearFrom).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
-
-        private GroupBox gbAdvancedSearch;
+        private ComboBox cbYearTo;
+        private ComboBox cbYearFrom;
+        private Panel pnAdvancedSearch;
+        private Button btSearch;
         private GroupBox gbPrice;
+        private NumericUpDown numPriceTo;
+        private NumericUpDown numPriceFrom;
         private Label lblPriceTo;
         private Label lblPriceFrom;
         private GroupBox cbMileage;
+        private NumericUpDown numMileageTo;
+        private NumericUpDown numMileageFrom;
         private Label lblMileageTo;
         private Label lblMileageFrom;
         private GroupBox gbYear;
+        private NumericUpDown numYearTo;
+        private NumericUpDown numYearFrom;
         private Label lblYearTo;
-        private ComboBox cbYearTo;
         private Label lblYearFrom;
-        private ComboBox cbYearFrom;
         private Label lblEngineType;
         private Label lblModel;
         private Label lblBrand;
@@ -368,12 +383,5 @@
         private ComboBox cbModel;
         private ComboBox cbBrand;
         private Label lblAdvancedSearch;
-        private NumericUpDown numYearFrom;
-        private NumericUpDown numYearTo;
-        private NumericUpDown numMileageTo;
-        private NumericUpDown numMileageFrom;
-        private NumericUpDown numPriceFrom;
-        private NumericUpDown numPriceTo;
-        private Button btSearch;
     }
 }

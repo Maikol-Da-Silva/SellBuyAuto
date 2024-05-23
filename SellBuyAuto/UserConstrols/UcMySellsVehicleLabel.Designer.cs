@@ -42,6 +42,7 @@
             // 
             lblDescription.AutoSize = true;
             lblDescription.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDescription.ForeColor = Color.Black;
             lblDescription.Location = new Point(202, 85);
             lblDescription.MaximumSize = new Size(400, 70);
             lblDescription.Name = "lblDescription";
@@ -53,6 +54,7 @@
             // 
             lblInfo.AutoSize = true;
             lblInfo.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblInfo.ForeColor = Color.Black;
             lblInfo.Location = new Point(202, 50);
             lblInfo.Name = "lblInfo";
             lblInfo.Size = new Size(258, 21);
@@ -63,6 +65,7 @@
             // 
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitle.ForeColor = Color.Black;
             lblTitle.Location = new Point(202, 3);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(133, 37);
@@ -80,35 +83,37 @@
             // 
             // btSold
             // 
+            btSold.BackColor = Color.Silver;
             btSold.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btSold.Location = new Point(622, 25);
             btSold.Name = "btSold";
             btSold.Size = new Size(109, 35);
             btSold.TabIndex = 8;
             btSold.Text = "Vendu";
-            btSold.UseVisualStyleBackColor = true;
+            btSold.UseVisualStyleBackColor = false;
             btSold.Click += btSold_Click;
             // 
             // btDelete
             // 
+            btDelete.BackColor = Color.Silver;
             btDelete.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btDelete.Location = new Point(622, 118);
             btDelete.Name = "btDelete";
             btDelete.Size = new Size(109, 35);
             btDelete.TabIndex = 9;
             btDelete.Text = "Supprimer";
-            btDelete.UseVisualStyleBackColor = true;
+            btDelete.UseVisualStyleBackColor = false;
             btDelete.Click += btDelete_Click;
             // 
             // lblSold
             // 
             lblSold.AutoSize = true;
             lblSold.BackColor = Color.Transparent;
-            lblSold.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblSold.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblSold.ForeColor = Color.Red;
-            lblSold.Location = new Point(328, 62);
+            lblSold.Location = new Point(312, 50);
             lblSold.Name = "lblSold";
-            lblSold.Size = new Size(132, 50);
+            lblSold.Size = new Size(171, 65);
             lblSold.TabIndex = 10;
             lblSold.Text = "Vendu";
             lblSold.Visible = false;
@@ -117,6 +122,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Linen;
             Controls.Add(lblSold);
             Controls.Add(btDelete);
             Controls.Add(btSold);
@@ -124,7 +130,7 @@
             Controls.Add(lblInfo);
             Controls.Add(lblTitle);
             Controls.Add(pbVehicleImage);
-            Margin = new Padding(175, 20, 3, 3);
+            Margin = new Padding(55, 20, 3, 3);
             MaximumSize = new Size(763, 178);
             MinimumSize = new Size(763, 178);
             Name = "UcMySellsVehicleLabel";

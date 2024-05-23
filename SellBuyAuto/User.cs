@@ -51,6 +51,9 @@ namespace SellBuyAuto
             this.password = password;
             this.isAdmin = false;
             this.isBlocked = false;
+            this.bookmarks = new List<Notice>();
+            this.sells = new List<Notice>();
+            this.purchases = new List<Notice>();
         }
 
         public User(int idUser, string email, string username, bool isBlocked)
@@ -59,6 +62,9 @@ namespace SellBuyAuto
             this.email = email;
             this.username = username;
             this.isBlocked = isBlocked;
+            this.bookmarks = new List<Notice>();
+            this.sells = new List<Notice>();
+            this.purchases = new List<Notice>();
         }
 
         // Accesseurs

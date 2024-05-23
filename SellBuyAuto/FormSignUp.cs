@@ -88,7 +88,7 @@ namespace SellBuyAuto
             {
                 MessageBox.Show("L'adresse mail n'est pas valide !");
             }
-            
+
         }
 
         //Fonction qui permet d'afficher le mot de passe pendant 2 sec
@@ -119,60 +119,14 @@ namespace SellBuyAuto
             }
         }
 
-        private void txtFirstname_KeyUp(object sender, KeyEventArgs e)
+        private void btShowPassword_Enter(object sender, EventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btSignUp_Click(sender, e);
-            }
+            txtPassword.Focus();
         }
 
-        private void txtName_KeyUp(object sender, KeyEventArgs e)
+        private void btShowPassword2_Enter(object sender, EventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btSignUp_Click(sender, e);
-            }
-        }
-
-        private void txtUsername_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btSignUp_Click(sender, e);
-            }
-        }
-
-        private void txtPassword_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btSignUp_Click(sender, e);
-            }
-        }
-
-        private void btShowPassword_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btSignUp_Click(sender, e);
-            }
-        }
-
-        private void txtConfirmPassword_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btSignUp_Click(sender, e);
-            }
-        }
-
-        private void btShowPassword2_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btSignUp_Click(sender, e);
-            }
+            txtConfirmPassword.Focus();
         }
     }
 }

@@ -50,6 +50,7 @@
             // 
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitle.ForeColor = Color.Black;
             lblTitle.Location = new Point(202, 3);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(133, 37);
@@ -60,6 +61,7 @@
             // 
             lblInfo.AutoSize = true;
             lblInfo.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblInfo.ForeColor = Color.Black;
             lblInfo.Location = new Point(202, 50);
             lblInfo.Name = "lblInfo";
             lblInfo.Size = new Size(258, 21);
@@ -70,6 +72,7 @@
             // 
             lblDescription.AutoSize = true;
             lblDescription.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDescription.ForeColor = Color.Black;
             lblDescription.Location = new Point(202, 85);
             lblDescription.MaximumSize = new Size(500, 70);
             lblDescription.Name = "lblDescription";
@@ -92,12 +95,13 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Linen;
             Controls.Add(pbBookMark);
             Controls.Add(lblDescription);
             Controls.Add(lblInfo);
             Controls.Add(lblTitle);
             Controls.Add(pbVehicleImage);
-            Margin = new Padding(175, 20, 3, 3);
+            Margin = new Padding(55, 20, 3, 3);
             MaximumSize = new Size(763, 178);
             MinimumSize = new Size(763, 178);
             Name = "UcVehicleLabel";
