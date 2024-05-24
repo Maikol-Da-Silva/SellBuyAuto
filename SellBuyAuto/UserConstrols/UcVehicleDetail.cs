@@ -24,6 +24,7 @@ namespace SellBuyAuto
         public event Action GoBack;
         public event Action BuyClick;
         public event Action BlockNotice;
+        public event Action BlockUser;
 
         Notice notice;
         int currentImage = 0;
@@ -111,6 +112,15 @@ namespace SellBuyAuto
             if (myResult == DialogResult.Yes)
             {
                 BlockNotice?.Invoke();
+            }
+        }
+
+        private void btBlockUser_Click(object sender, EventArgs e)
+        {
+            DialogResult myResult = MessageBox.Show("Êtes-vous sûr de vouloir bloquer l'annonce ?", "Confirmation de blocage", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (myResult == DialogResult.Yes)
+            {
+                BlockUser?.Invoke();
             }
         }
     }

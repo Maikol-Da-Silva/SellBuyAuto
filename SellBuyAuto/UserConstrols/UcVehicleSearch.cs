@@ -71,7 +71,8 @@ namespace SellBuyAuto
                     ucVehicleLabel.Name = "ucVehicleLabel";
                     ucVehicleLabel.BringToFront();
                     ucVehicleLabel.Click += ucVehicleLabel_Click;
-                    ucVehicleLabel.BlockNotice += BlockNotice;
+                    ucVehicleLabel.BlockNotice += DeleteNotice;
+                    ucVehicleLabel.BlockUser += BlockUser;
                     ucVehicleLabels.Add(ucVehicleLabel);
                 }
             }
@@ -79,8 +80,45 @@ namespace SellBuyAuto
             FlpVehicles.Visible = true;
         }
 
+        private void BlockUser()
+        {
+            int idSeller = 0;
+            foreach (Control control in FlpVehicles.Controls)
+            {
+                UcVehicleLabel ucVehicleLabel = (UcVehicleLabel)control;
+                if (ucVehicleLabel.Clicked)
+                {
+                    idSeller = ucVehicleLabel.Notice.IdSeller;
+                    break;
+                }
+            }
+            BlockUserById(idSeller);
+        }
+
+        public void BlockUserById(int idSeller)
+        {
+            List<Notice> userSells = user.BlockUser(idSeller);
+            if (userSells != null && userSells.Count > 0)
+            {
+                foreach (Notice notice in userSells)
+                {
+                    DeleteNoticeFromNotice(notice);
+                    for (int i = 0; i < notices.Count; i++)
+                    {
+                        if (notices[i].IdNotice == notice.IdNotice)
+                        {
+                            notices.RemoveAt(i);
+                        }
+                    }
+                }
+            }
+            currentPage = 1;
+            DisplayPage();
+            MessageBox.Show("L'utilisateur a bien été bloqué");
+        }
+
         //Méthode qui permet de supprimer l'étiquette du flowlayoutpanel
-        private void BlockNotice()
+        private void DeleteNotice()
         {
             foreach (Control control in FlpVehicles.Controls)
             {
@@ -95,16 +133,16 @@ namespace SellBuyAuto
             }
         }
 
-        public void BlockNoticeFromDetail(Notice notice)
+        public void DeleteNoticeFromNotice(Notice notice)
         {
             foreach (Control control in FlpVehicles.Controls)
             {
                 UcVehicleLabel ucVehicleLabel = (UcVehicleLabel)control;
-                if (ucVehicleLabel.Notice == notice)
+                
+                if (ucVehicleLabel.Notice.IdNotice == notice.IdNotice)
                 {
-                    notices.Remove(ucVehicleLabel.Notice);
+                    notices.Remove(ucVehicleLabel.Notice);                    
                     FlpVehicles.Controls.Remove(ucVehicleLabel);
-                    MessageBox.Show("L'annonce a bien été bloquée");
                     break;
                 }
             }

@@ -40,11 +40,13 @@ namespace SellBuyAuto
                     this.Controls.Remove(ucSignUp);
                     ucSignUp = null;
                 }
+                currentUc.Visible = true;
             }
             if(ucVehicleDetail != null)
             {
                 this.Controls.Remove(ucVehicleDetail);
                 ucVehicleDetail = null;
+                currentUc.Visible = true;
             }
         }
 
@@ -186,6 +188,7 @@ namespace SellBuyAuto
             ucVehicleDetail.GoBack += DisplaySearch;
             ucVehicleDetail.BuyClick += DisplayBuy;
             ucVehicleDetail.BlockNotice += BlockNotice;
+            ucVehicleDetail.BlockUser += BlockUser;
             this.Controls.Add(ucVehicleDetail);
             ucVehicleDetail.BringToFront();
 
@@ -199,7 +202,19 @@ namespace SellBuyAuto
             if(currentUc is UcVehicleSearch)
             {
                 UcVehicleSearch ucVehicleSearch = (UcVehicleSearch)currentUc;
-                ucVehicleSearch.BlockNoticeFromDetail(ucVehicleDetail.Notice);
+                ucVehicleSearch.DeleteNoticeFromNotice(ucVehicleDetail.Notice);
+
+                MessageBox.Show("L'annonce a bien été bloquée");
+            }
+            DisplaySearch();
+        }
+
+        private void BlockUser()
+        {
+            if (currentUc is UcVehicleSearch)
+            {
+                UcVehicleSearch ucVehicleSearch = (UcVehicleSearch)currentUc;
+                ucVehicleSearch.BlockUserById(ucVehicleDetail.Notice.IdSeller);
             }
             DisplaySearch();
         }

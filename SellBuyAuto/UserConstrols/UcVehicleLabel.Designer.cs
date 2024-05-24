@@ -119,6 +119,7 @@
             btBlockUser.Text = "Bloquer l'utilisateur";
             btBlockUser.UseVisualStyleBackColor = false;
             btBlockUser.Visible = false;
+            btBlockUser.Click += btBlockUser_Click;
             // 
             // UcVehicleLabel
             // 

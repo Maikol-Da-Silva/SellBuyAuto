@@ -239,9 +239,13 @@ namespace SellBuyAuto
             throw new NotImplementedException();
         }
 
-        public void BlockUser()
+        public List<Notice> BlockUser(int sellerId)
         {
-            throw new NotImplementedException();
+            DBConnection db = new DBConnection();
+            User userToBlock = db.GetUserFromId(sellerId);
+            userToBlock.BlockUserNotices();
+            db.BlockUser(userToBlock.IdUser);
+            return userToBlock.GetSells();
         }
 
         public void BlockNotice(Notice notice)
@@ -252,6 +256,18 @@ namespace SellBuyAuto
             foreach (int userId in users)
             {
                 db.DeleteBookmark(notice.IdNotice, userId);
+            }
+        }
+
+        private void BlockUserNotices()
+        {
+            GetSells();
+            if (this.sells != null && this.sells.Count > 0)
+            {
+                foreach (Notice notice in this.sells)
+                {
+                    BlockNotice(notice);
+                }
             }
         }
 

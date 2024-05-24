@@ -21,6 +21,7 @@ namespace SellBuyAuto
     public partial class UcVehicleLabel : UserControl
     {
         public event Action BlockNotice;
+        public event Action BlockUser;
 
         User user;
         Notice notice;
@@ -128,6 +129,16 @@ namespace SellBuyAuto
                 clicked = true;
                 user.BlockNotice(notice);
                 BlockNotice?.Invoke();
+            }
+        }
+
+        private void btBlockUser_Click(object sender, EventArgs e)
+        {
+            DialogResult myResult = MessageBox.Show("Êtes-vous sûr de vouloir bloquer l'utilisateur ?", "Confirmation de blocage", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (myResult == DialogResult.Yes)
+            {
+                clicked = true;
+                BlockUser?.Invoke();
             }
         }
     }

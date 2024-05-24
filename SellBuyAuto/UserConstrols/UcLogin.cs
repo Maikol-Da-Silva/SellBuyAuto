@@ -106,8 +106,15 @@ namespace SellBuyAuto.UserConstrols
                     //Check le hash du mot de passe et le compare à celui qui est stocké dans la BDD
                     if (user.Password == GetHash(txtPassword.Text))
                     {
-                        btLogin.DialogResult = DialogResult.OK;
-                        CloseLogin?.Invoke();
+                        if(user.IsBlocked)
+                        {
+                            MessageBox.Show("Votre compte a été bloqué par un administrateur !");
+                        }
+                        else 
+                        {
+
+                            CloseLogin?.Invoke();
+                        }
                     }
                     else
                     {
