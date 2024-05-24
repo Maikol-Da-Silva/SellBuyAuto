@@ -100,16 +100,17 @@
             // 
             // btValidate
             // 
+            btValidate.BackColor = Color.Linen;
             btValidate.Location = new Point(826, 339);
             btValidate.Name = "btValidate";
             btValidate.Size = new Size(103, 23);
             btValidate.TabIndex = 33;
             btValidate.Text = "Mettre en vente";
-            btValidate.UseVisualStyleBackColor = true;
+            btValidate.UseVisualStyleBackColor = false;
             // 
             // txtDescription
             // 
-            txtDescription.BackColor = Color.Gainsboro;
+            txtDescription.BackColor = Color.Linen;
             txtDescription.Location = new Point(92, 210);
             txtDescription.Multiline = true;
             txtDescription.Name = "txtDescription";
@@ -128,16 +129,17 @@
             // 
             // btImages
             // 
+            btImages.BackColor = Color.Linen;
             btImages.Location = new Point(826, 64);
             btImages.Name = "btImages";
             btImages.Size = new Size(103, 23);
             btImages.TabIndex = 31;
             btImages.Text = "Charger images";
-            btImages.UseVisualStyleBackColor = true;
+            btImages.UseVisualStyleBackColor = false;
             // 
             // cbEngineType
             // 
-            cbEngineType.BackColor = Color.Gainsboro;
+            cbEngineType.BackColor = Color.Linen;
             cbEngineType.DropDownStyle = ComboBoxStyle.DropDownList;
             cbEngineType.FormattingEnabled = true;
             cbEngineType.Location = new Point(593, 133);
@@ -157,7 +159,7 @@
             // 
             // numPrice
             // 
-            numPrice.BackColor = Color.Gainsboro;
+            numPrice.BackColor = Color.Linen;
             numPrice.Increment = new decimal(new int[] { 1000, 0, 0, 0 });
             numPrice.Location = new Point(593, 64);
             numPrice.Maximum = new decimal(new int[] { 10000000, 0, 0, 0 });
@@ -167,7 +169,7 @@
             // 
             // numMileage
             // 
-            numMileage.BackColor = Color.Gainsboro;
+            numMileage.BackColor = Color.Linen;
             numMileage.Increment = new decimal(new int[] { 1000, 0, 0, 0 });
             numMileage.Location = new Point(342, 133);
             numMileage.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
@@ -177,7 +179,7 @@
             // 
             // numYear
             // 
-            numYear.BackColor = Color.Gainsboro;
+            numYear.BackColor = Color.Linen;
             numYear.Location = new Point(342, 63);
             numYear.Maximum = new decimal(new int[] { 2024, 0, 0, 0 });
             numYear.Minimum = new decimal(new int[] { 1900, 0, 0, 0 });
@@ -218,7 +220,7 @@
             // 
             // txtModel
             // 
-            txtModel.BackColor = Color.Gainsboro;
+            txtModel.BackColor = Color.Linen;
             txtModel.Location = new Point(92, 132);
             txtModel.Name = "txtModel";
             txtModel.Size = new Size(103, 23);
@@ -236,7 +238,7 @@
             // 
             // txtBrand
             // 
-            txtBrand.BackColor = Color.Gainsboro;
+            txtBrand.BackColor = Color.Linen;
             txtBrand.Location = new Point(92, 63);
             txtBrand.Name = "txtBrand";
             txtBrand.Size = new Size(103, 23);

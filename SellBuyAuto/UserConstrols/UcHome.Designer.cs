@@ -112,6 +112,7 @@
             // 
             // cbBrand
             // 
+            cbBrand.BackColor = Color.Linen;
             cbBrand.DropDownStyle = ComboBoxStyle.DropDownList;
             cbBrand.FormattingEnabled = true;
             cbBrand.Items.AddRange(new object[] { "Tous" });
@@ -124,6 +125,7 @@
             // 
             // numPrice
             // 
+            numPrice.BackColor = Color.Linen;
             numPrice.Increment = new decimal(new int[] { 1000, 0, 0, 0 });
             numPrice.Location = new Point(737, 121);
             numPrice.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
@@ -135,6 +137,7 @@
             // 
             // cbModel
             // 
+            cbModel.BackColor = Color.Linen;
             cbModel.DropDownStyle = ComboBoxStyle.DropDownList;
             cbModel.FormattingEnabled = true;
             cbModel.Items.AddRange(new object[] { "Tous" });
@@ -146,6 +149,7 @@
             // 
             // numYear
             // 
+            numYear.BackColor = Color.Linen;
             numYear.Location = new Point(538, 121);
             numYear.Maximum = new decimal(new int[] { 2024, 0, 0, 0 });
             numYear.Minimum = new decimal(new int[] { 1900, 0, 0, 0 });
@@ -156,12 +160,13 @@
             // 
             // btAdvancedSearch
             // 
+            btAdvancedSearch.BackColor = Color.Linen;
             btAdvancedSearch.Location = new Point(40, 219);
             btAdvancedSearch.Name = "btAdvancedSearch";
             btAdvancedSearch.Size = new Size(148, 23);
             btAdvancedSearch.TabIndex = 6;
             btAdvancedSearch.Text = "Recherche avancée";
-            btAdvancedSearch.UseVisualStyleBackColor = true;
+            btAdvancedSearch.UseVisualStyleBackColor = false;
             btAdvancedSearch.Click += btAdvancedSearch_Click;
             // 
             // lblPrice
@@ -176,12 +181,13 @@
             // 
             // btSearch
             // 
+            btSearch.BackColor = Color.Linen;
             btSearch.Location = new Point(897, 219);
             btSearch.Name = "btSearch";
             btSearch.Size = new Size(75, 23);
             btSearch.TabIndex = 5;
             btSearch.Text = "Rechercher";
-            btSearch.UseVisualStyleBackColor = true;
+            btSearch.UseVisualStyleBackColor = false;
             btSearch.Click += btSearch_Click;
             // 
             // lblYear

@@ -1,9 +1,9 @@
 ﻿/*
- * file          : FormSignUp.cs
- * brief         : This file contains the code of the controls in the FormSignUp
+ * file          : UcSignUp.cs
+ * brief         : This file contains the code of the UserControl UcSignUp
  * author        : Created by Maikol Correia Da Silva
- * creation Date : 07.05.2024
- * update Date   : 07.05.2024
+ * creation Date : 24.05.2024
+ * update Date   : 24.05.2024
 */
 
 using System;
@@ -13,15 +13,16 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Net.Mail;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SellBuyAuto
+namespace SellBuyAuto.UserConstrols
 {
-    public partial class FormSignUp : Form
+    public partial class UcSignUp : UserControl
     {
+        public event Action CloseLogin;
+
         private User user;
 
         public User User
@@ -29,7 +30,7 @@ namespace SellBuyAuto
             get { return user; }
         }
 
-        public FormSignUp()
+        public UcSignUp()
         {
             InitializeComponent();
         }
@@ -61,12 +62,12 @@ namespace SellBuyAuto
                 {
                     if (txtPassword.Text == txtConfirmPassword.Text && txtPassword.Text != "")
                     {
-                        user = new User(txtEmail.Text, txtUsername.Text, FormLogin.GetHash(txtPassword.Text));
+                        user = new User(txtEmail.Text, txtUsername.Text, UcLogin.GetHash(txtPassword.Text));
                         try
                         {
                             DBConnection db = new DBConnection();
                             user.IdUser = db.AddUser(user);
-                            Close();
+                            CloseLogin?.Invoke();
                         }
                         catch (Exception ex)
                         {
@@ -88,7 +89,6 @@ namespace SellBuyAuto
             {
                 MessageBox.Show("L'adresse mail n'est pas valide !");
             }
-
         }
 
         //Fonction qui permet d'afficher le mot de passe pendant 2 sec
@@ -106,12 +106,12 @@ namespace SellBuyAuto
             if (txtbox.PasswordChar == '*')
             {
                 txtbox.PasswordChar = '\0';
-                FormLogin.Wait(2000);
+                UcLogin.Wait(2000);
                 txtbox.PasswordChar = '*';
             }
         }
-        //Fonction qui permet de se connecter si on appuie sur enter
-        private void FormSignUp_KeyUp(object sender, KeyEventArgs e)
+
+        private void txtEmail_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {

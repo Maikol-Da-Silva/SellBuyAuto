@@ -1,37 +1,42 @@
 ﻿/*
- * file          : FormLogin.cs
- * brief         : This file contains the code of the controls in the FormLogin
+ * file          : UcLogin.cs
+ * brief         : This file contains the code of the UserControl UcLogin
  * author        : Created by Maikol Correia Da Silva
- * creation Date : 07.05.2024
- * update Date   : 07.05.2024
+ * creation Date : 24.05.2024
+ * update Date   : 24.05.2024
 */
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.Data;
 using System.Linq;
-using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualBasic.ApplicationServices;
 
-namespace SellBuyAuto
+namespace SellBuyAuto.UserConstrols
 {
-    public partial class FormLogin : Form
+    public partial class UcLogin : UserControl
     {
+        public event Action SignUpClick;
+        public event Action CloseLogin;
+
         private User user;
 
         public User User
         {
             get { return user; }
         }
-        public FormLogin()
+
+        public UcLogin()
         {
             InitializeComponent();
         }
+
         //Fonction qui permet d'attendre un certain nombre de temps
         public static void Wait(int milliseconds)
         {
@@ -84,19 +89,7 @@ namespace SellBuyAuto
         //Fonction qui ouvre le formulaire d'enregistrement
         private void lblSignUp_Click(object sender, EventArgs e)
         {
-            FormSignUp frmSignUp = new FormSignUp();
-            frmSignUp.StartPosition = FormStartPosition.Manual;
-            frmSignUp.Location = this.Location;
-            this.Hide();
-            frmSignUp.ShowDialog();
-            this.Location = frmSignUp.Location;
-            if (frmSignUp.User != null)
-            {
-                user = frmSignUp.User;
-                Close();
-            }
-            this.Show();
-
+            SignUpClick?.Invoke();
         }
 
         //Fonction qui check le login dans la base de données
@@ -114,7 +107,7 @@ namespace SellBuyAuto
                     if (user.Password == GetHash(txtPassword.Text))
                     {
                         btLogin.DialogResult = DialogResult.OK;
-                        Close();
+                        CloseLogin?.Invoke();
                     }
                     else
                     {
@@ -133,13 +126,22 @@ namespace SellBuyAuto
             }
         }
 
-        //Fonction qui permet de se connecter si on appuie sur enter
-        private void FormLogin_KeyUp(object sender, KeyEventArgs e)
+        private void txtUsername_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 btLogin_Click(sender, e);
             }
+        }
+
+        private void btShowPassword_Enter(object sender, EventArgs e)
+        {
+            txtPassword.Focus();
+        }
+
+        private void UcLogin_Enter(object sender, EventArgs e)
+        {
+            txtUsername.Focus();
         }
     }
 }

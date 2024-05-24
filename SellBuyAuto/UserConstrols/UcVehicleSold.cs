@@ -3,9 +3,10 @@
  * brief         : This file contains the code of the UserControl UcVehicleSold
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 17.05.2024
- * update Date   : 21.05.2024
+ * update Date   : 24.05.2024
 */
 
+using SellBuyAuto.UserConstrols;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,7 +39,7 @@ namespace SellBuyAuto
 
         private void btValidate_Click(object sender, EventArgs e)
         {
-            if (txtEmail.Text == "" || !FormSignUp.IsValid(txtEmail.Text))
+            if (txtEmail.Text == "" || !UcSignUp.IsValid(txtEmail.Text))
             {
                 MessageBox.Show("Vous devez écrire une adresse mail valide");
             }

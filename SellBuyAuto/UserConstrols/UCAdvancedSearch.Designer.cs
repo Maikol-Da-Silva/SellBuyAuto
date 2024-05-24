@@ -84,12 +84,13 @@
             // 
             // btSearch
             // 
+            btSearch.BackColor = Color.Linen;
             btSearch.Location = new Point(858, 366);
             btSearch.Name = "btSearch";
             btSearch.Size = new Size(77, 23);
             btSearch.TabIndex = 21;
             btSearch.Text = "Rechercher";
-            btSearch.UseVisualStyleBackColor = true;
+            btSearch.UseVisualStyleBackColor = false;
             btSearch.Click += btSearch_Click;
             // 
             // gbPrice
@@ -108,6 +109,7 @@
             // 
             // numPriceTo
             // 
+            numPriceTo.BackColor = Color.Linen;
             numPriceTo.Increment = new decimal(new int[] { 1000, 0, 0, 0 });
             numPriceTo.Location = new Point(123, 52);
             numPriceTo.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
@@ -119,6 +121,7 @@
             // 
             // numPriceFrom
             // 
+            numPriceFrom.BackColor = Color.Linen;
             numPriceFrom.Increment = new decimal(new int[] { 1000, 0, 0, 0 });
             numPriceFrom.Location = new Point(18, 53);
             numPriceFrom.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
@@ -161,6 +164,7 @@
             // 
             // numMileageTo
             // 
+            numMileageTo.BackColor = Color.Linen;
             numMileageTo.Increment = new decimal(new int[] { 10000, 0, 0, 0 });
             numMileageTo.Location = new Point(123, 53);
             numMileageTo.Maximum = new decimal(new int[] { 400000, 0, 0, 0 });
@@ -172,6 +176,7 @@
             // 
             // numMileageFrom
             // 
+            numMileageFrom.BackColor = Color.Linen;
             numMileageFrom.Increment = new decimal(new int[] { 10000, 0, 0, 0 });
             numMileageFrom.Location = new Point(18, 52);
             numMileageFrom.Maximum = new decimal(new int[] { 400000, 0, 0, 0 });
@@ -214,6 +219,7 @@
             // 
             // numYearTo
             // 
+            numYearTo.BackColor = Color.Linen;
             numYearTo.Location = new Point(123, 52);
             numYearTo.Maximum = new decimal(new int[] { 2024, 0, 0, 0 });
             numYearTo.Minimum = new decimal(new int[] { 1900, 0, 0, 0 });
@@ -225,6 +231,7 @@
             // 
             // numYearFrom
             // 
+            numYearFrom.BackColor = Color.Linen;
             numYearFrom.Location = new Point(18, 53);
             numYearFrom.Maximum = new decimal(new int[] { 2024, 0, 0, 0 });
             numYearFrom.Minimum = new decimal(new int[] { 1900, 0, 0, 0 });
@@ -284,6 +291,7 @@
             // 
             // cbEngineType
             // 
+            cbEngineType.BackColor = Color.Linen;
             cbEngineType.DropDownStyle = ComboBoxStyle.DropDownList;
             cbEngineType.FormattingEnabled = true;
             cbEngineType.Items.AddRange(new object[] { "Tous" });
@@ -294,6 +302,7 @@
             // 
             // cbModel
             // 
+            cbModel.BackColor = Color.Linen;
             cbModel.DropDownStyle = ComboBoxStyle.DropDownList;
             cbModel.FormattingEnabled = true;
             cbModel.Items.AddRange(new object[] { "Tous" });
@@ -304,6 +313,7 @@
             // 
             // cbBrand
             // 
+            cbBrand.BackColor = Color.Linen;
             cbBrand.DropDownStyle = ComboBoxStyle.DropDownList;
             cbBrand.FormattingEnabled = true;
             cbBrand.IntegralHeight = false;

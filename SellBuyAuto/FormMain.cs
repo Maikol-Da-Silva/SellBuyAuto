@@ -3,7 +3,7 @@
  * brief         : This file contains the code of the controls in the FormMain
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 07.05.2024
- * update Date   : 21.05.2024
+ * update Date   : 24.05.2024
 */
 
 using Mysqlx.Crud;
@@ -16,6 +16,8 @@ namespace SellBuyAuto
         User user;
         UserControl currentUc;
         UcVehicleDetail ucVehicleDetail;
+        UcLogin ucLogin;
+        UcSignUp ucSignUp;
         public FormMain()
         {
             InitializeComponent();
@@ -27,9 +29,29 @@ namespace SellBuyAuto
 
         }
 
+        private void CheckPages()
+        {
+            if (ucLogin != null)
+            {
+                this.Controls.Remove(ucLogin);
+                ucLogin = null;
+                if (ucSignUp != null)
+                {
+                    this.Controls.Remove(ucSignUp);
+                    ucSignUp = null;
+                }
+            }
+            if(ucVehicleDetail != null)
+            {
+                this.Controls.Remove(ucVehicleDetail);
+                ucVehicleDetail = null;
+            }
+        }
+
         // Méthode qui affiche la page d'accueil
         private void DisplayHome(bool cont = false)
         {
+            CheckPages();
             if (!cont)
             {
                 if (currentUc is UcHome || CheckAddOrModify())
@@ -42,13 +64,13 @@ namespace SellBuyAuto
                 this.Controls.Remove(currentUc);
             }
             UcHome ucHome = new UcHome();
-            this.Controls.Add(ucHome);
             ucHome.Location = new Point(0, 53);
             ucHome.Name = "ucHome";
             ucHome.BringToFront();
             ucHome.AdvancedSearchClick += DisplayAdvancedSearch;
             ucHome.SearchClick += DisplayQuickSearchResult;
             currentUc = ucHome;
+            this.Controls.Add(ucHome);
             btLogin.BringToFront();
             lblUsername.BringToFront();
         }
@@ -68,6 +90,7 @@ namespace SellBuyAuto
         // Méthode qui affiche la page de recherche avancée
         private void DisplayAdvancedSearch()
         {
+            CheckPages();
             if (currentUc is UCAdvancedSearch || CheckAddOrModify())
             {
                 return;
@@ -77,12 +100,12 @@ namespace SellBuyAuto
                 this.Controls.Remove(currentUc);
             }
             UCAdvancedSearch ucAdvancedSearch = new UCAdvancedSearch();
-            this.Controls.Add(ucAdvancedSearch);
             ucAdvancedSearch.Location = new Point(0, 53);
             ucAdvancedSearch.Name = "ucAdvancedSearch";
             ucAdvancedSearch.BringToFront();
             ucAdvancedSearch.SearchClick += DisplayAdvancedSearchResult;
             currentUc = ucAdvancedSearch;
+            this.Controls.Add(ucAdvancedSearch);
             btLogin.BringToFront();
             lblUsername.BringToFront();
         }
@@ -103,12 +126,12 @@ namespace SellBuyAuto
         private void DisplaySearch(List<Notice> notices, int currentPage = 1)
         {
             UcVehicleSearch ucVehicleSearch = new UcVehicleSearch(notices, user, currentPage);
-            this.Controls.Add(ucVehicleSearch);
             ucVehicleSearch.Location = new Point(0, 53);
             ucVehicleSearch.Name = "ucVehicleSearch";
             ucVehicleSearch.BringToFront();
             ucVehicleSearch.DisplayDetail += DisplayVehicleDetail;
             currentUc = ucVehicleSearch;
+            this.Controls.Add(ucVehicleSearch);
             btLogin.BringToFront();
             lblUsername.BringToFront();
         }
@@ -142,11 +165,11 @@ namespace SellBuyAuto
 
         private void DisplayDetail()
         {
-            this.Controls.Add(ucVehicleDetail);
             ucVehicleDetail.Location = new Point(0, 53);
             ucVehicleDetail.Name = "ucVehicleDetail";
             ucVehicleDetail.GoBack += DisplaySearch;
             ucVehicleDetail.BuyClick += DisplayBuy;
+            this.Controls.Add(ucVehicleDetail);
             ucVehicleDetail.BringToFront();
 
             btLogin.BringToFront();
@@ -192,6 +215,7 @@ namespace SellBuyAuto
         // Méthode qui affiche la page d'ajout d'une annonce
         private void DisplayAddNotice()
         {
+            CheckPages();
             if (CheckAddOrModify())
             {
                 return;
@@ -201,12 +225,12 @@ namespace SellBuyAuto
                 this.Controls.Remove(currentUc);
             }
             UcAddModifyVehicle ucAddModifyVehicle = new UcAddModifyVehicle(user);
-            this.Controls.Add(ucAddModifyVehicle);
             ucAddModifyVehicle.Location = new Point(0, 53);
             ucAddModifyVehicle.Name = "ucAddModifyVehicle";
             ucAddModifyVehicle.BringToFront();
             ucAddModifyVehicle.DisplaySells += DisplayMySells;
             currentUc = ucAddModifyVehicle;
+            this.Controls.Add(ucAddModifyVehicle);
             btLogin.BringToFront();
             lblUsername.BringToFront();
         }
@@ -214,6 +238,7 @@ namespace SellBuyAuto
         //Méthode qui affiche la page mes ventes
         private void DisplayMySells()
         {
+            CheckPages();
             if (currentUc is UcMySells || CheckAddOrModify())
             {
                 return;
@@ -223,12 +248,12 @@ namespace SellBuyAuto
                 this.Controls.Remove(currentUc);
             }
             UcMySells ucMySells = new UcMySells(user);
-            this.Controls.Add(ucMySells);
             ucMySells.Location = new Point(0, 53);
             ucMySells.Name = "ucMySells";
             ucMySells.BringToFront();
             ucMySells.ModifyClick += DisplayModifyNotice;
             currentUc = ucMySells;
+            this.Controls.Add(ucMySells);
             btLogin.BringToFront();
             lblUsername.BringToFront();
         }
@@ -242,12 +267,12 @@ namespace SellBuyAuto
                 this.Controls.Remove(currentUc);
             }
             UcAddModifyVehicle ucAddModifyVehicle = new UcAddModifyVehicle(user, ucMySells.NoticeToModify);
-            this.Controls.Add(ucAddModifyVehicle);
             ucAddModifyVehicle.Location = new Point(0, 53);
             ucAddModifyVehicle.Name = "ucAddModifyVehicle";
             ucAddModifyVehicle.BringToFront();
             ucAddModifyVehicle.DisplaySells += DisplayMySells;
             currentUc = ucAddModifyVehicle;
+            this.Controls.Add(ucAddModifyVehicle);
             btLogin.BringToFront();
             lblUsername.BringToFront();
         }
@@ -276,6 +301,7 @@ namespace SellBuyAuto
         //Méthode qui affiche la page favoris
         private void DisplayMyBookmarks()
         {
+            CheckPages();
             if (currentUc is UcMyBookmarks || CheckAddOrModify())
             {
                 return;
@@ -285,12 +311,12 @@ namespace SellBuyAuto
                 this.Controls.Remove(currentUc);
             }
             UcMyBookmarks ucMyBookmarks = new UcMyBookmarks(user);
-            this.Controls.Add(ucMyBookmarks);
             ucMyBookmarks.Location = new Point(0, 53);
             ucMyBookmarks.Name = "ucMyBookmarks";
             ucMyBookmarks.BringToFront();
             ucMyBookmarks.DisplayDetail += DisplayVehicleDetail;
             currentUc = ucMyBookmarks;
+            this.Controls.Add(ucMyBookmarks);
             btLogin.BringToFront();
             lblUsername.BringToFront();
         }
@@ -298,6 +324,7 @@ namespace SellBuyAuto
         //Méthode qui affiche la page mes achats
         private void DisplayMyPurchases()
         {
+            CheckPages();
             if (currentUc is UcMyPurchases || CheckAddOrModify())
             {
                 return;
@@ -307,12 +334,12 @@ namespace SellBuyAuto
                 this.Controls.Remove(currentUc);
             }
             UcMyPurchases ucMyPurchases = new UcMyPurchases(user);
-            this.Controls.Add(ucMyPurchases);
             ucMyPurchases.Location = new Point(0, 53);
             ucMyPurchases.Name = "ucMyPurchases";
             ucMyPurchases.BringToFront();
             ucMyPurchases.DisplayDetail += DisplayVehicleDetailFromPurchases;
             currentUc = ucMyPurchases;
+            this.Controls.Add(ucMyPurchases);
             btLogin.BringToFront();
             lblUsername.BringToFront();
         }
@@ -328,6 +355,87 @@ namespace SellBuyAuto
             ucVehicleDetail = new UcVehicleDetail(ucMyPurchases.Notice, false);
 
             DisplayDetail();
+        }
+
+        private void DisplayLogin()
+        {
+            currentUc.Visible = false;
+            if (ucLogin != null)
+            {
+                ucLogin = null;
+            }
+
+            ucLogin = new UcLogin();
+            ucLogin.Location = new Point(0, 53);
+            ucLogin.Name = "ucLogin";
+            ucLogin.SignUpClick += DisplaySignUp;
+            ucLogin.CloseLogin += CloseLogin;
+            ucLogin.BringToFront();
+            this.Controls.Add(ucLogin);
+            ucLogin.Focus();
+
+            btLogin.BringToFront();
+            lblUsername.BringToFront();
+        }
+
+        private void DisplaySignUp()
+        {
+            ucLogin.Visible = false;
+            if (ucSignUp != null)
+            {
+                ucSignUp = null;
+            }
+
+            ucSignUp = new UcSignUp();
+            ucSignUp.Location = new Point(0, 53);
+            ucSignUp.Name = "ucSignUp";
+            ucSignUp.CloseLogin += CloseLogin;
+            ucSignUp.BringToFront();
+            ucSignUp.Focus();
+            this.Controls.Add(ucSignUp);
+
+            btLogin.BringToFront();
+            lblUsername.BringToFront();
+        }
+
+        private void CloseLogin()
+        {
+            if (ucSignUp != null)
+            {
+                if (ucSignUp.User != null)
+                {
+                    user = ucSignUp.User;
+                }
+                this.Controls.Remove(ucSignUp);
+                ucSignUp = null;
+            }
+            if (ucLogin != null)
+            {
+                if (ucLogin.User != null)
+                {
+                    user = ucLogin.User;
+                }
+                this.Controls.Remove(ucLogin);
+                ucLogin = null;
+            }
+            if (user != null)
+            {
+                lblUsername.Text = user.Username;
+                btLogin.Text = "Se déconnecter";
+                menuStripWithoutLogin.Enabled = false;
+                menuStripWithoutLogin.Visible = false;
+                menuStripWithLogin.Enabled = true;
+                menuStripWithLogin.Visible = true;
+                if (currentUc is UcVehicleSearch)
+                {
+                    UcVehicleSearch ucVehicleSearch = (UcVehicleSearch)currentUc;
+                    List<Notice> notices = ucVehicleSearch.Notices;
+                    int currentPage = ucVehicleSearch.CurrentPage;
+                    currentUc = null;
+                    DisplaySearch(notices, currentPage);
+                }
+            }
+            currentUc.Visible = true;
         }
 
         private void rechercherToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -382,11 +490,12 @@ namespace SellBuyAuto
         {
             if (btLogin.Text == "Se connecter")
             {
-                FormLogin frmLogin = new FormLogin();
-                /*EnableAllControls(false);
+                DisplayLogin();
+                /*FormLogin frmLogin = new FormLogin();
+                EnableAllControls(false);
                 Task t = Task.Run(() => { frmLogin.ShowDialog(this); });
                 t.Wait();
-                EnableAllControls(true);*/
+                EnableAllControls(true);
                 frmLogin.ShowDialog();
                 if (frmLogin.User != null)
                 {
@@ -405,7 +514,7 @@ namespace SellBuyAuto
                         currentUc = null;
                         DisplaySearch(notices, currentPage);
                     }
-                }
+                }*/
             }
             else
             {
