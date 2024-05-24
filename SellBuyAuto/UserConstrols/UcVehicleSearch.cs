@@ -95,6 +95,21 @@ namespace SellBuyAuto
             }
         }
 
+        public void BlockNoticeFromDetail(Notice notice)
+        {
+            foreach (Control control in FlpVehicles.Controls)
+            {
+                UcVehicleLabel ucVehicleLabel = (UcVehicleLabel)control;
+                if (ucVehicleLabel.Notice == notice)
+                {
+                    notices.Remove(ucVehicleLabel.Notice);
+                    FlpVehicles.Controls.Remove(ucVehicleLabel);
+                    MessageBox.Show("L'annonce a bien été bloquée");
+                    break;
+                }
+            }
+        }
+
         // Méthode qui permet de passer à la page précédente
         private void btPrevious_Click(object sender, EventArgs e)
         {

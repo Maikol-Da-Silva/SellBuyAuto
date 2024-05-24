@@ -152,22 +152,28 @@ namespace SellBuyAuto
             if (currentUc != null)
             {
                 currentUc.Visible = false;
+                bool isAdmin = false;
 
+                if(user != null && user.IsAdmin)
+                {
+                    isAdmin = true;
+                }
 
                 if (ucVehicleDetail != null)
                 {
                     ucVehicleDetail = null;
                 }
+                
 
                 if (currentUc is UcVehicleSearch)
                 {
                     UcVehicleSearch ucVehicleSearch = (UcVehicleSearch)currentUc;
-                    ucVehicleDetail = new UcVehicleDetail(ucVehicleSearch.Notice);
+                    ucVehicleDetail = new UcVehicleDetail(ucVehicleSearch.Notice, isAdmin);
                 }
                 else
                 {
                     UcMyBookmarks ucMyBookmarks = (UcMyBookmarks)currentUc;
-                    ucVehicleDetail = new UcVehicleDetail(ucMyBookmarks.Notice);
+                    ucVehicleDetail = new UcVehicleDetail(ucMyBookmarks.Notice, isAdmin);
                 }
                 DisplayDetail();
             }
@@ -179,11 +185,23 @@ namespace SellBuyAuto
             ucVehicleDetail.Name = "ucVehicleDetail";
             ucVehicleDetail.GoBack += DisplaySearch;
             ucVehicleDetail.BuyClick += DisplayBuy;
+            ucVehicleDetail.BlockNotice += BlockNotice;
             this.Controls.Add(ucVehicleDetail);
             ucVehicleDetail.BringToFront();
 
             btLogin.BringToFront();
             lblUsername.BringToFront();
+        }
+
+        private void BlockNotice()
+        {
+            user.BlockNotice(ucVehicleDetail.Notice);
+            if(currentUc is UcVehicleSearch)
+            {
+                UcVehicleSearch ucVehicleSearch = (UcVehicleSearch)currentUc;
+                ucVehicleSearch.BlockNoticeFromDetail(ucVehicleDetail.Notice);
+            }
+            DisplaySearch();
         }
 
         private void DisplayBuy()
@@ -362,7 +380,7 @@ namespace SellBuyAuto
             }
 
             UcMyPurchases ucMyPurchases = (UcMyPurchases)currentUc;
-            ucVehicleDetail = new UcVehicleDetail(ucMyPurchases.Notice, false);
+            ucVehicleDetail = new UcVehicleDetail(ucMyPurchases.Notice, false, false);
 
             DisplayDetail();
         }

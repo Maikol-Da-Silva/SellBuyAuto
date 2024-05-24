@@ -40,6 +40,8 @@
             lblDescription = new Label();
             btBuy = new Button();
             pictureBox1 = new PictureBox();
+            btBlockUser = new Button();
+            btBlockNotice = new Button();
             ((System.ComponentModel.ISupportInitialize)pbImage).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -178,11 +180,40 @@
             pictureBox1.TabStop = false;
             pictureBox1.Click += btBack_Click;
             // 
+            // btBlockUser
+            // 
+            btBlockUser.BackColor = Color.Silver;
+            btBlockUser.Enabled = false;
+            btBlockUser.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btBlockUser.Location = new Point(998, 512);
+            btBlockUser.Name = "btBlockUser";
+            btBlockUser.Size = new Size(171, 35);
+            btBlockUser.TabIndex = 12;
+            btBlockUser.Text = "Bloquer l'utilisateur";
+            btBlockUser.UseVisualStyleBackColor = false;
+            btBlockUser.Visible = false;
+            // 
+            // btBlockNotice
+            // 
+            btBlockNotice.BackColor = Color.Silver;
+            btBlockNotice.Enabled = false;
+            btBlockNotice.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btBlockNotice.Location = new Point(998, 555);
+            btBlockNotice.Name = "btBlockNotice";
+            btBlockNotice.Size = new Size(171, 35);
+            btBlockNotice.TabIndex = 11;
+            btBlockNotice.Text = "Bloquer l'annonce";
+            btBlockNotice.UseVisualStyleBackColor = false;
+            btBlockNotice.Visible = false;
+            btBlockNotice.Click += btBlockNotice_Click;
+            // 
             // UcVehicleDetail
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(157, 110, 74);
+            Controls.Add(btBlockUser);
+            Controls.Add(btBlockNotice);
             Controls.Add(pictureBox1);
             Controls.Add(btImageNext);
             Controls.Add(lblBrandModel);
@@ -218,5 +249,7 @@
         private Label lblDescription;
         private Button btBuy;
         private PictureBox pictureBox1;
+        private Button btBlockUser;
+        private Button btBlockNotice;
     }
 }

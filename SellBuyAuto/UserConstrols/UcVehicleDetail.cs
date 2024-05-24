@@ -6,6 +6,7 @@
  * update Date   : 21.05.2024
 */
 
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,18 +23,23 @@ namespace SellBuyAuto
     {
         public event Action GoBack;
         public event Action BuyClick;
+        public event Action BlockNotice;
 
         Notice notice;
         int currentImage = 0;
         int nbImages;
         bool showBuy;
+        bool isAdmin;
 
-        public UcVehicleDetail(Notice notice, bool showBuy = true)
+        public UcVehicleDetail(Notice notice, bool isAdmin, bool showBuy = true)
         {
             InitializeComponent();
             this.notice = notice;
+            this.isAdmin = isAdmin;
             this.showBuy = showBuy;
         }
+
+        public Notice Notice { get { return notice; } }
 
         private void UcVehicleDetail_Load(object sender, EventArgs e)
         {
@@ -47,10 +53,18 @@ namespace SellBuyAuto
 
             nbImages = notice.GetImages().Count;
 
-            if(!showBuy)
+            if (!showBuy)
             {
                 btBuy.Enabled = false;
                 btBuy.Visible = false;
+            }
+
+            if (isAdmin)
+            {
+                btBlockNotice.Visible = true;
+                btBlockNotice.Enabled = true;
+                btBlockUser.Visible = true;
+                btBlockUser.Enabled = true;
             }
 
         }
@@ -89,6 +103,15 @@ namespace SellBuyAuto
         private void btBuy_Click(object sender, EventArgs e)
         {
             BuyClick?.Invoke();
+        }
+
+        private void btBlockNotice_Click(object sender, EventArgs e)
+        {
+            DialogResult myResult = MessageBox.Show("Êtes-vous sûr de vouloir bloquer l'annonce ?", "Confirmation de blocage", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (myResult == DialogResult.Yes)
+            {
+                BlockNotice?.Invoke();
+            }
         }
     }
 }
