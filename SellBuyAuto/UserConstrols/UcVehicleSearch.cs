@@ -3,9 +3,11 @@
  * brief         : This file contains the code of the UserControl UcVehicleSearch
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 08.05.2024
- * update Date   : 21.05.2024
+ * update Date   : 24.05.2024
 */
 
+using MySql.Data.MySqlClient;
+using SellBuyAuto.UserConstrols;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,15 +28,17 @@ namespace SellBuyAuto
         List<Notice> notices;
         List<UcVehicleLabel> ucVehicleLabels;
         Notice notice;
+        bool isAdmin;
         int currentPage;
         int maxPages;
         int maxNoticePerPage = 10;
 
         // Constructeur qui prend comme paramètre la liste des annonces
-        public UcVehicleSearch(List<Notice> notices, User user, int currentPage)
+        public UcVehicleSearch(List<Notice> notices, User user, int currentPage, bool isAdmin = false)
         {
             InitializeComponent();
             this.notices = notices;
+            this.isAdmin = isAdmin;
             double max = (double)notices.Count() / maxNoticePerPage;
             maxPages = (int)Math.Ceiling(max);
             this.user = user;
@@ -61,12 +65,13 @@ namespace SellBuyAuto
                 int currentNotice = ((currentPage - 1) * maxNoticePerPage) + i;
                 if (currentNotice <= notices.Count - 1)
                 {
-                    UcVehicleLabel ucVehicleLabel = new UcVehicleLabel(notices[currentNotice], user);
+                    UcVehicleLabel ucVehicleLabel = new UcVehicleLabel(notices[currentNotice], user, isAdmin);
                     FlpVehicles.Controls.Add(ucVehicleLabel);
                     ucVehicleLabel.BorderStyle = BorderStyle.FixedSingle;
                     ucVehicleLabel.Name = "ucVehicleLabel";
                     ucVehicleLabel.BringToFront();
                     ucVehicleLabel.Click += ucVehicleLabel_Click;
+                    ucVehicleLabel.BlockNotice += BlockNotice;
                     ucVehicleLabels.Add(ucVehicleLabel);
                 }
             }
@@ -74,11 +79,28 @@ namespace SellBuyAuto
             FlpVehicles.Visible = true;
         }
 
+        //Méthode qui permet de supprimer l'étiquette du flowlayoutpanel
+        private void BlockNotice()
+        {
+            foreach (Control control in FlpVehicles.Controls)
+            {
+                UcVehicleLabel ucVehicleLabel = (UcVehicleLabel)control;
+                if (ucVehicleLabel.Clicked)
+                {
+                    notices.Remove(ucVehicleLabel.Notice);
+                    FlpVehicles.Controls.Remove(ucVehicleLabel);
+                    MessageBox.Show("L'annonce a bien été bloquée");
+                    break;
+                }
+            }
+        }
+
         // Méthode qui permet de passer à la page précédente
         private void btPrevious_Click(object sender, EventArgs e)
         {
             if (currentPage > 1)
             {
+                MySqlConnection.ClearAllPools();
                 for (int i = 0; i < maxNoticePerPage; i++)
                 {
                     int currentNotice = ((currentPage - 1) * maxNoticePerPage) + i;
@@ -99,6 +121,7 @@ namespace SellBuyAuto
         {
             if (currentPage < maxPages)
             {
+                MySqlConnection.ClearAllPools();
                 for (int i = 0; i < maxNoticePerPage; i++)
                 {
                     int currentNotice = ((currentPage - 1) * maxNoticePerPage) + i;

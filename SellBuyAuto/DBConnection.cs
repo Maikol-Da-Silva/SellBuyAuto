@@ -3,7 +3,7 @@
  * brief         : This file contains the connection to the database
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 07.05.2024
- * update Date   : 21.05.2024
+ * update Date   : 24.05.2024
 */
 
 using MySql.Data.MySqlClient;
@@ -267,6 +267,7 @@ namespace SellBuyAuto
             if (connection != null)
             {
                 connection.Close();
+                connection.Dispose();
             }
 
             return images;
@@ -886,6 +887,30 @@ namespace SellBuyAuto
             }
 
             return notices;
+        }
+
+        // Méthode qui permet de bloquer une annonce
+        public void BlockNotice(int noticeId)
+        {
+            // Open the SQL connection
+            connection.Open();
+
+            // SQL Command creation according to the connection object
+            MySqlCommand cmd = connection.CreateCommand();
+
+            cmd.CommandText = "Update Notices SET Blocked = 1 WHERE id = @noticeId";
+
+            // we set the value for our query, we use the parameter of the method, which is a Contact object
+            cmd.Parameters.AddWithValue("@noticeId", noticeId);
+
+            // SQL cmd execution
+            cmd.ExecuteNonQuery();
+
+            //we close the SQL connection
+            if (connection != null)
+            {
+                connection.Close();
+            }
         }
     }
 }

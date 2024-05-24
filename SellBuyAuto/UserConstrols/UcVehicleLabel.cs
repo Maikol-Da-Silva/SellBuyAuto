@@ -3,7 +3,7 @@
  * brief         : This file contains the code of the UserControl UcVehicleLabel
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 13.05.2024
- * update Date   : 21.05.2024
+ * update Date   : 24.05.2024
 */
 
 using System;
@@ -20,19 +20,25 @@ namespace SellBuyAuto
 {
     public partial class UcVehicleLabel : UserControl
     {
+        public event Action BlockNotice;
+
         User user;
         Notice notice;
         bool bookmarked = false;
+        bool isAdmin;
+        bool clicked = false;
         CancellationTokenSource cts;
 
-        public UcVehicleLabel(Notice notice, User user)
+        public UcVehicleLabel(Notice notice, User user, bool isAdmin)
         {
             InitializeComponent();
             this.notice = notice;
             this.user = user;
+            this.isAdmin = isAdmin;
         }
 
         public Notice Notice { get { return notice; } }
+        public bool Clicked { get { return clicked; } set { clicked = value; } }
 
         // Méthode qui permet de mettre en place les informations de l'annonce ainsi que l'image
         private void UcVehicleLabel_Load(object sender, EventArgs e)
@@ -40,7 +46,7 @@ namespace SellBuyAuto
             lblTitle.Text = notice.ToString();
             lblInfo.Text = $"Kilométrage : {notice.Mileage}  Année : {notice.Year}  Prix : {notice.Price}";
             lblDescription.Text = notice.Description;
-            if(user == null)
+            if (user == null)
             {
                 pbBookMark.Visible = false;
             }
@@ -52,13 +58,21 @@ namespace SellBuyAuto
                     bookmarked = true;
                 }
             }
+            if (isAdmin)
+            {
+                btBlockNotice.Visible = true;
+                btBlockNotice.Enabled = true;
+                btBlockUser.Visible = true;
+                btBlockUser.Enabled = true;
+                lblDescription.MaximumSize = new System.Drawing.Size(380, 70);
+            }
 
             cts = new CancellationTokenSource();
 
             GetImages(cts.Token);
             foreach (Control control in this.Controls)
             {
-                if(control.Name == "pbBookMark")
+                if (control.Name == "pbBookMark" || control.Name == btBlockNotice.Name || control.Name == btBlockUser.Name)
                 {
                     continue;
                 }
@@ -103,6 +117,17 @@ namespace SellBuyAuto
                 user.AddBookmark(notice);
                 pbBookMark.Image = Properties.Resources.Bookmarked;
                 bookmarked = true;
+            }
+        }
+
+        private void btBlockNotice_Click(object sender, EventArgs e)
+        {
+            DialogResult myResult = MessageBox.Show("Êtes-vous sûr de vouloir bloquer l'annonce ?", "Confirmation de blocage", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (myResult == DialogResult.Yes)
+            {
+                clicked = true;
+                user.BlockNotice(notice);
+                BlockNotice?.Invoke();
             }
         }
     }

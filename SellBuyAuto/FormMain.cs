@@ -125,7 +125,17 @@ namespace SellBuyAuto
 
         private void DisplaySearch(List<Notice> notices, int currentPage = 1)
         {
-            UcVehicleSearch ucVehicleSearch = new UcVehicleSearch(notices, user, currentPage);
+            UcVehicleSearch ucVehicleSearch;
+            if (user != null && user.IsAdmin)
+            {
+
+                ucVehicleSearch = new UcVehicleSearch(notices, user, currentPage, true);
+            }
+            else
+            {
+
+                ucVehicleSearch = new UcVehicleSearch(notices, user, currentPage);
+            }
             ucVehicleSearch.Location = new Point(0, 53);
             ucVehicleSearch.Name = "ucVehicleSearch";
             ucVehicleSearch.BringToFront();

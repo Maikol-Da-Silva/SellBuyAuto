@@ -3,7 +3,7 @@
  * brief         : This file contains the class of Notice
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 07.05.2024
- * update Date   : 17.05.2024
+ * update Date   : 24.05.2024
 */
 
 using System;
@@ -136,28 +136,33 @@ namespace SellBuyAuto
             return this.images;
         }
 
-        public  List<Bitmap> GetImagesFromFTP(CancellationToken token)
+        public List<Bitmap> GetImagesFromFTP(CancellationToken token)
         {
-            DBConnection db = new DBConnection();
-
-            string images = db.GetImages(idCar);
-            string[] imagesList = images.Split('/');
-            List<Bitmap> bitmaps = new List<Bitmap>();
-
-            FTPConnection ftp = new FTPConnection();
-            foreach (string image in imagesList)
+            if (this.images.Count == 0)
             {
-                if (token.IsCancellationRequested)
+                DBConnection db = new DBConnection();
+
+                string images = db.GetImages(idCar);
+                string[] imagesList = images.Split('/');
+                List<Bitmap> bitmaps = new List<Bitmap>();
+
+                FTPConnection ftp = new FTPConnection();
+                foreach (string image in imagesList)
                 {
-                    break;
+                    if (token.IsCancellationRequested)
+                    {
+                        db.CloseConnection();
+                        break;
+                    }
+                    bitmaps.Add(ftp.GetImage(image));
                 }
-                bitmaps.Add(ftp.GetImage(image));
+                this.images = bitmaps;
             }
-            return bitmaps;
+            return this.images;
         }
 
-        // Méthode qui permet de supprimer les images de la mémoire
-        public void ClearImages()
+            // Méthode qui permet de supprimer les images de la mémoire
+            public void ClearImages()
         {
             this.images.Clear();
         }

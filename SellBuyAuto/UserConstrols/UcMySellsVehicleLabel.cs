@@ -3,7 +3,7 @@
  * brief         : This file contains the code of the UserControl UcMySellsVehicleLabel
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 14.05.2024
- * update Date   : 21.05.2024
+ * update Date   : 24.05.2024
 */
 
 using System;
@@ -49,6 +49,10 @@ namespace SellBuyAuto
             {
                 SetSold();
             }
+            if (notice.Blocked)
+            {
+                SetBlocked();
+            }
             else
             {
                 foreach (Control control in this.Controls)
@@ -62,6 +66,13 @@ namespace SellBuyAuto
             }
         }
 
+        private void SetBlocked()
+        {
+            SetSold();
+            lblBlocked.Visible = true;
+            lblSold.Visible = false;
+        }
+
         public void SetSold()
         {
             lblSold.Visible = true;
@@ -69,7 +80,7 @@ namespace SellBuyAuto
             btSold.Visible = false;
             foreach (Control control in this.Controls)
             {
-                if (control.Name == btDelete.Name || control.Name == lblSold.Name)
+                if (control.Name == btDelete.Name || control.Name == lblSold.Name || control.Name == lblBlocked.Name)
                 {
                     continue;
                 }

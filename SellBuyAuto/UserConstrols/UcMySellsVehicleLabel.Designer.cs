@@ -35,6 +35,7 @@
             btSold = new Button();
             btDelete = new Button();
             lblSold = new Label();
+            lblBlocked = new Label();
             ((System.ComponentModel.ISupportInitialize)pbVehicleImage).BeginInit();
             SuspendLayout();
             // 
@@ -118,11 +119,27 @@
             lblSold.Text = "Vendu";
             lblSold.Visible = false;
             // 
+            // lblBlocked
+            // 
+            lblBlocked.AutoSize = true;
+            lblBlocked.BackColor = Color.Transparent;
+            lblBlocked.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblBlocked.ForeColor = Color.Red;
+            lblBlocked.Location = new Point(202, 53);
+            lblBlocked.MaximumSize = new Size(400, 100);
+            lblBlocked.MinimumSize = new Size(400, 100);
+            lblBlocked.Name = "lblBlocked";
+            lblBlocked.Size = new Size(400, 100);
+            lblBlocked.TabIndex = 11;
+            lblBlocked.Text = "L'annonce a été bloquée par un administrateur";
+            lblBlocked.Visible = false;
+            // 
             // UcMySellsVehicleLabel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Linen;
+            Controls.Add(lblBlocked);
             Controls.Add(lblSold);
             Controls.Add(btDelete);
             Controls.Add(btSold);
@@ -150,5 +167,6 @@
         private Button btSold;
         private Button btDelete;
         private Label lblSold;
+        private Label lblBlocked;
     }
 }

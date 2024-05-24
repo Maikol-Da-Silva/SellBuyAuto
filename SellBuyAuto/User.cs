@@ -3,7 +3,7 @@
  * brief         : This file contains the class of User
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 07.05.2024
- * update Date   : 21.05.2024
+ * update Date   : 24.05.2024
 */
 
 using Google.Protobuf.WellKnownTypes;
@@ -79,17 +79,18 @@ namespace SellBuyAuto
 
         public List<Notice> GetBookmarks()
         {
+            DBConnection db = new DBConnection(); ;
             try
             {
                 if (bookmarks == null || bookmarks.Count == 0)
                 {
-                    DBConnection db = new DBConnection();
                     bookmarks = db.GetBookmarks(IdUser);
                 }
                 return bookmarks;
             }
             catch (Exception e)
             {
+                db.CloseConnection();
                 return null;
             }
         }
@@ -243,24 +244,32 @@ namespace SellBuyAuto
             throw new NotImplementedException();
         }
 
-        public void BlockNotice()
+        public void BlockNotice(Notice notice)
         {
-            throw new NotImplementedException();
+            DBConnection db = new DBConnection();
+            db.BlockNotice(notice.IdNotice);
+            List<int> users = db.GetUsersBookMark(notice.IdNotice);
+            foreach (int userId in users)
+            {
+                db.DeleteBookmark(notice.IdNotice, userId);
+            }
         }
 
         public List<Notice> GetSells()
         {
+            DBConnection db = new DBConnection();
             try
             {
                 if (sells == null || sells.Count == 0)
                 {
-                    DBConnection db = new DBConnection();
+                    
                     sells = db.GetSells(IdUser);
                 }
                 return sells;
             }
             catch(Exception e)
             {
+                db.CloseConnection();
                 return null;
             }
             
@@ -279,17 +288,19 @@ namespace SellBuyAuto
 
         public List<Notice> GetPurchases()
         {
+
+            DBConnection db = new DBConnection();
             try
             {
                 if (purchases == null || purchases.Count == 0)
                 {
-                    DBConnection db = new DBConnection();
                     purchases = db.GetPurchases(IdUser);
                 }
                 return purchases;
             }
             catch (Exception e)
             {
+                db.CloseConnection();
                 return null;
             }
         }
