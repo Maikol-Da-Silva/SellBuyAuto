@@ -63,7 +63,7 @@
             btPrevious.Name = "btPrevious";
             btPrevious.Size = new Size(75, 23);
             btPrevious.TabIndex = 9;
-            btPrevious.Text = "Précédant";
+            btPrevious.Text = "Précédent";
             btPrevious.UseVisualStyleBackColor = true;
             btPrevious.Click += btPrevious_Click;
             // 

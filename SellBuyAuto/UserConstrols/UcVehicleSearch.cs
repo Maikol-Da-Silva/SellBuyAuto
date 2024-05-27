@@ -3,7 +3,7 @@
  * brief         : This file contains the code of the UserControl UcVehicleSearch
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 08.05.2024
- * update Date   : 24.05.2024
+ * update Date   : 27.05.2024
 */
 
 using MySql.Data.MySqlClient;
@@ -197,6 +197,14 @@ namespace SellBuyAuto
                 UcVehicleLabel ucVehicleLabel = (UcVehicleLabel)sender;
                 this.notice = ucVehicleLabel.Notice;
                 DisplayDetail?.Invoke();
+            }
+        }
+        
+        public void DeleteNotices()
+        {
+            foreach (Notice notice in notices)
+            {
+                notice.ClearImages();
             }
         }
     }

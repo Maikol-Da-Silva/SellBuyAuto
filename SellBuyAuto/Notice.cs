@@ -3,7 +3,7 @@
  * brief         : This file contains the class of Notice
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 07.05.2024
- * update Date   : 24.05.2024
+ * update Date   : 27.05.2024
 */
 
 using System;
@@ -164,6 +164,10 @@ namespace SellBuyAuto
             // Méthode qui permet de supprimer les images de la mémoire
             public void ClearImages()
         {
+            foreach(Bitmap bitmap in this.images)
+            {
+                bitmap.Dispose();
+            }
             this.images.Clear();
         }
 

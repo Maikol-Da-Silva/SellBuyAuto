@@ -3,7 +3,7 @@
  * brief         : This file contains the code of the UserControl UcMySells
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 14.05.2024
- * update Date   : 21.05.2024
+ * update Date   : 27.05.2024
 */
 
 using System;
@@ -173,15 +173,18 @@ namespace SellBuyAuto
                             }
                         }
                     }
+                    else
+                    {
+                        DialogResult myResult = MessageBox.Show("Êtes-vous sûr de vouloir supprimé l'annonce ?", "Confirmation de suppression", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (myResult == DialogResult.Yes)
+                        {
+                            delete = true;
+                        }
+                    }
                 }
                 catch(Exception ex)
                 {
                     db.CloseConnection();
-                    DialogResult myResult = MessageBox.Show("Êtes-vous sûr de vouloir supprimé l'annonce ?", "Confirmation de suppression", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (myResult == DialogResult.Yes)
-                    {
-                        delete = true;
-                    }
                 }
                 finally
                 {

@@ -107,6 +107,7 @@
             btValidate.TabIndex = 33;
             btValidate.Text = "Mettre en vente";
             btValidate.UseVisualStyleBackColor = false;
+            btValidate.Click += btValidate_Click;
             // 
             // txtDescription
             // 
@@ -136,6 +137,7 @@
             btImages.TabIndex = 31;
             btImages.Text = "Charger images";
             btImages.UseVisualStyleBackColor = false;
+            btImages.Click += btImages_Click;
             // 
             // cbEngineType
             // 

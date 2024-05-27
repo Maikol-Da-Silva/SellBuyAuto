@@ -3,7 +3,7 @@
  * brief         : This file contains the code of the controls in the FormMain
  * author        : Created by Maikol Correia Da Silva
  * creation Date : 07.05.2024
- * update Date   : 24.05.2024
+ * update Date   : 27.05.2024
 */
 
 using Mysqlx.Crud;
@@ -47,6 +47,11 @@ namespace SellBuyAuto
                 this.Controls.Remove(ucVehicleDetail);
                 ucVehicleDetail = null;
                 currentUc.Visible = true;
+            }
+            if (currentUc is UcVehicleSearch)
+            {
+                UcVehicleSearch ucVehicleSearch = (UcVehicleSearch)currentUc;
+                ucVehicleSearch.DeleteNotices();
             }
         }
 
@@ -402,6 +407,7 @@ namespace SellBuyAuto
 
         private void DisplayLogin()
         {
+            CheckPages();
             currentUc.Visible = false;
             if (ucLogin != null)
             {
@@ -534,30 +540,6 @@ namespace SellBuyAuto
             if (btLogin.Text == "Se connecter")
             {
                 DisplayLogin();
-                /*FormLogin frmLogin = new FormLogin();
-                EnableAllControls(false);
-                Task t = Task.Run(() => { frmLogin.ShowDialog(this); });
-                t.Wait();
-                EnableAllControls(true);
-                frmLogin.ShowDialog();
-                if (frmLogin.User != null)
-                {
-                    user = frmLogin.User;
-                    lblUsername.Text = user.Username;
-                    btLogin.Text = "Se déconnecter";
-                    menuStripWithoutLogin.Enabled = false;
-                    menuStripWithoutLogin.Visible = false;
-                    menuStripWithLogin.Enabled = true;
-                    menuStripWithLogin.Visible = true;
-                    if (currentUc is UcVehicleSearch)
-                    {
-                        UcVehicleSearch ucVehicleSearch = (UcVehicleSearch)currentUc;
-                        List<Notice> notices = ucVehicleSearch.Notices;
-                        int currentPage = ucVehicleSearch.CurrentPage;
-                        currentUc = null;
-                        DisplaySearch(notices, currentPage);
-                    }
-                }*/
             }
             else
             {
