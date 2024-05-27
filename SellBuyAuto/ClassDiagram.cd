@@ -8,24 +8,38 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SellBuyAuto.User">
-    <Position X="9.25" Y="0.5" Width="1.5" />
+    <Position X="9" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQABAAECCSgCAggQQAACAkACAIAAgkCEAIABsAQAEA=</HashCode>
+      <HashCode>AAQABAAECCSgCAgkQQAACAkACAIAAgkCEAIABsAQAEA=</HashCode>
       <FileName>User.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SellBuyAuto.DBConnection">
-    <Position X="11.25" Y="0.5" Width="1.5" />
+    <Position X="10.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ANAABAAAAAGACEACAACFABIQYAAAABEgEAAAAOIAAAQ=</HashCode>
+      <HashCode>ANAABAAAAAWACEACAACFBBIQYAAAABEgEAAAAOIAAAQ=</HashCode>
       <FileName>DBConnection.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SellBuyAuto.FTPConnection">
-    <Position X="13.25" Y="0.5" Width="1.5" />
+    <Position X="12.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAEAAAAAAAAAkQAAAAAAAAAAAAAgAAAAI=</HashCode>
       <FileName>FTPConnection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SellBuyAuto.Brand">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAQAAAAEAAAAQAAAAEAAAAA=</HashCode>
+      <FileName>Brand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SellBuyAuto.Model">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAQQAAAEEAAAAQAAAAEAAAAA=</HashCode>
+      <FileName>Model.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
