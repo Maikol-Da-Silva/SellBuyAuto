@@ -222,6 +222,7 @@ namespace SellBuyAuto
             }
 
             notice.UpdateValues(brand, model, description, year, mileage, price, engineType);
+            notice.ClearImages();
 
 
         }
